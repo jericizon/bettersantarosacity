@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Search } from 'lucide-vue-next'
 import officialsData from '~/data/officials.json'
 import departmentsData from '~/data/departments.json'
@@ -237,11 +237,18 @@ async function executeSearch() {
   if (!q) {
     allResults.value = []
     facetCounts.value = {}
+    searching.value = false
     return
   }
   searching.value = true
   try {
-    const outcome = await runPagefindSearch(q)
+    let outcome: PagefindOutcome | null = null
+    try {
+      outcome = await runPagefindSearch(q)
+    } catch {
+      // Corrupt index or failed fragment fetch — degrade to dataset results.
+      indexStatus.value = 'unavailable'
+    }
     if (seq !== searchSeq) return
     if (outcome) {
       facetCounts.value = outcome.facets
@@ -278,6 +285,8 @@ onMounted(() => {
   void ensurePagefind().then(() => executeSearch())
   if (!query.value) inputEl.value?.focus()
 })
+
+onBeforeUnmount(() => clearTimeout(debounce))
 </script>
 
 <template>
@@ -341,7 +350,7 @@ onMounted(() => {
       class="rounded-md border border-heritage-gold/40 bg-heritage-gold/10 p-4 text-sm text-charcoal"
       role="note"
     >
-      <p class="font-medium">Full-text index not built yet — showing basic results from the civic datasets.</p>
+      <p class="font-medium">Full-text search index unavailable — showing basic results from the civic datasets.</p>
       <p class="mt-1 text-charcoal/70">
         Run <code class="rounded bg-parchment px-1">pnpm run generate &amp;&amp; pnpm run index:search</code>
         to enable Pagefind-powered search across every page.
