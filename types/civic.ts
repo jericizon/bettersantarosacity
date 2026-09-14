@@ -10,6 +10,12 @@ export const SourceSchema = z.object({
 
 export type Source = z.infer<typeof SourceSchema>
 
+// Lightweight reference used by attribution components (e.g. SourceCitation)
+export interface SourceReference {
+  title: string
+  url?: string
+}
+
 export const BarangaySchema = z.object({
   name: z.string(),
   slug: z.string(),
