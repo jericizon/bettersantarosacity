@@ -44,6 +44,17 @@ describe('Data Integrity & Source Verification', () => {
     }
   })
 
+  it('validates departments.json', () => {
+    expect(departmentsData.length).toBeGreaterThan(0)
+    for (const item of departmentsData) {
+      const res = DepartmentSchema.safeParse(item)
+      if (!res.success) {
+        console.error(item.name, res.error)
+      }
+      expect(res.success).toBe(true)
+    }
+  })
+
   it('validates budgets.json', () => {
     expect(budgetsData.length).toBeGreaterThan(0)
     for (const item of budgetsData) {
