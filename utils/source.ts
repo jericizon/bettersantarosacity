@@ -8,3 +8,8 @@ export function toSourceReference(source: string): SourceReference {
     url: source.match(/https?:\/\/[^\s);]+/)?.[0]
   }
 }
+
+// Records that cite several sources pack them into one ";"-separated string.
+export function toSourceReferences(source: string): SourceReference[] {
+  return source.split(';').map(part => part.trim()).filter(Boolean).map(toSourceReference)
+}

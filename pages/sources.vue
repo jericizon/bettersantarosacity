@@ -86,7 +86,7 @@ const trustQuestions = [
 <template>
   <div data-pagefind-filter="type:pages" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Transparency · Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -118,7 +118,7 @@ const trustQuestions = [
           {{ tier }}
         </li>
       </ol>
-      <p class="mt-4 max-w-3xl text-xs leading-relaxed text-charcoal/60">
+      <p class="mt-4 max-w-3xl text-xs leading-relaxed text-charcoal/70">
         Official government datasets (tier 5) — census tables, procurement
         postings, budget statements — are published by the agencies in tiers 2–4
         and are cited per record. Every factual dataset on this site records its
@@ -175,7 +175,7 @@ const trustQuestions = [
         <h2 id="registry-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Source Registry
         </h2>
-        <span class="text-xs font-medium text-charcoal/50">
+        <span class="text-xs font-medium text-charcoal/70">
           {{ sources.length }} registered sources
         </span>
       </div>
@@ -183,7 +183,7 @@ const trustQuestions = [
       <div v-for="group in sourceGroups" :key="group.type" class="mt-8">
         <div class="flex flex-wrap items-center gap-3">
           <h3 class="font-serif text-lg font-bold text-charcoal">{{ group.label }}</h3>
-          <span class="text-[10px] font-semibold uppercase tracking-wide text-charcoal/50">
+          <span class="text-[10px] font-semibold uppercase tracking-wide text-charcoal/80">
             {{ group.tier }} · {{ group.sources.length }} source{{ group.sources.length === 1 ? '' : 's' }}
           </span>
           <DataSourceBadge :type="group.badge" />
@@ -204,7 +204,7 @@ const trustQuestions = [
               <p v-if="source.notes" class="mt-2 text-xs leading-relaxed text-charcoal/70">
                 {{ source.notes }}
               </p>
-              <p v-if="source.url" class="mt-auto pt-3 text-[11px] text-charcoal/50 break-all">
+              <p v-if="source.url" class="mt-auto pt-3 text-[11px] text-charcoal/80 break-all">
                 {{ source.url }}
               </p>
             </article>
@@ -238,35 +238,35 @@ const trustQuestions = [
       <h3 class="mt-8 font-serif text-lg font-bold text-charcoal">Label glossary</h3>
       <dl class="mt-4 grid max-w-4xl gap-3 sm:grid-cols-2">
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Official source</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Official source</dt>
           <dd class="mt-2"><DataSourceBadge type="official" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             The record is drawn directly from a government document, portal or dataset.
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Community presentation</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Community presentation</dt>
           <dd class="mt-2"><DataSourceBadge type="community" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             Our own organization or summary of official records — presentation, not endorsement.
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">External source</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">External source</dt>
           <dd class="mt-2"><DataSourceBadge type="external" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             The record comes from an institutional or secondary reference outside government.
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Last verified</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Last verified</dt>
           <dd class="mt-2"><DataLastVerified :date="'2026-09-01'" :show-state="false" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             The date a record was last checked against its source.
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm sm:col-span-2">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Coverage</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Coverage</dt>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             The period and scope a dataset spans — which fiscal years, census
             rounds, terms or barangays — and any known gaps in it.

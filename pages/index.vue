@@ -11,7 +11,12 @@ import CivicTimeline from '~/components/civic/Timeline.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import ProjectsProjectStatus from '~/components/projects/ProjectStatus.vue'
 import { buildSeoHead, SITE_URL } from '~/utils/seo'
+import { formatPeso } from '~/utils/currency'
+import { toSourceReference } from '~/utils/source'
+import { LAW_TYPE_LABEL } from '~/utils/law'
+import type { Law, Project } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; guards keep this page mountable under plain Vitest.
 // The Organization schema describes this project — independent and community
@@ -115,16 +120,6 @@ const budgets = [...budgetsData].sort((a, b) => b.fiscalYear - a.fiscalYear)
 const latestBudget = budgets.at(0)
 const earlierBudgets = budgets.slice(1)
 
-function formatPeso(amount: number): string {
-  if (amount >= 1_000_000_000) {
-    return `₱${(amount / 1_000_000_000).toFixed(3).replace(/\.?0+$/, '')}B`
-  }
-  if (amount >= 1_000_000) {
-    return `₱${(amount / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`
-  }
-  return `₱${amount.toLocaleString('en-US')}`
-}
-
 const BUDGET_SOURCE_TITLES: Record<number, string> = {
   2024: 'Commission on Audit — Annual Audit Report FY2024 · LGU Full Disclosure',
   2022: 'Commission on Audit — Annual Audit Report FY2022 (via Wikipedia)',
@@ -132,39 +127,24 @@ const BUDGET_SOURCE_TITLES: Record<number, string> = {
 }
 
 function budgetSourceTitle(year: number, source: string): string {
-  return BUDGET_SOURCE_TITLES[year] ?? source.split(' (')[0] ?? source
+  return BUDGET_SOURCE_TITLES[year] ?? toSourceReference(source).title
 }
 
-function firstSourceUrl(source: string): string | undefined {
-  return source.match(/https?:\/\/[^\s);]+/)?.[0]
-}
+// Each year's document URL falls back to the first URL embedded in the source string.
+const latestDocUrl = latestBudget?.documentUrl ?? (latestBudget ? toSourceReference(latestBudget.source).url : undefined)
 
 // --- Section 5: projects ---------------------------------------------------------
 
-const featuredProjects = projectsData
-
-const STATUS_CLASSES: Record<string, string> = {
-  Planned: 'bg-heritage-gold/20 text-charcoal border-heritage-gold/40',
-  Ongoing: 'bg-laguna-blue/15 text-laguna-blue border-laguna-blue/30',
-  Completed: 'bg-laguna-green/10 text-laguna-green border-laguna-green/20',
-  Cancelled: 'bg-rose-accent/15 text-rose-accent border-rose-accent/30',
-  Unknown: 'bg-charcoal/10 text-charcoal/70 border-charcoal/20'
-}
+const featuredProjects = projectsData as Project[]
 
 // --- Section 6: laws ---------------------------------------------------------------
-
-const LAW_TYPE_LABEL: Record<string, string> = {
-  ordinance: 'Ordinance',
-  resolution: 'Resolution',
-  executive_order: 'Executive Order'
-}
 
 function lawTimestamp(date: string): number {
   const t = Date.parse(date.length === 4 ? `${date}-01-01` : date)
   return Number.isNaN(t) ? 0 : t
 }
 
-const recentLaws = [...lawsData]
+const recentLaws = [...(lawsData as Law[])]
   .sort((a, b) => lawTimestamp(b.date) - lawTimestamp(a.date))
   .slice(0, 3)
 
@@ -195,7 +175,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
   <div data-pagefind-filter="type:pages" class="flex flex-col gap-16 md:gap-24">
     <!-- 1 — Hero -->
     <section aria-labelledby="hero-heading" class="pt-2 md:pt-6">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1
@@ -223,7 +203,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
             name="q"
             autocomplete="off"
             placeholder="Search Santa Rosa..."
-            class="w-full rounded-xl border-2 border-charcoal/15 bg-white py-4 pl-12 pr-28 text-base text-charcoal shadow-sm placeholder:text-charcoal/50 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
+            class="w-full rounded-xl border-2 border-charcoal/15 bg-white py-4 pl-12 pr-28 text-base text-charcoal shadow-sm placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
           />
           <button
             type="submit"
@@ -245,7 +225,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
         </li>
       </ul>
 
-      <p class="mt-6 flex items-center gap-2 text-xs text-charcoal/60">
+      <p class="mt-6 flex items-center gap-2 text-xs text-charcoal/70">
         <span class="inline-block h-1.5 w-1.5 rounded-full bg-laguna-green" aria-hidden="true" />
         Independent community project • Sources linked to original documents
       </p>
@@ -293,7 +273,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
         >
           <div class="flex items-baseline justify-between gap-2">
             <h3 class="font-serif text-lg font-bold text-charcoal">{{ group.name }}</h3>
-            <span class="text-xs font-medium text-charcoal/50">
+            <span class="text-xs font-medium text-charcoal/70">
               {{ group.barangays.length }} barangay{{ group.barangays.length === 1 ? '' : 's' }}
             </span>
           </div>
@@ -309,7 +289,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
           </ul>
         </div>
       </div>
-      <p class="mt-3 text-xs text-charcoal/60">
+      <p class="mt-3 text-xs text-charcoal/70">
         An interactive barangay map will be added once authoritative GIS boundary data is available.
       </p>
       <NuxtLink
@@ -341,7 +321,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
 
       <div v-if="latestBudget" class="mt-6 grid gap-4 lg:grid-cols-3">
         <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
-          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
+          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
             FY {{ latestBudget.fiscalYear }}
           </p>
           <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
@@ -351,14 +331,14 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
           <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
             {{ latestBudget.categories.at(0)?.name }}
           </p>
-          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/60">
+          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/70">
             <span>Source: {{ budgetSourceTitle(latestBudget.fiscalYear, latestBudget.source) }}</span>
             <a
-              v-if="latestBudget.documentUrl ?? firstSourceUrl(latestBudget.source)"
-              :href="latestBudget.documentUrl ?? firstSourceUrl(latestBudget.source)"
+              v-if="latestDocUrl"
+              :href="latestDocUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="font-medium text-rose-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
             >View source ↗</a>
             <DataLastVerified :date="latestBudget.lastVerified" />
           </div>
@@ -371,11 +351,11 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
             class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
           >
             <div class="flex items-baseline justify-between gap-2">
-              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/50">FY {{ b.fiscalYear }}</p>
+              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">FY {{ b.fiscalYear }}</p>
               <DataLastVerified :date="b.lastVerified" :show-state="false" />
             </div>
             <p class="mt-1 font-serif text-xl font-bold text-laguna-green">{{ formatPeso(b.totalBudgetPhp) }}</p>
-            <p class="mt-1 text-[11px] leading-snug text-charcoal/60">
+            <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
               Verified revenue — {{ budgetSourceTitle(b.fiscalYear, b.source) }}
             </p>
           </li>
@@ -407,22 +387,19 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
           class="flex flex-col rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm"
         >
           <div class="flex flex-wrap items-center gap-2">
-            <span
-              class="inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
-              :class="STATUS_CLASSES[p.status] ?? STATUS_CLASSES['Unknown']"
-            >{{ p.status }}</span>
-            <span class="text-[11px] font-medium uppercase tracking-wide text-charcoal/50">{{ p.category }}</span>
+            <ProjectsProjectStatus :status="p.status" />
+            <span class="text-[11px] font-medium uppercase tracking-wide text-charcoal/80">{{ p.category }}</span>
           </div>
           <h3 class="mt-3 font-serif text-lg font-bold leading-snug text-charcoal">{{ p.name }}</h3>
-          <p class="mt-1 text-xs text-charcoal/60">
+          <p class="mt-1 text-xs text-charcoal/70">
             {{ p.barangay }}<template v-if="p.location"> · {{ p.location }}</template>
           </p>
           <p class="mt-3 text-sm font-medium text-charcoal">
             <template v-if="p.budgetPhp != null">{{ formatPeso(p.budgetPhp) }} reported</template>
             <template v-else>Cost not disclosed in sources reviewed</template>
           </p>
-          <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/50">
-            <span v-if="p.sources.at(0)">Source: {{ p.sources.at(0)?.split(' (')[0] }}</span>
+          <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/80">
+            <span v-if="p.sources.at(0)">Source: {{ toSourceReference(p.sources.at(0) ?? '').title }}</span>
             <DataLastVerified :date="p.lastVerified" :show-state="false" />
           </div>
         </article>
@@ -459,7 +436,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
               <span class="rounded bg-laguna-green/10 px-2 py-0.5 text-[11px] font-semibold text-laguna-green">
                 {{ LAW_TYPE_LABEL[law.type] ?? 'Measure' }} No. {{ law.number }}
               </span>
-              <time :datetime="law.date" class="text-xs text-charcoal/50">{{ law.date }}</time>
+              <time :datetime="law.date" class="text-xs text-charcoal/70">{{ law.date }}</time>
             </div>
             <h3 class="mt-2 font-serif text-base font-bold leading-snug text-charcoal">{{ law.title }}</h3>
             <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
@@ -468,9 +445,9 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
                 :href="law.documentUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs font-medium text-rose-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+                class="text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
               >Read the document ↗</a>
-              <span v-else class="text-xs text-charcoal/50">Document copy pending</span>
+              <span v-else class="text-xs text-charcoal/70">Document copy pending</span>
               <DataLastVerified :date="law.lastVerified" :show-state="false" />
             </div>
           </li>
@@ -502,10 +479,10 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
             class="flex flex-col rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
           >
             <h3 class="font-serif text-base font-bold text-charcoal">{{ cat.name }}</h3>
-            <ul v-if="cat.items.length" class="mt-2 space-y-1 text-xs leading-snug text-charcoal/60">
+            <ul v-if="cat.items.length" class="mt-2 space-y-1 text-xs leading-snug text-charcoal/70">
               <li v-for="s in cat.items.slice(0, 2)" :key="s.id">{{ s.title }}</li>
             </ul>
-            <p v-else class="mt-2 text-xs leading-snug text-charcoal/60">
+            <p v-else class="mt-2 text-xs leading-snug text-charcoal/70">
               Service standards and transaction steps published by the city.
             </p>
             <div class="mt-auto pt-3">
@@ -516,7 +493,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
                 :href="cat.officialUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mt-1 inline-block text-xs font-medium text-rose-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+                class="mt-1 inline-block text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
               >Official page ↗</a>
             </div>
           </div>

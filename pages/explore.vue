@@ -6,6 +6,7 @@ import CivicTimeline from '~/components/civic/Timeline.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { toSourceReference } from '~/utils/source'
 import { buildSeoHead } from '~/utils/seo'
 import type { Barangay, SourceReference } from '~/types/civic'
 
@@ -91,15 +92,8 @@ const landmarks = [
 
 // --- Sources -----------------------------------------------------------------------
 
-function firstSourceUrl(source: string): string | undefined {
-  return source.match(/https?:\/\/[^\s);]+/)?.[0]
-}
-
 // city.json source strings embed their URLs in parentheses.
-const profileSources: SourceReference[] = cityData.sources.map(s => ({
-  title: s.split(' (')[0] ?? s,
-  url: firstSourceUrl(s)
-}))
+const profileSources: SourceReference[] = cityData.sources.map(toSourceReference)
 
 // The 2025 Voluntary Local Review backs the economy section's recent figures.
 const vlrSource = profileSources.at(2)
@@ -113,7 +107,7 @@ const censusSources: SourceReference[] = sourcesData
   <div data-pagefind-filter="type:pages" class="flex flex-col gap-16 md:gap-24">
     <!-- 1 — Hero -->
     <section aria-labelledby="hero-heading" class="pt-2 md:pt-6">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         City profile · Santa Rosa City, Laguna
       </p>
       <h1
@@ -212,12 +206,12 @@ const censusSources: SourceReference[] = sourcesData
             <h3 class="font-serif text-lg font-bold text-charcoal">{{ b.name }}</h3>
             <span class="text-xs font-medium text-laguna-blue">Laguna Lake</span>
           </div>
-          <p class="mt-1 text-xs text-charcoal/60">
+          <p class="mt-1 text-xs text-charcoal/70">
             Lakeside barangay fronting Laguna de Bay.
           </p>
           <p v-if="b.population != null" class="mt-3 font-serif text-xl font-bold text-laguna-green">
             {{ b.population.toLocaleString('en-US') }}
-            <span class="font-sans text-xs font-medium text-charcoal/60">residents (2020)</span>
+            <span class="font-sans text-xs font-medium text-charcoal/70">residents (2020)</span>
           </p>
           <NuxtLink
             :to="`/barangays#${b.slug}`"
@@ -307,7 +301,7 @@ const censusSources: SourceReference[] = sourcesData
           :key="l.name"
           class="flex flex-col rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm"
         >
-          <span class="text-[10px] font-semibold uppercase tracking-wide text-charcoal/50">
+          <span class="text-[10px] font-semibold uppercase tracking-wide text-charcoal/80">
             {{ l.kind }}
           </span>
           <h3 class="mt-1 font-serif text-lg font-bold leading-snug text-charcoal">{{ l.name }}</h3>

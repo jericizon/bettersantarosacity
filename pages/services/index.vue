@@ -36,7 +36,7 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
 <template>
   <div data-pagefind-filter="type:services" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -64,7 +64,7 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
         <h2 :id="categoryAnchor(group.category)" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           {{ group.category }}
         </h2>
-        <span class="text-xs font-medium text-charcoal/50">
+        <span class="text-xs font-medium text-charcoal/70">
           {{ group.services.length }} service{{ group.services.length === 1 ? '' : 's' }}
         </span>
       </div>
@@ -89,7 +89,7 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
             </p>
 
             <div v-if="service.requirements?.length" class="mt-3">
-              <h4 class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+              <h4 class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
                 Requirements
               </h4>
               <ul class="mt-1 list-disc space-y-1 pl-5 text-sm text-charcoal/70">
@@ -120,7 +120,7 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
       </p>
     </section>
 
-    <p class="text-xs text-charcoal/60">
+    <p class="text-xs text-charcoal/70">
       This directory lists selected services verified against the cited official
       pages — transactions are completed on the city government's own sites,
       never here.

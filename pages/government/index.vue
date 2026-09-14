@@ -59,7 +59,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
 <template>
   <div data-pagefind-filter="type:officials" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -84,7 +84,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
         <h2 id="executive-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Executive
         </h2>
-        <span class="text-xs font-medium text-charcoal/50">
+        <span class="text-xs font-medium text-charcoal/70">
           {{ executive.length }} official{{ executive.length === 1 ? '' : 's' }}
         </span>
       </div>
@@ -99,9 +99,9 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
     <section aria-labelledby="legislative-heading">
       <div class="flex items-baseline justify-between gap-2 border-b border-charcoal/10 pb-2">
         <h2 id="legislative-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
-          Sangguniang Panlungsod <span class="font-sans text-base font-medium text-charcoal/60">(City Council)</span>
+          Sangguniang Panlungsod <span class="font-sans text-base font-medium text-charcoal/70">(City Council)</span>
         </h2>
-        <span class="text-xs font-medium text-charcoal/50">
+        <span class="text-xs font-medium text-charcoal/70">
           {{ councilors.length }} members incl. ex-officio
         </span>
       </div>
@@ -142,7 +142,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
         <h2 id="departments-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Departments &amp; Offices
         </h2>
-        <span class="text-xs font-medium text-charcoal/50" role="status" aria-live="polite">
+        <span class="text-xs font-medium text-charcoal/70" role="status" aria-live="polite">
           {{ filteredDepartments.length }} of {{ departments.length }} offices
         </span>
       </div>
@@ -154,7 +154,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
           type="search"
           autocomplete="off"
           placeholder="Filter departments — e.g. permits, health, budget..."
-          class="w-full rounded-md border border-charcoal/20 bg-white py-2 px-3 text-sm text-charcoal placeholder:text-charcoal/50 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
+          class="w-full rounded-md border border-charcoal/20 bg-white py-2 px-3 text-sm text-charcoal placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
         />
       </div>
       <ul v-if="filteredDepartments.length" class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

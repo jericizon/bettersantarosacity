@@ -9,6 +9,8 @@ import lawsData from '~/data/laws.json'
 import budgetsData from '~/data/budgets.json'
 import servicesData from '~/data/services.json'
 import { buildSeoHead } from '~/utils/seo'
+import { LAW_TYPE_LABEL } from '~/utils/law'
+import type { Law } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
@@ -54,12 +56,6 @@ function doc(title: string, description: string, url: string, type: ResultCatego
   return { title, description, url, type, searchText: `${title} ${description}`.toLowerCase() }
 }
 
-const LAW_TYPE_LABEL: Record<string, string> = {
-  ordinance: 'Ordinance',
-  resolution: 'Resolution',
-  executive_order: 'Executive Order'
-}
-
 const fallbackDocs: FallbackDoc[] = [
   ...officialsData.map(o =>
     doc(o.name, `${o.position}, ${o.office}. ${o.bio ?? ''}`, `/government#${o.id}`, 'officials')),
@@ -69,17 +65,17 @@ const fallbackDocs: FallbackDoc[] = [
     doc(`Barangay ${b.name}`, `${b.group}. ${b.description}`, `/barangays#${b.slug}`, 'barangays')),
   ...projectsData.map(p =>
     doc(p.name, `${p.category} · ${p.status}. ${p.description} Barangay: ${p.barangay}`, `/projects#${p.slug}`, 'projects')),
-  ...lawsData.map(l =>
+  ...(lawsData as Law[]).map(l =>
     doc(`${LAW_TYPE_LABEL[l.type] ?? 'Measure'} No. ${l.number} — ${l.title}`, l.summary, `/laws#${l.id}`, 'laws')),
   ...budgetsData.map(b =>
     doc(
-      `Annual Budget FY ${b.fiscalYear}`,
-      `Total ₱${b.totalBudgetPhp.toLocaleString('en-PH')}. ${b.categories.map(c => c.name).join('; ')}`,
+      `Verified city revenue FY ${b.fiscalYear}`,
+      `₱${b.totalBudgetPhp.toLocaleString('en-PH')} verified revenue (COA/BLGF). ${b.categories.map(c => c.name).join('; ')}`,
       '/money',
       'budget'
     )),
   ...servicesData.map(s =>
-    doc(s.title, `${s.category}. ${s.description}`, '/services', 'services')),
+    doc(s.title, `${s.category}. ${s.description}`, `/services#${s.id}`, 'services')),
   doc('Explore Santa Rosa', 'City overview, profile, and civic timeline.', '/explore', 'pages'),
   doc('Money & Budget', 'City budget, revenue, and expenditure records.', '/money', 'pages'),
   doc('Open Data', 'Machine-readable civic datasets.', '/data', 'pages'),
@@ -322,7 +318,7 @@ onBeforeUnmount(() => clearTimeout(debounce))
           name="q"
           autocomplete="off"
           placeholder="Search Santa Rosa..."
-          class="w-full rounded-md border border-charcoal/20 bg-white py-2.5 pl-10 pr-3 text-sm text-charcoal placeholder:text-charcoal/50 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
+          class="w-full rounded-md border border-charcoal/20 bg-white py-2.5 pl-10 pr-3 text-sm text-charcoal placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
         />
       </div>
       <button
@@ -385,7 +381,7 @@ onBeforeUnmount(() => clearTimeout(debounce))
           class="mt-1 text-sm text-charcoal/80 [&_mark]:rounded-sm [&_mark]:bg-heritage-gold/40 [&_mark]:px-0.5 [&_mark]:font-semibold [&_mark]:text-charcoal"
           v-html="r.excerptHtml"
         />
-        <p class="mt-1 text-[11px] text-charcoal/50">{{ r.url }}</p>
+        <p class="mt-1 text-[11px] text-charcoal/80">{{ r.url }}</p>
       </li>
     </ul>
 
@@ -397,9 +393,9 @@ onBeforeUnmount(() => clearTimeout(debounce))
       <p class="mt-1">Try different keywords, check spelling, or broaden the category filter above.</p>
     </div>
 
-    <div v-else-if="!query.trim()" class="rounded-md border border-charcoal/10 bg-white p-6 text-center text-sm text-charcoal/60">
+    <div v-else-if="!query.trim()" class="rounded-md border border-charcoal/10 bg-white p-6 text-center text-sm text-charcoal/70">
       <p>Type a name, barangay, ordinance number, project, or service to begin.</p>
-      <p class="mt-1">Tip: press <kbd class="rounded bg-parchment px-1.5 py-0.5 text-[10px] text-charcoal/60">⌘K</kbd> / <kbd class="rounded bg-parchment px-1.5 py-0.5 text-[10px] text-charcoal/60">Ctrl+K</kbd> anywhere to jump to search.</p>
+      <p class="mt-1">Tip: press <kbd class="rounded bg-parchment px-1.5 py-0.5 text-[10px] text-charcoal/80">⌘K</kbd> / <kbd class="rounded bg-parchment px-1.5 py-0.5 text-[10px] text-charcoal/80">Ctrl+K</kbd> anywhere to jump to search.</p>
     </div>
   </div>
 </template>

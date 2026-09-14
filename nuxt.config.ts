@@ -13,13 +13,6 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
-  nitro: {
-    prerender: {
-      // Nav links point to routes delivered by later tasks; don't fail the
-      // static build on 404s discovered while crawling.
-      failOnError: false
-    }
-  },
   app: {
     head: {
       title: 'Better Santa Rosa City — Civic Information Layer',

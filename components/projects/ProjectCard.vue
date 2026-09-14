@@ -33,10 +33,10 @@ const sourceTitle = computed(() => {
   >
     <div class="flex flex-wrap items-center gap-2">
       <ProjectsProjectStatus :status="project.status" />
-      <span class="text-[11px] font-medium uppercase tracking-wide text-charcoal/50">
+      <span class="text-[11px] font-medium uppercase tracking-wide text-charcoal/80">
         {{ project.category }}
       </span>
-      <span v-if="project.year != null" class="text-[11px] text-charcoal/50">
+      <span v-if="project.year != null" class="text-[11px] text-charcoal/80">
         {{ project.year }}
       </span>
     </div>
@@ -48,10 +48,10 @@ const sourceTitle = computed(() => {
       >{{ project.name }}</NuxtLink>
     </h3>
 
-    <p class="mt-1 text-xs font-medium text-charcoal/60">
+    <p class="mt-1 text-xs font-medium text-charcoal/70">
       {{ project.barangay }}
     </p>
-    <p v-if="project.location" class="mt-0.5 text-xs text-charcoal/50">
+    <p v-if="project.location" class="mt-0.5 text-xs text-charcoal/70">
       {{ project.location }}
     </p>
 
@@ -62,7 +62,7 @@ const sourceTitle = computed(() => {
       <template v-else>Cost not disclosed in sources reviewed</template>
     </p>
 
-    <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/50">
+    <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/80">
       <span v-if="sourceTitle">Source: {{ sourceTitle }}</span>
       <span class="font-semibold text-laguna-green" aria-hidden="true">View project →</span>
     </div>

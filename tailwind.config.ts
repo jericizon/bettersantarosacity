@@ -14,6 +14,9 @@ export default <Config>{
       colors: {
         'laguna-green': '#164A3D',
         'rose-accent': '#C96A73',
+        // AA-compliant variant for small text on parchment (5.3:1); base
+        // rose-accent stays for decorative fills and large text.
+        'rose-accent-dark': '#9E4A55',
         'laguna-blue': '#5E9FA5',
         'heritage-gold': '#D6A94B',
         'parchment': '#F6F3EA',

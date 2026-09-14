@@ -75,7 +75,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
 <template>
   <div data-pagefind-filter="type:projects" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -99,7 +99,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
       </h2>
       <form class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" @submit.prevent>
         <div>
-          <label for="filter-status" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-status" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Status
           </label>
           <select
@@ -112,7 +112,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
           </select>
         </div>
         <div>
-          <label for="filter-barangay" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-barangay" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Barangay
           </label>
           <select
@@ -125,7 +125,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
           </select>
         </div>
         <div>
-          <label for="filter-category" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-category" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Category
           </label>
           <select
@@ -138,7 +138,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
           </select>
         </div>
         <div>
-          <label for="filter-year" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-year" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Year
           </label>
           <select
@@ -159,7 +159,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
         <h2 id="results-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Projects
         </h2>
-        <span class="text-xs font-medium text-charcoal/50" role="status" aria-live="polite">
+        <span class="text-xs font-medium text-charcoal/70" role="status" aria-live="polite">
           {{ filteredProjects.length }} of {{ projects.length }} project{{ projects.length === 1 ? '' : 's' }}
         </span>
       </div>

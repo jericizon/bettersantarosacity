@@ -41,7 +41,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
 <template>
   <div data-pagefind-filter="type:budget" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         City Finances · Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -91,7 +91,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
 
       <div v-if="selectedBudget" aria-live="polite" class="mt-6 space-y-6">
         <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
+          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
             FY {{ selectedBudget.fiscalYear }}
           </p>
           <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
@@ -107,7 +107,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
           :fiscal-year="selectedBudget.fiscalYear"
         />
 
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-charcoal/60">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-charcoal/70">
           <DataSourceCitation
             v-if="selectedSource"
             :source="selectedSource"
@@ -118,7 +118,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
             :href="selectedDocUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="font-medium text-rose-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+            class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
           >View source document ↗</a>
           <DataLastVerified :date="selectedBudget.lastVerified" />
         </div>

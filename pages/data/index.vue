@@ -163,7 +163,7 @@ if (typeof useHead === 'function') {
 <template>
   <div data-pagefind-filter="type:pages" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -185,7 +185,7 @@ if (typeof useHead === 'function') {
         <h2 id="datasets-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Download Datasets
         </h2>
-        <span class="text-xs font-medium text-charcoal/50">
+        <span class="text-xs font-medium text-charcoal/70">
           {{ datasets.length }} datasets · JSON &amp; CSV
         </span>
       </div>
@@ -198,23 +198,23 @@ if (typeof useHead === 'function') {
 
             <dl class="mt-4 space-y-2 text-xs text-charcoal/70">
               <div class="flex gap-2">
-                <dt class="shrink-0 font-semibold uppercase tracking-wide text-charcoal/50">Coverage</dt>
+                <dt class="shrink-0 font-semibold uppercase tracking-wide text-charcoal/70">Coverage</dt>
                 <dd>{{ ds.coverage }}</dd>
               </div>
               <div class="flex gap-2">
-                <dt class="shrink-0 font-semibold uppercase tracking-wide text-charcoal/50">Updated</dt>
+                <dt class="shrink-0 font-semibold uppercase tracking-wide text-charcoal/70">Updated</dt>
                 <dd>
                   <DataLastVerified v-if="ds.lastUpdated" :date="ds.lastUpdated" :show-state="false" />
                   <span v-else>not recorded</span>
                 </dd>
               </div>
               <div class="flex gap-2">
-                <dt class="shrink-0 font-semibold uppercase tracking-wide text-charcoal/50">Source</dt>
+                <dt class="shrink-0 font-semibold uppercase tracking-wide text-charcoal/70">Source</dt>
                 <dd>{{ ds.sourceNote }}</dd>
               </div>
             </dl>
 
-            <p class="mt-3 text-[11px] leading-relaxed text-charcoal/50">{{ ds.licenseNote }}</p>
+            <p class="mt-3 text-[11px] leading-relaxed text-charcoal/80">{{ ds.licenseNote }}</p>
 
             <div class="mt-auto flex flex-wrap items-center gap-3 pt-4">
               <a
@@ -235,7 +235,7 @@ if (typeof useHead === 'function') {
       </ul>
     </section>
 
-    <p class="text-xs text-charcoal/60">
+    <p class="text-xs text-charcoal/70">
       Nested fields are kept intact in JSON; in CSV they appear as
       JSON-encoded cells. Records may carry <code>documentUrl</code> or
       <code>officialUrl</code> fields linking to original documents and PDF

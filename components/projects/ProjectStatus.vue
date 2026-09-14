@@ -27,7 +27,7 @@ const STATUS_META: Record<ProjectStatus, { icon: Component; classes: string }> =
   },
   Cancelled: {
     icon: CircleX,
-    classes: 'bg-rose-accent/15 text-rose-accent border-rose-accent/30'
+    classes: 'bg-rose-accent/15 text-rose-accent-dark border-rose-accent/30'
   },
   Unknown: {
     icon: CircleHelp,

@@ -28,10 +28,10 @@ function closeMobile() {
           SR
         </div>
         <div>
-          <span class="font-serif font-bold text-lg text-laguna-green tracking-tight group-hover:text-rose-accent transition-colors">
+          <span class="font-serif font-bold text-lg text-laguna-green tracking-tight group-hover:text-rose-accent-dark transition-colors">
             Better Santa Rosa
           </span>
-          <span class="block text-[10px] text-charcoal/60 -mt-1 font-sans">
+          <span class="block text-[10px] text-charcoal/80 -mt-1 font-sans">
             Laguna · Public Information
           </span>
         </div>

@@ -63,7 +63,7 @@ const osmSearchUrl = project?.location
         <span class="inline-flex items-center rounded border border-charcoal/20 bg-charcoal/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-charcoal/70">
           {{ project.category }}
         </span>
-        <span v-if="project.year != null" class="text-xs text-charcoal/50">{{ project.year }}</span>
+        <span v-if="project.year != null" class="text-xs text-charcoal/70">{{ project.year }}</span>
       </div>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
         {{ project.name }}
@@ -80,26 +80,26 @@ const osmSearchUrl = project?.location
       </h2>
       <dl class="grid gap-4 rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Status</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Status</dt>
           <dd class="mt-1"><ProjectsProjectStatus :status="project.status" /></dd>
         </div>
         <div>
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Barangay</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Barangay</dt>
           <dd class="mt-1 text-sm font-medium text-charcoal">{{ project.barangay }}</dd>
         </div>
         <div>
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Category</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Category</dt>
           <dd class="mt-1 text-sm font-medium text-charcoal">{{ project.category }}</dd>
         </div>
         <div>
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Implementing office</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Implementing office</dt>
           <dd class="mt-1 text-sm font-medium text-charcoal">{{ project.implementingOffice }}</dd>
         </div>
         <div>
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/50">Timeline</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Timeline</dt>
           <dd class="mt-1 text-sm font-medium text-charcoal">
             <template v-if="project.year != null">Year reported in sources: {{ project.year }}</template>
-            <template v-else><span class="italic text-charcoal/60">Timeline unavailable in the source reviewed</span></template>
+            <template v-else><span class="italic text-charcoal/70">Timeline unavailable in the source reviewed</span></template>
           </dd>
         </div>
       </dl>
@@ -117,12 +117,12 @@ const osmSearchUrl = project?.location
           <p class="mt-1 text-sm font-medium text-charcoal">
             {{ formatPesoFull(project.budgetPhp) }} reported in the cited sources
           </p>
-          <p class="mt-3 text-xs leading-relaxed text-charcoal/60">
+          <p class="mt-3 text-xs leading-relaxed text-charcoal/70">
             Scope of this figure — single project, aggregate allocation, or
             multi-year total — is as described above and in the source documents.
           </p>
         </template>
-        <p v-else class="text-sm italic text-charcoal/60">
+        <p v-else class="text-sm italic text-charcoal/70">
           Cost not disclosed in sources reviewed
         </p>
       </div>
@@ -141,14 +141,14 @@ const osmSearchUrl = project?.location
           :href="osmSearchUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-2 inline-block rounded-sm text-sm font-semibold text-rose-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          class="mt-2 inline-block rounded-sm text-sm font-semibold text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
         >Search this location on OpenStreetMap ↗</a>
-        <p class="mt-3 text-xs text-charcoal/60">
+        <p class="mt-3 text-xs text-charcoal/70">
           Precise project coordinates were not available in the sources reviewed;
           the link above opens an external map search for the reported location.
         </p>
       </div>
-      <p v-else class="rounded-lg border border-charcoal/10 bg-white p-5 text-sm italic text-charcoal/60">
+      <p v-else class="rounded-lg border border-charcoal/10 bg-white p-5 text-sm italic text-charcoal/70">
         Location unavailable in the source reviewed
       </p>
     </section>
@@ -162,10 +162,10 @@ const osmSearchUrl = project?.location
           <DataSourceCitation :source="s" :verified-date="project.lastVerified" />
         </li>
       </ul>
-      <p v-else class="rounded-lg border border-charcoal/10 bg-white p-5 text-sm italic text-charcoal/60">
+      <p v-else class="rounded-lg border border-charcoal/10 bg-white p-5 text-sm italic text-charcoal/70">
         Source documents unavailable in the source reviewed
       </p>
-      <p class="text-xs text-charcoal/60">
+      <p class="text-xs text-charcoal/70">
         Details not shown here were unavailable in the sources reviewed and are
         never filled in with assumptions.
       </p>

@@ -40,7 +40,7 @@ const budgetSources = budgets.map(b => ({
 <template>
   <div data-pagefind-filter="type:budget" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -105,7 +105,7 @@ const budgetSources = budgets.map(b => ({
 
       <div v-if="latestBudget" class="mt-6 grid gap-4 lg:grid-cols-3">
         <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
-          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
+          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
             FY {{ latestBudget.fiscalYear }}
           </p>
           <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
@@ -117,13 +117,13 @@ const budgetSources = budgets.map(b => ({
           <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
             {{ latestBudget.categories.at(0)?.name }}
           </p>
-          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/60">
+          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/70">
             <a
               v-if="sourceDocUrl(latestBudget)"
               :href="sourceDocUrl(latestBudget)"
               target="_blank"
               rel="noopener noreferrer"
-              class="font-medium text-rose-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
             >View source document ↗</a>
             <DataLastVerified :date="latestBudget.lastVerified" />
           </div>
@@ -136,13 +136,13 @@ const budgetSources = budgets.map(b => ({
             class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
           >
             <div class="flex items-baseline justify-between gap-2">
-              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/50">FY {{ b.fiscalYear }}</p>
+              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">FY {{ b.fiscalYear }}</p>
               <DataLastVerified :date="b.lastVerified" :show-state="false" />
             </div>
             <p class="mt-1 font-serif text-xl font-bold text-laguna-green">
               <span :title="formatPesoFull(b.totalBudgetPhp)">{{ formatPeso(b.totalBudgetPhp) }}</span>
             </p>
-            <p class="mt-1 text-[11px] leading-snug text-charcoal/60">
+            <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
               Verified city revenue (COA/BLGF) — {{ toSourceReference(b.source).title }}
             </p>
           </li>

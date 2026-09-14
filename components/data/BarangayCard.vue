@@ -30,10 +30,10 @@ const formattedPopulation = computed(() =>
       </span>
     </div>
 
-    <p v-if="formattedPopulation" class="mt-1 text-xs font-medium text-charcoal/60">
+    <p v-if="formattedPopulation" class="mt-1 text-xs font-medium text-charcoal/70">
       {{ formattedPopulation }} residents · 2020 PSA census
     </p>
-    <p v-else class="mt-1 text-xs italic text-charcoal/50">
+    <p v-else class="mt-1 text-xs italic text-charcoal/70">
       Population unavailable in the source reviewed
     </p>
 

@@ -26,7 +26,7 @@ const sourceRef = computed(() => toSourceReference(props.official.source))
           {{ official.name }}
         </h3>
         <p class="mt-0.5 text-sm font-semibold text-laguna-green">{{ official.position }}</p>
-        <p class="text-xs text-charcoal/60">{{ official.office }}</p>
+        <p class="text-xs text-charcoal/70">{{ official.office }}</p>
       </div>
       <DataSourceBadge type="official" class="shrink-0" />
     </div>

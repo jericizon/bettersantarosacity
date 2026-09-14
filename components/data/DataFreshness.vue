@@ -31,35 +31,12 @@ const datasets = [
   }
 ]
 
-// Same thresholds and palette as components/data/LastVerified.vue.
-type FreshnessState = 'fresh' | 'needs-review' | 'outdated' | 'unknown'
-
-const FRESH_DAYS = 90
-const OUTDATED_DAYS = 365
-
-function stateFor(date: string | null): FreshnessState {
-  if (!date) return 'unknown'
-  const ts = Date.parse(date)
-  if (Number.isNaN(ts)) return 'unknown'
-  const ageDays = (Date.now() - ts) / 86_400_000
-  if (ageDays > OUTDATED_DAYS) return 'outdated'
-  if (ageDays > FRESH_DAYS) return 'needs-review'
-  return 'fresh'
-}
-
-const stateLabel: Record<FreshnessState, string> = {
-  'fresh': 'Fresh',
-  'needs-review': 'Needs review',
-  'outdated': 'Outdated',
-  'unknown': 'Unknown'
-}
-
-const stateClasses: Record<FreshnessState, string> = {
-  'fresh': 'bg-laguna-green/10 text-laguna-green border-laguna-green/20',
-  'needs-review': 'bg-heritage-gold/20 text-charcoal border-heritage-gold/30',
-  'outdated': 'bg-rose-accent/15 text-rose-accent border-rose-accent/30',
-  'unknown': 'bg-charcoal/10 text-charcoal/70 border-charcoal/20'
-}
+// Thresholds and palette are shared with LastVerified.vue via utils/freshness.
+import {
+  freshnessState as stateFor,
+  FRESHNESS_CLASSES as stateClasses,
+  FRESHNESS_LABELS as stateLabel
+} from '~/utils/freshness'
 </script>
 
 <template>
@@ -74,7 +51,7 @@ const stateClasses: Record<FreshnessState, string> = {
         <span>
           Last checked
           <time v-if="d.date" :datetime="d.date" class="font-medium text-charcoal">{{ d.date }}</time>
-          <span v-else class="font-medium text-charcoal/60">unknown</span>
+          <span v-else class="font-medium text-charcoal/70">unknown</span>
         </span>
         <span
           class="inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[10px] font-medium"

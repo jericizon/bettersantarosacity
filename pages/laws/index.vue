@@ -4,6 +4,7 @@ import lawsData from '~/data/laws.json'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { toSourceReference } from '~/utils/source'
+import { LAW_TYPE_LABEL, LAW_TYPE_PLURAL, LAW_TYPE_BADGE } from '~/utils/law'
 import { buildSeoHead } from '~/utils/seo'
 import type { Law } from '~/types/civic'
 
@@ -17,25 +18,6 @@ if (typeof useHead === 'function') {
 }
 
 const laws = lawsData as Law[]
-
-// Spec §15 category labels; plural forms match the spec's category names.
-const LAW_TYPE_LABEL: Record<Law['type'], string> = {
-  ordinance: 'Ordinance',
-  resolution: 'Resolution',
-  executive_order: 'Executive Order'
-}
-
-const LAW_TYPE_PLURAL: Record<Law['type'], string> = {
-  ordinance: 'Ordinances',
-  resolution: 'Resolutions',
-  executive_order: 'Executive Orders'
-}
-
-const LAW_TYPE_BADGE: Record<Law['type'], string> = {
-  ordinance: 'bg-laguna-green/10 text-laguna-green border-laguna-green/20',
-  resolution: 'bg-laguna-blue/15 text-laguna-blue border-laguna-blue/30',
-  executive_order: 'bg-heritage-gold/20 text-charcoal border-heritage-gold/40'
-}
 
 const LAW_TYPES = Object.keys(LAW_TYPE_LABEL) as Law['type'][]
 
@@ -97,7 +79,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
 <template>
   <div data-pagefind-filter="type:laws" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -121,7 +103,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
       </h2>
       <form class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" @submit.prevent>
         <div>
-          <label for="filter-keyword" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-keyword" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Keyword or number
           </label>
           <input
@@ -130,11 +112,11 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
             type="search"
             autocomplete="off"
             placeholder="e.g. zoning, 2112, heritage…"
-            class="mt-1 w-full rounded-md border border-charcoal/20 bg-white py-2 px-3 text-sm text-charcoal placeholder:text-charcoal/50 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
+            class="mt-1 w-full rounded-md border border-charcoal/20 bg-white py-2 px-3 text-sm text-charcoal placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
           />
         </div>
         <div>
-          <label for="filter-type" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-type" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Type
           </label>
           <select
@@ -147,7 +129,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
           </select>
         </div>
         <div>
-          <label for="filter-year" class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">
+          <label for="filter-year" class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">
             Year
           </label>
           <select
@@ -168,7 +150,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
         <h2 id="results-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Measures
         </h2>
-        <span class="text-xs font-medium text-charcoal/50" role="status" aria-live="polite">
+        <span class="text-xs font-medium text-charcoal/70" role="status" aria-live="polite">
           {{ filteredLaws.length }} of {{ laws.length }} measure{{ laws.length === 1 ? '' : 's' }}
         </span>
       </div>
@@ -188,7 +170,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
                 :class="LAW_TYPE_BADGE[law.type]"
               >{{ LAW_TYPE_LABEL[law.type] }} No. {{ law.number }}</span>
               <!-- Dates render exactly as recorded — year-only values stay year-only -->
-              <time :datetime="law.date" class="text-[11px] text-charcoal/50">{{ law.date }}</time>
+              <time :datetime="law.date" class="text-[11px] text-charcoal/80">{{ law.date }}</time>
             </div>
 
             <h3 class="mt-3 font-serif text-lg font-bold leading-snug text-charcoal">
@@ -200,7 +182,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
 
             <p class="mt-3 text-sm leading-relaxed text-charcoal/70 line-clamp-3">{{ law.summary }}</p>
 
-            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/50">
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/80">
               <span>Source: {{ sourceTitle(law) }}</span>
               <span class="font-semibold text-laguna-green" aria-hidden="true">View measure →</span>
             </div>
@@ -223,7 +205,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
       </div>
     </section>
 
-    <p class="text-xs text-charcoal/60">
+    <p class="text-xs text-charcoal/70">
       This directory lists selected issuances verified against the cited sources —
       it is not a complete record of all city legislation.
     </p>

@@ -58,11 +58,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onGlobalKeydown))
       name="q"
       autocomplete="off"
       placeholder="Search Santa Rosa..."
-      class="w-full rounded-md border border-charcoal/20 bg-white py-1.5 pl-8 pr-10 text-xs text-charcoal placeholder:text-charcoal/50 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
+      class="w-full rounded-md border border-charcoal/20 bg-white py-1.5 pl-8 pr-10 text-xs text-charcoal placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
     />
     <kbd
       aria-hidden="true"
-      class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded bg-parchment px-1.5 py-0.5 text-[10px] text-charcoal/60"
+      class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded bg-parchment px-1.5 py-0.5 text-[10px] text-charcoal/80"
     >⌘K</kbd>
   </form>
 </template>

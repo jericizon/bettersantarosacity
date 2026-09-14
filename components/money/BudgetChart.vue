@@ -28,7 +28,7 @@ function formatShare(percentage: number): string {
 
 <template>
   <figure :aria-labelledby="captionId" class="rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm">
-    <figcaption :id="captionId" class="text-xs font-semibold uppercase tracking-wider text-charcoal/50">
+    <figcaption :id="captionId" class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
       {{ caption }}
     </figcaption>
 
@@ -55,7 +55,7 @@ function formatShare(percentage: number): string {
         Textual summary of the chart above — each category with its amount in Philippine pesos and percentage share.
       </caption>
       <thead>
-        <tr class="border-b border-charcoal/10 text-xs uppercase tracking-wide text-charcoal/50">
+        <tr class="border-b border-charcoal/10 text-xs uppercase tracking-wide text-charcoal/70">
           <th scope="col" class="py-2 pr-3 font-semibold">Category</th>
           <th scope="col" class="py-2 pr-3 font-semibold">Amount (PHP)</th>
           <th scope="col" class="py-2 font-semibold">Percentage</th>
@@ -66,7 +66,7 @@ function formatShare(percentage: number): string {
           <td class="py-2 pr-3 text-charcoal/80">{{ c.name }}</td>
           <td class="py-2 pr-3 font-medium whitespace-nowrap text-charcoal">
             <span :title="formatPesoFull(c.amountPhp)">{{ formatPeso(c.amountPhp) }}</span>
-            <span class="block text-xs font-normal text-charcoal/60">{{ formatPesoFull(c.amountPhp) }}</span>
+            <span class="block text-xs font-normal text-charcoal/70">{{ formatPesoFull(c.amountPhp) }}</span>
           </td>
           <td class="py-2 text-charcoal/80">{{ formatShare(c.percentage) }}</td>
         </tr>

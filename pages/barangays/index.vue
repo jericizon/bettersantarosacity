@@ -28,7 +28,7 @@ const barangayGroups = BARANGAY_GROUP_ORDER.map(name => ({
 <template>
   <div data-pagefind-filter="type:barangays" class="flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
@@ -53,7 +53,7 @@ const barangayGroups = BARANGAY_GROUP_ORDER.map(name => ({
         >
           {{ group.name }}
         </h2>
-        <span class="text-xs font-medium text-charcoal/50">
+        <span class="text-xs font-medium text-charcoal/70">
           {{ group.barangays.length }} barangay{{ group.barangays.length === 1 ? '' : 's' }}
         </span>
       </div>
@@ -65,7 +65,7 @@ const barangayGroups = BARANGAY_GROUP_ORDER.map(name => ({
       </ul>
     </section>
 
-    <p class="text-xs text-charcoal/60">
+    <p class="text-xs text-charcoal/70">
       An interactive barangay map will be added once authoritative GIS boundary data is available.
     </p>
   </div>
