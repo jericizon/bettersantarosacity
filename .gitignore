@@ -1,0 +1,11 @@
+node_modules/
+.output/
+.nuxt/
+dist/
+*.log
+.DS_Store
+
+# Agent workspaces
+.worktrees/
+.superpowers/
+tasks/
