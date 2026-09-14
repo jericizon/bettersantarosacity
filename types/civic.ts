@@ -65,6 +65,8 @@ export const BudgetCategorySchema = z.object({
   percentage: z.number()
 })
 
+export type BudgetCategory = z.infer<typeof BudgetCategorySchema>
+
 export const BudgetSchema = z.object({
   fiscalYear: z.number(),
   totalBudgetPhp: z.number(),
