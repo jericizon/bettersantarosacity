@@ -1,0 +1,143 @@
+import { z } from 'zod'
+
+export const SourceSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.enum(['LGU', 'COA', 'DBM', 'National', 'Institutional', 'Secondary']),
+  url: z.string().url().optional(),
+  notes: z.string().optional()
+})
+
+export type Source = z.infer<typeof SourceSchema>
+
+export const BarangaySchema = z.object({
+  name: z.string(),
+  slug: z.string(),
+  group: z.enum(['Laguna Lake', 'Lowland Urban', 'Upper / Tagaytay']),
+  description: z.string(),
+  latitude: z.number().nullable().optional(),
+  longitude: z.number().nullable().optional(),
+  population: z.number().nullable().optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Barangay = z.infer<typeof BarangaySchema>
+
+export const OfficialSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  position: z.string(),
+  office: z.string(),
+  term: z.string(),
+  photo: z.string().optional(),
+  bio: z.string().optional(),
+  contact: z.string().optional(),
+  officialUrl: z.string().url().optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Official = z.infer<typeof OfficialSchema>
+
+export const DepartmentSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  head: z.string(),
+  responsibilities: z.array(z.string()),
+  contact: z.string().optional(),
+  location: z.string().optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Department = z.infer<typeof DepartmentSchema>
+
+export const BudgetCategorySchema = z.object({
+  name: z.string(),
+  amountPhp: z.number(),
+  percentage: z.number()
+})
+
+export const BudgetSchema = z.object({
+  fiscalYear: z.number(),
+  totalBudgetPhp: z.number(),
+  categories: z.array(BudgetCategorySchema),
+  documentUrl: z.string().url().optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Budget = z.infer<typeof BudgetSchema>
+
+export const ProjectSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  description: z.string(),
+  barangay: z.string(),
+  category: z.string(),
+  status: z.enum(['Planned', 'Ongoing', 'Completed', 'Cancelled', 'Unknown']),
+  year: z.number().optional(),
+  budgetPhp: z.number().nullable().optional(),
+  location: z.string().optional(),
+  implementingOffice: z.string(),
+  sources: z.array(z.string()),
+  lastVerified: z.string()
+})
+
+export type Project = z.infer<typeof ProjectSchema>
+
+export const LawSchema = z.object({
+  id: z.string(),
+  type: z.enum(['ordinance', 'resolution', 'executive_order']),
+  number: z.string(),
+  title: z.string(),
+  date: z.string(),
+  summary: z.string(),
+  documentUrl: z.string().url().optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Law = z.infer<typeof LawSchema>
+
+export const ServiceSchema = z.object({
+  id: z.string(),
+  category: z.enum([
+    'Business',
+    'Permits',
+    'Taxes',
+    'Civil Registry',
+    'Health',
+    'Social Services',
+    'Online Services',
+    'General'
+  ]),
+  title: z.string(),
+  description: z.string(),
+  officialUrl: z.string().url(),
+  requirements: z.array(z.string()).optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Service = z.infer<typeof ServiceSchema>
+
+export const CityProfileSchema = z.object({
+  name: z.string(),
+  cityhoodYear: z.number(),
+  landAreaHa: z.number(),
+  barangayCount: z.number(),
+  timeline: z.array(
+    z.object({
+      year: z.string(),
+      title: z.string(),
+      description: z.string()
+    })
+  ),
+  sources: z.array(z.string()),
+  lastVerified: z.string()
+})
+
+export type CityProfile = z.infer<typeof CityProfileSchema>
