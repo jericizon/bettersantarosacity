@@ -1,6 +1,7 @@
 node_modules/
 .output/
 .nuxt/
+dist
 dist/
 *.log
 .DS_Store

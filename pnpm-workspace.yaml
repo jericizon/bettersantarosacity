@@ -1,0 +1,10 @@
+# Single-package repo; file carries pnpm install settings.
+packages: []
+
+allowBuilds:
+  esbuild: true
+
+peerDependencyRules:
+  allowedVersions:
+    # typography peer range includes non-semver "insiders" token pnpm can't match; tailwind 3.x is intended
+    tailwindcss: "3"
