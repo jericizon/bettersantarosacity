@@ -50,14 +50,13 @@ function closeMobile() {
       </nav>
 
       <div class="flex items-center gap-3">
+        <SearchGlobalSearch class="hidden sm:block" />
         <NuxtLink
           to="/search"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white border border-charcoal/20 text-xs text-charcoal/70 hover:border-laguna-green transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          class="sm:hidden inline-flex items-center p-2 rounded-md bg-white border border-charcoal/20 text-charcoal/70 hover:border-laguna-green transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
           aria-label="Search Santa Rosa public records"
         >
           <Search :size="14" aria-hidden="true" />
-          <span class="hidden sm:inline">Search...</span>
-          <kbd class="hidden sm:inline bg-parchment px-1.5 py-0.5 rounded text-[10px] text-charcoal/60">⌘K</kbd>
         </NuxtLink>
 
         <button
@@ -82,6 +81,13 @@ function closeMobile() {
       class="md:hidden border-b border-charcoal/10 bg-parchment px-4 py-3 space-y-2"
       @keydown.escape="closeMobile"
     >
+      <NuxtLink
+        to="/search"
+        @click="closeMobile"
+        class="block py-1.5 text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+      >
+        Search
+      </NuxtLink>
       <NuxtLink
         v-for="link in navLinks"
         :key="link.href"
