@@ -1,0 +1,42 @@
+[
+  {
+    "fiscalYear": 2024,
+    "totalBudgetPhp": 6251000000,
+    "categories": [
+      {
+        "name": "Total revenue per COA Annual Audit Report FY2024 (appropriation breakdown unavailable in sources reviewed)",
+        "amountPhp": 6251000000,
+        "percentage": 100
+      }
+    ],
+    "documentUrl": "https://santarosacity.gov.ph/transparency?type=full-disclosure",
+    "source": "Commission on Audit Annual Audit Report FY2024 as reported by Wikipedia: Santa Rosa, Laguna (https://en.wikipedia.org/wiki/Santa_Rosa,_Laguna); LGU Full Disclosure portal (https://santarosacity.gov.ph/transparency?type=full-disclosure)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "fiscalYear": 2022,
+    "totalBudgetPhp": 4990000000,
+    "categories": [
+      {
+        "name": "Annual income per COA Annual Audit Report FY2022 as reported (appropriation breakdown unavailable in sources reviewed)",
+        "amountPhp": 4990000000,
+        "percentage": 100
+      }
+    ],
+    "source": "Commission on Audit Annual Audit Report FY2022 as reported by Wikipedia: Santa Rosa, Laguna (https://en.wikipedia.org/wiki/Santa_Rosa,_Laguna)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "fiscalYear": 2016,
+    "totalBudgetPhp": 2302416040.75,
+    "categories": [
+      {
+        "name": "Annual regular income (locally sourced revenue + IRA + other national tax shares) per BLGF statement",
+        "amountPhp": 2302416040.75,
+        "percentage": 100
+      }
+    ],
+    "source": "Bureau of Local Government Finance Statement of LGU Annual Regular Income via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  }
+]

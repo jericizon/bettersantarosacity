@@ -1,0 +1,51 @@
+[
+  {
+    "id": "santa-rosa-civic-complex",
+    "name": "Santa Rosa Civic Complex (planned)",
+    "slug": "santa-rosa-civic-complex",
+    "description": "In 2025, Ayala Land and the Santa Rosa City Government signed a memorandum of understanding for a planned Santa Rosa Civic Complex to be located in Nuvali. Budget and timeline details were not disclosed in the sources reviewed.",
+    "barangay": "Nuvali area (specific barangay needs verification)",
+    "category": "Civic Facilities",
+    "status": "Planned",
+    "year": 2025,
+    "budgetPhp": null,
+    "location": "Nuvali, Santa Rosa City",
+    "implementingOffice": "City Government of Santa Rosa / Ayala Land",
+    "sources": [
+      "Wikipedia: Santa Rosa, Laguna (https://en.wikipedia.org/wiki/Santa_Rosa,_Laguna)"
+    ],
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "dpwh-flood-control-2023-2025",
+    "name": "DPWH flood control projects in Santa Rosa City (2023–2025)",
+    "slug": "dpwh-flood-control-2023-2025",
+    "description": "The Department of Public Works and Highways allocated a reported ₱3.216 billion to flood-control projects in Santa Rosa City from 2023 to 2025 (₱933M in 2023; ₱1.490B in 2024; four of eight 2025 projects worth ₱292.314M contracted to two Discaya-linked firms), per records compiled by OpinYon Laguna. Project-level completion status requires verification against DPWH and PhilGEPS records.",
+    "barangay": "Multiple barangays",
+    "category": "Flood Control",
+    "status": "Unknown",
+    "year": 2025,
+    "budgetPhp": 3216000000,
+    "implementingOffice": "Department of Public Works and Highways (DPWH)",
+    "sources": [
+      "OpinYon Laguna: P3.216-B MAGIC (https://opinyon.net/laguna/p3-216-b-magic)"
+    ],
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "smart-city-dost-partnership",
+    "name": "Smart City partnership with DOST (Smart and Sustainable Communities Program)",
+    "slug": "smart-city-dost-partnership",
+    "description": "On March 4, 2025, the city government signed a memorandum of agreement with DOST Region IV-A to implement the Innovation, Science and Technology for Development and Smart and Sustainable Communities Program and the Support Initiative for Smart City Certification, following the 2023 iSTART partnership. The LGU aims to pursue BSI Kitemark smart city certification.",
+    "barangay": "Citywide",
+    "category": "Digital Governance",
+    "status": "Ongoing",
+    "year": 2025,
+    "budgetPhp": null,
+    "implementingOffice": "City Government of Santa Rosa / DOST Region IV-A",
+    "sources": [
+      "OpinYon: Santa Rosa LGU, DOST ink 'Smart City' partnership (https://opinyon.net/national/santa-rosa-lgu-dost-ink-smart-city-partnership)"
+    ],
+    "lastVerified": "2026-09-15"
+  }
+]

@@ -1,0 +1,361 @@
+[
+  {
+    "id": "city-business-permits-licensing",
+    "name": "City Business Permits and Licensing Office",
+    "head": "Ms. Olivia M. Laurel",
+    "responsibilities": ["Business permit and license issuance and renewal"],
+    "contact": "(049) 530-0015 local 3011 / 3013 / 3012 / 3014",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "city-information-technology",
+    "name": "City Information Technology Office",
+    "head": "Mr. Harry A. Pagkalinawan",
+    "responsibilities": ["Information technology systems", "Technical support", "Geodata management"],
+    "contact": "(049) 530-0015 local 1035 / 1039 / 1036",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "city-sports-development",
+    "name": "City Sports Development Office",
+    "head": "Mr. Roy A. Lazaga",
+    "responsibilities": ["Sports development programs"],
+    "contact": "521-7699 / (049) 530-0015 local 5010",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "city-urban-development-housing",
+    "name": "City Urban Development and Housing Office",
+    "head": "Ms. Pearlee B. Zavalla, EnP",
+    "responsibilities": ["Urban development", "Housing and resettlement"],
+    "contact": "(049) 530-0015 local 1068",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "city-youth-development",
+    "name": "City Youth Development Office",
+    "head": "Mr. Domel Jenson Ian M. Barairo",
+    "responsibilities": ["Youth development programs"],
+    "contact": "(049) 530-0015 local 5011",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-building-official",
+    "name": "Office of the Building Official",
+    "head": "Engr. Myles H. Funtila",
+    "responsibilities": ["Building permits", "Building code enforcement"],
+    "contact": "(049) 530-0015 local 1081",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-accountant",
+    "name": "Office of the City Accountant",
+    "head": "Ms. Ma. Sheila I. Manuel, CPA",
+    "responsibilities": ["City accounting", "Financial reporting"],
+    "contact": "(049) 530-0015 local 1087 / 1089 / 1088 / 1090",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-administrator",
+    "name": "Office of the City Administrator",
+    "head": "Atty. Leonardo M. Ragaza, Jr.",
+    "responsibilities": ["Administrative coordination and oversight of city departments"],
+    "contact": "(049) 530-0015 local 1056 / 1058 / 1057",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-agriculturist",
+    "name": "Office of the City Agriculturist",
+    "head": "Mr. Joselito M. Batitis, RA",
+    "responsibilities": ["Agricultural services and programs"],
+    "contact": "(049) 530-0015 local 2037",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-assessor",
+    "name": "Office of the City Assessor",
+    "head": "Ms. Cecilia L. Gabayan, REA",
+    "responsibilities": ["Real property assessment and appraisal"],
+    "contact": "(049) 530-0015 local 1011 / 1014 / 1012 / 1015 / 1013",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-budget-officer",
+    "name": "Office of the City Budget Officer",
+    "head": "Mr. Gilbert M. Villanueva (OIC)",
+    "responsibilities": ["Budget preparation and administration"],
+    "contact": "(049) 530-0015 local 1116 / 1118 / 1117",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-civil-registrar",
+    "name": "Office of the City Civil Registrar",
+    "head": "Ms. Mylene S. Gonzales",
+    "responsibilities": ["Civil registration of births, marriages, and deaths"],
+    "contact": "(049) 530-0015 local 2024 / 4026",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-cooperatives-development-officer",
+    "name": "Office of the City Cooperatives Development Officer",
+    "head": "Mr. Mark Paulo G. Velasco, EnP",
+    "responsibilities": ["Cooperative development"],
+    "contact": "(049) 530-0015 local 1099",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-drrm-officer",
+    "name": "Office of the City Disaster Risk Reduction and Management Officer",
+    "head": "Ms. Michelle F. Mapua (OIC)",
+    "responsibilities": ["Disaster risk reduction and management", "Emergency response command center"],
+    "contact": "572-4001 / 530-2569 / (049) 530-0015 local 5000 / 5001",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-engineer",
+    "name": "Office of the City Engineer",
+    "head": "Engr. Jauntee Jo. C. Delada (OIC)",
+    "responsibilities": ["Infrastructure engineering and maintenance"],
+    "contact": "(049) 530-0015 local 3021",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-enro",
+    "name": "Office of the City Environment and Natural Resources Officer",
+    "head": "Ms. Maria Amor A. Salandanan, EnP",
+    "responsibilities": ["Environmental protection and natural resources management"],
+    "contact": "(049) 530-0015 local 1102 / 1103",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-general-services-officer",
+    "name": "Office of the City General Services Officer",
+    "head": "Mr. Celso C. Catindig, Jr.",
+    "responsibilities": ["Procurement and general services", "Property and supply management"],
+    "contact": "(049) 530-0015 local 1044 / 1046 / 1045",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-health-officer-i",
+    "name": "Office of the City Health Officer I",
+    "head": "Dr. Erwin M. Escala",
+    "responsibilities": ["Public health services"],
+    "contact": "544-1285 / (049) 530-0015 local 2020",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-health-officer-ii",
+    "name": "Office of the City Health Officer II",
+    "head": "Dr. Soledad Rosanna C. Cunanan",
+    "responsibilities": ["Public health services"],
+    "contact": "(049) 530-0015 local 5016",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-hrmo",
+    "name": "Office of the City Human Resource Management Officer",
+    "head": "Ms. Cherry M. Odoño",
+    "responsibilities": ["Human resource management"],
+    "contact": "(049) 530-0015 local 1031 / 1032",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-information-officer",
+    "name": "Office of the City Information Officer",
+    "head": "Mr. Tugaris L. Zapanta",
+    "responsibilities": ["Public information"],
+    "contact": "(049) 530-0015 local 2040 / 2041",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-city-internal-audit-service",
+    "name": "Office of City Internal Audit Service",
+    "head": "Needs verification",
+    "responsibilities": ["Internal audit"],
+    "contact": "(049) 530-0015 local 1110",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-legal-officer",
+    "name": "Office of the City Legal Officer",
+    "head": "Atty. Numeriano D. Villena",
+    "responsibilities": ["Legal services"],
+    "contact": "(049) 530-0015 local 1076 / 1077",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-mayor",
+    "name": "Office of the City Mayor",
+    "head": "Hon. Arlene B. Arcillas",
+    "responsibilities": ["Executive leadership and overall administration of the city government"],
+    "contact": "(049) 530-0015 local 4001",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-planning-development-coordinator",
+    "name": "Office of the City Planning and Development Coordinator",
+    "head": "Mr. Ermin V. Lucino, EnP",
+    "responsibilities": ["Planning and development coordination", "Zoning"],
+    "contact": "(049) 530-0015 local 1106 / 1107",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-population-officer",
+    "name": "Office of the City Population Officer",
+    "head": "Dr. Soledad Rosanna C. Cunanan (OIC)",
+    "responsibilities": ["Population programs"],
+    "contact": "(049) 530-0015 local 2058",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-peso-manager",
+    "name": "Office of the City Public Employment Service Manager",
+    "head": "Mr. Mark Paulo G. Velasco, EnP (OIC)",
+    "responsibilities": ["Public employment services (PESO)"],
+    "contact": "(049) 530-0015 local 2029 / 2030",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-social-welfare-development-officer",
+    "name": "Office of the City Social Welfare and Development Officer",
+    "head": "Mr. Val V. Del Rosario (OIC)",
+    "responsibilities": ["Social welfare services"],
+    "contact": "(049) 530-0015 local 2011 / 2012",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-tourism-officer",
+    "name": "Office of the City Tourism Officer",
+    "head": "Ms. Gina B. Madin, EnP (OIC)",
+    "responsibilities": ["Tourism promotion"],
+    "contact": "(049) 530-0015 local 4035",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-treasurer",
+    "name": "Office of the City Treasurer",
+    "head": "Ms. Jacqueline H. Maramba (OIC)",
+    "responsibilities": ["Revenue collection and treasury management"],
+    "contact": "(049) 530-0015 local 1021 / 1025 / 1022 / 1026 / 1023 / 4011 / 1024 / 4012",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-veterinarian",
+    "name": "Office of the City Veterinarian",
+    "head": "Dr. Joseph Milko U. Bustamante, DVM",
+    "responsibilities": ["Veterinary services"],
+    "contact": "(049) 530-0015 local 2045",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-city-vice-mayor",
+    "name": "Office of the City Vice Mayor",
+    "head": "Hon. Arnold B. Arcillas",
+    "responsibilities": ["Presides over the Sangguniang Panlungsod", "Legislative leadership"],
+    "contact": "(049) 530-0015 local 1124 / 1126 / 1125 / 4005",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-secretary-to-the-sp",
+    "name": "Office of the Secretary to the Sangguniang Panlungsod",
+    "head": "Atty. Rommero O. Alojado",
+    "responsibilities": ["Legislative secretariat"],
+    "contact": "(049) 530-0015 local 1134 / 1136 / 1135",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "office-of-the-senior-citizens-affair",
+    "name": "Office of the Senior Citizens Affair",
+    "head": "Needs verification",
+    "responsibilities": ["Senior citizens affairs"],
+    "contact": "(049) 530-0015 local 2016",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "public-order-and-safety-office",
+    "name": "Public Order and Safety Office",
+    "head": "Mr. Harry A. Pagkalinawan (OIC)",
+    "responsibilities": ["Public order and safety", "Traffic management"],
+    "contact": "(049) 530-0015 local 1052 / 0961-722-1414",
+    "location": "City Government Center, J.P. Rizal Blvd., Santa Rosa City, Laguna",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "santa-rosa-community-hospital",
+    "name": "Santa Rosa Community Hospital",
+    "head": "Dr. Parnell C. Patacsil, MHA",
+    "responsibilities": ["Hospital and health services"],
+    "contact": "533-9098 / 534-4571",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  }
+]

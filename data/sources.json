@@ -1,0 +1,100 @@
+[
+  {
+    "id": "lgu-website",
+    "name": "City Government of Santa Rosa — Official Website",
+    "type": "LGU",
+    "url": "https://santarosacity.gov.ph",
+    "notes": "Primary source for officials, departments, city directory, history, ordinances index, and full disclosure documents."
+  },
+  {
+    "id": "lgu-transparency",
+    "name": "Santa Rosa Full Disclosure / Transparency Portal",
+    "type": "LGU",
+    "url": "https://santarosacity.gov.ph/transparency?type=full-disclosure",
+    "notes": "Annual budget reports, procurement plans, statements of receipts and expenditures, and other mandated disclosures."
+  },
+  {
+    "id": "lgu-sp",
+    "name": "Sangguniang Panlungsod ng Santa Rosa",
+    "type": "LGU",
+    "url": "https://santarosacitysp.com/",
+    "notes": "City legislature site for ordinances, resolutions, and committee assignments."
+  },
+  {
+    "id": "lgu-news",
+    "name": "Roar Santa Rosa City (city government news)",
+    "type": "LGU",
+    "url": "https://roarsantarosacity.com/",
+    "notes": "Official city news outlet covering inaugurations, programs, and announcements."
+  },
+  {
+    "id": "coa",
+    "name": "Commission on Audit (COA)",
+    "type": "COA",
+    "url": "https://www.coa.gov.ph",
+    "notes": "Annual Audit Reports are the authoritative source for LGU financial statements."
+  },
+  {
+    "id": "dbm",
+    "name": "Department of Budget and Management (DBM)",
+    "type": "DBM",
+    "url": "https://www.dbm.gov.ph",
+    "notes": "National tax allotment shares, local budget memoranda, and LGU fiscal data."
+  },
+  {
+    "id": "blgf",
+    "name": "Bureau of Local Government Finance (DOF)",
+    "type": "National",
+    "url": "https://blgf.gov.ph",
+    "notes": "LGU annual regular income statements and fiscal statistics."
+  },
+  {
+    "id": "psa",
+    "name": "Philippine Statistics Authority (PSA)",
+    "type": "National",
+    "url": "https://psa.gov.ph",
+    "notes": "Census of Population and Housing (2015, 2020) and 2024 POPCEN figures."
+  },
+  {
+    "id": "philgeps",
+    "name": "Philippine Government Electronic Procurement System (PhilGEPS)",
+    "type": "National",
+    "url": "https://philgeps.gov.ph",
+    "notes": "Procurement notices, bid results, and contract awards."
+  },
+  {
+    "id": "dilg",
+    "name": "Department of the Interior and Local Government (DILG)",
+    "type": "National",
+    "url": "https://dilg.gov.ph",
+    "notes": "Full disclosure policy compliance and LGU oversight."
+  },
+  {
+    "id": "vlr-2025",
+    "name": "2025 Voluntary Local Review of the City of Santa Rosa",
+    "type": "Institutional",
+    "url": "https://sdgs.un.org/sites/default/files/2025-07/VLR_Santa_Rosa_2025.pdf",
+    "notes": "City-authored SDG review containing budget allocation trends and development indicators."
+  },
+  {
+    "id": "philatlas",
+    "name": "PhilAtlas",
+    "type": "Secondary",
+    "url": "https://www.philatlas.com",
+    "notes": "PSA-derived barangay and city demographic profiles; used for census population figures."
+  },
+  {
+    "id": "rappler-elections-2025",
+    "name": "Rappler — 2025 Philippine Election Results: Santa Rosa City, Laguna",
+    "type": "Secondary",
+    "url": "https://ph.rappler.com/elections/2025/local-race/laguna/santa-rosa-city",
+    "notes": "COMELEC Media Server results for the May 2025 local elections."
+  },
+  {
+    "id": "wikipedia-santa-rosa",
+    "name": "Wikipedia: Santa Rosa, Laguna",
+    "type": "Secondary",
+    "url": "https://en.wikipedia.org/wiki/Santa_Rosa,_Laguna",
+    "notes": "Aggregates COA AFR fiscal figures and city profile data with citations."
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "name": "City of Santa Rosa",
+  "cityhoodYear": 2004,
+  "landAreaHa": 5543,
+  "barangayCount": 18,
+  "timeline": [
+    {
+      "year": "1571",
+      "title": "Barrio Bukol",
+      "description": "Spanish conquistador Juan de Salcedo explored the Laguna Lake region. Santa Rosa was then part of Biñan (annexed to the town of Tabuco, now Cabuyao) and was called Barrio Bukol."
+    },
+    {
+      "year": "1688",
+      "title": "Separation from Cabuyao",
+      "description": "Biñan, together with Barrio Bukol, separated from Cabuyao."
+    },
+    {
+      "year": "1792",
+      "title": "Municipality of Santa Rosa founded",
+      "description": "Barrio Bukol was politically emancipated on January 18, 1792 as the municipality of Santa Rosa, named after Saint Rose of Lima."
+    },
+    {
+      "year": "1898",
+      "title": "Philippine Independence",
+      "description": "Santa Rosa was instrumental in the proclamation of Philippine Independence; municipal representatives signed the Act of Independence on June 12, 1898. Local revolutionaries later fought alongside the forces of General Pio del Pilar in the Filipino-American War."
+    },
+    {
+      "year": "1935",
+      "title": "Sakdalista Revolt",
+      "description": "Agrarian unrest culminated in a bloody revolt by farmers of Santa Rosa and Cabuyao on May 3, 1935; about 30 people died and rebel leaders including Henerala Salud Algabre were imprisoned before receiving amnesty."
+    },
+    {
+      "year": "1945",
+      "title": "Liberation",
+      "description": "Santa Rosa was liberated by members of the Filipino guerilla resistance movement on February 5, 1945 after Japanese occupation during World War II."
+    },
+    {
+      "year": "1993",
+      "title": "First-class municipality",
+      "description": "Santa Rosa became a first-class town when its income reached ₱54.2 million in 1993."
+    },
+    {
+      "year": "2004",
+      "title": "Cityhood",
+      "description": "Santa Rosa became a city on July 10, 2004 following a plebiscite, by virtue of Republic Act No. 9264."
+    },
+    {
+      "year": "2019",
+      "title": "Lone congressional district",
+      "description": "Republic Act No. 11395, signed August 28, 2019, separated Santa Rosa from Laguna's first district to form its own congressional district, first electing a representative in 2022."
+    },
+    {
+      "year": "2024",
+      "title": "Richest city in Luzon outside Metro Manila",
+      "description": "COA-reported revenue reached ₱6.251 billion in FY2024; the PSA 2024 census recorded a population of 430,920."
+    },
+    {
+      "year": "2025",
+      "title": "Civic complex MOU and smart city push",
+      "description": "Ayala Land and the city government signed a memorandum of understanding for a planned Santa Rosa Civic Complex in Nuvali; the VITRO Santa Rosa data center was inaugurated; and the city published its 2025 Voluntary Local Review of SDG progress."
+    }
+  ],
+  "sources": [
+    "City Government of Santa Rosa — About Us / Historical Timeline (https://santarosacity.gov.ph/about-us)",
+    "Wikipedia: Santa Rosa, Laguna (https://en.wikipedia.org/wiki/Santa_Rosa,_Laguna)",
+    "2025 Voluntary Local Review of the City of Santa Rosa (https://sdgs.un.org/sites/default/files/2025-07/VLR_Santa_Rosa_2025.pdf)"
+  ],
+  "lastVerified": "2026-09-15"
+}

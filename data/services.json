@@ -1,0 +1,110 @@
+[
+  {
+    "id": "business-permits",
+    "category": "Business",
+    "title": "Business Permits and Licensing",
+    "description": "Business permit registration and renewal through the City Business Permits and Licensing Office. Detailed requirements and fees are published via the LGU's online forms and eServices pages.",
+    "officialUrl": "https://santarosacity.gov.ph/online-forms",
+    "source": "City Government of Santa Rosa — Online Forms (https://santarosacity.gov.ph/online-forms)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "civil-registry",
+    "category": "Civil Registry",
+    "title": "Civil Registry Services",
+    "description": "Birth, marriage, and death certificate services through the Office of the City Civil Registrar.",
+    "officialUrl": "https://santarosacity.gov.ph/e-services",
+    "source": "City Government of Santa Rosa — eServices (https://santarosacity.gov.ph/e-services)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "eservices-portal",
+    "category": "Online Services",
+    "title": "City eServices Portal",
+    "description": "The city government's online services portal for digital transactions.",
+    "officialUrl": "https://santarosacity.gov.ph/e-services",
+    "source": "City Government of Santa Rosa — eServices (https://santarosacity.gov.ph/e-services)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "online-forms",
+    "category": "Online Services",
+    "title": "Online Forms",
+    "description": "Downloadable and online forms published by the city government for various transactions.",
+    "officialUrl": "https://santarosacity.gov.ph/online-forms",
+    "source": "City Government of Santa Rosa — Online Forms (https://santarosacity.gov.ph/online-forms)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "real-property-tax",
+    "category": "Taxes",
+    "title": "Real Property Tax",
+    "description": "Real property tax assessment and payment handled by the Office of the City Treasurer and the Office of the City Assessor. Online payment availability needs verification.",
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "health-services",
+    "category": "Health",
+    "title": "Public Health Services",
+    "description": "Public health services through the Offices of the City Health Officer and the Santa Rosa Community Hospital.",
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "scvt-vaccination",
+    "category": "Health",
+    "title": "Santa Rosa COVID-19 Vaccination Tracking (SCVT)",
+    "description": "The city's vaccination tracking portal for COVID-19 immunization registration and records.",
+    "officialUrl": "https://www.santarosacity.ph/SCVT/",
+    "source": "City Government of Santa Rosa website footer link (https://santarosacity.gov.ph/)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "bid-opportunities",
+    "category": "Business",
+    "title": "Bid Opportunities and Procurement Notices",
+    "description": "Invitations to bid, bid bulletins, notices of award, and annual procurement plans published by the city government.",
+    "officialUrl": "https://santarosacity.gov.ph/bid-opportunities",
+    "source": "City Government of Santa Rosa — Bid Opportunities (https://santarosacity.gov.ph/bid-opportunities)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "social-welfare",
+    "category": "Social Services",
+    "title": "Social Welfare Services",
+    "description": "Social welfare programs and assistance through the Office of the City Social Welfare and Development Officer.",
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "ordinances-resolutions",
+    "category": "General",
+    "title": "City Ordinances and Resolutions",
+    "description": "Access to enacted city ordinances and adopted resolutions via the city government website and the Sangguniang Panlungsod.",
+    "officialUrl": "https://santarosacity.gov.ph/city-ordinances",
+    "source": "City Government of Santa Rosa — City Ordinances (https://santarosacity.gov.ph/city-ordinances)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "public-employment-peso",
+    "category": "General",
+    "title": "Public Employment Service (PESO)",
+    "description": "Job facilitation and employment services through the Office of the City Public Employment Service Manager.",
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "id": "permits-building",
+    "category": "Permits",
+    "title": "Building Permits",
+    "description": "Building permit applications and building code enforcement through the Office of the Building Official.",
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-15"
+  }
+]

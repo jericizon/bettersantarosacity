@@ -1,0 +1,200 @@
+[
+  {
+    "name": "Aplaya",
+    "slug": "aplaya",
+    "group": "Laguna Lake",
+    "description": "Lakeside barangay fronting Laguna Lake; one of the original sitios of Barrio Bukol. 2020 PSA census population: 15,858.",
+    "latitude": null,
+    "longitude": null,
+    "population": 15858,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html); City Government of Santa Rosa historical timeline (https://santarosacity.gov.ph/about-us)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Caingin",
+    "slug": "caingin",
+    "group": "Laguna Lake",
+    "description": "Lakeside barangay fronting Laguna Lake; one of the original sitios of Barrio Bukol. 2020 PSA census population: 24,481.",
+    "latitude": null,
+    "longitude": null,
+    "population": 24481,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html); City Government of Santa Rosa historical timeline (https://santarosacity.gov.ph/about-us)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Sinalhan",
+    "slug": "sinalhan",
+    "group": "Laguna Lake",
+    "description": "Lakeside barangay fronting Laguna Lake in the city's southern lakeshore area. 2020 PSA census population: 26,274.",
+    "latitude": 14.3297,
+    "longitude": 121.1113,
+    "population": 26274,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa/sinalhan.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Balibago",
+    "slug": "balibago",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay along the National Highway corridor; site of the Enchanted Kingdom theme park. 2020 PSA census population: 21,566.",
+    "latitude": 14.2946,
+    "longitude": 121.1054,
+    "population": 21566,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa/balibago.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Dila",
+    "slug": "dila",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay along the city's commercial corridor. 2020 PSA census population: 39,496.",
+    "latitude": null,
+    "longitude": null,
+    "population": 39496,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Dita",
+    "slug": "dita",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay. 2020 PSA census population: 34,650.",
+    "latitude": null,
+    "longitude": null,
+    "population": 34650,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Ibaba",
+    "slug": "ibaba",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay near the city's older lowland core. 2020 PSA census population: 8,069.",
+    "latitude": null,
+    "longitude": null,
+    "population": 8069,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Kanluran",
+    "slug": "kanluran",
+    "group": "Lowland Urban",
+    "description": "Poblacion barangay (officially Kanluran Pob.) in the city proper. 2020 PSA census population: 4,236.",
+    "latitude": null,
+    "longitude": null,
+    "population": 4236,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Labas",
+    "slug": "labas",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay. 2020 PSA census population: 21,288.",
+    "latitude": null,
+    "longitude": null,
+    "population": 21288,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Macabling",
+    "slug": "macabling",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay south of the city proper. 2020 PSA census population: 20,406.",
+    "latitude": null,
+    "longitude": null,
+    "population": 20406,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Malitlit",
+    "slug": "malitlit",
+    "group": "Lowland Urban",
+    "description": "Lowland urban barangay. 2020 PSA census population: 27,433.",
+    "latitude": null,
+    "longitude": null,
+    "population": 27433,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Malusak",
+    "slug": "malusak",
+    "group": "Lowland Urban",
+    "description": "Poblacion barangay (officially Malusak Pob.); the city's least populous barangay in the 2020 census.",
+    "latitude": null,
+    "longitude": null,
+    "population": 2906,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Market Area",
+    "slug": "market-area",
+    "group": "Lowland Urban",
+    "description": "Poblacion barangay (officially Market Area Pob.) containing the city's public market district. 2020 PSA census population: 16,017.",
+    "latitude": null,
+    "longitude": null,
+    "population": 16017,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Pooc",
+    "slug": "pooc",
+    "group": "Lowland Urban",
+    "description": "The city's most populous barangay in the 2020 census with 55,705 residents; hosts major residential subdivisions.",
+    "latitude": null,
+    "longitude": null,
+    "population": 55705,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Tagapo",
+    "slug": "tagapo",
+    "group": "Lowland Urban",
+    "description": "Historic lowland barangay in the old town center; one of the original sitios of Barrio Bukol. 2020 PSA census population: 42,104.",
+    "latitude": null,
+    "longitude": null,
+    "population": 42104,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Don Jose",
+    "slug": "don-jose",
+    "group": "Upper / Tagaytay",
+    "description": "Upland barangay in the Tagaytay-ridge corridor; covers part of the Nuvali development area. 2020 PSA census population: 18,039.",
+    "latitude": null,
+    "longitude": null,
+    "population": 18039,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Pulong Santa Cruz",
+    "slug": "pulong-santa-cruz",
+    "group": "Upper / Tagaytay",
+    "description": "Upland barangay hosting the Toyota Special Economic Zone and the VITRO Santa Rosa hyperscale data center inaugurated in April 2025. 2020 PSA census population: 29,421.",
+    "latitude": null,
+    "longitude": null,
+    "population": 29421,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html); Context.ph VITRO launch report (https://context.ph/2025/04/23/president-marcos-leads-launch-of-350m-vitro-data-center/)",
+    "lastVerified": "2026-09-15"
+  },
+  {
+    "name": "Santo Domingo",
+    "slug": "santo-domingo",
+    "group": "Upper / Tagaytay",
+    "description": "Upland barangay; site of the historic Cuartel de Santo Domingo, a Spanish-era Guardia Civil bastion near the Silang, Cavite boundary. 2020 PSA census population: 6,863.",
+    "latitude": null,
+    "longitude": null,
+    "population": 6863,
+    "source": "PSA 2020 Census of Population and Housing via PhilAtlas (https://www.philatlas.com/luzon/r04a/laguna/santa-rosa.html); City Government of Santa Rosa historical timeline (https://santarosacity.gov.ph/about-us)",
+    "lastVerified": "2026-09-15"
+  }
+]
