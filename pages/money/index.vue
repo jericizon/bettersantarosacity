@@ -6,19 +6,16 @@ import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { toSourceReference } from '~/utils/source'
 import { formatPeso, formatPesoFull } from '~/utils/currency'
+import { buildSeoHead } from '~/utils/seo'
 import type { Budget } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'City Finances — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'Verified revenue and budget records of Santa Rosa City, Laguna — sourced from COA audit reports and BLGF statements, with coverage limits stated plainly.'
-      }
-    ]
-  })
+    description: 'Verified revenue and budget records of Santa Rosa City, Laguna — sourced from COA audit reports and BLGF statements, with coverage limits stated plainly.',
+    path: '/money'
+  }))
 }
 
 // budgets.json holds verified COA/BLGF revenue figures, not appropriations —

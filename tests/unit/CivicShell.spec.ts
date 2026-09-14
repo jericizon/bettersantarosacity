@@ -13,6 +13,6 @@ describe('Civic Shell Components', () => {
     const wrapper = mount(SourceBadge, {
       props: { type: 'official' }
     })
-    expect(wrapper.text()).toContain('Official Source')
+    expect(wrapper.text()).toContain('Official source')
   })
 })

@@ -4,6 +4,7 @@ import projectsData from '~/data/projects.json'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
+import { buildSeoHead, SITE_URL } from '~/utils/seo'
 import type { Barangay, Project, SourceReference } from '~/types/civic'
 
 // useRoute/createError/useHead are Nuxt auto-imports; guards keep this page
@@ -21,15 +22,20 @@ if (!barangay && typeof createError === 'function') {
 }
 
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: `Barangay ${barangay?.name ?? 'Not Found'} — Better Santa Rosa City`,
-    meta: [
-      {
-        name: 'description',
-        content: barangay?.description ?? 'Barangay profile for Santa Rosa City, Laguna.'
-      }
-    ]
-  })
+    description: barangay?.description ?? 'Barangay profile for Santa Rosa City, Laguna.',
+    path: `/barangays/${slug}`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Barangays', item: `${SITE_URL}/barangays` },
+        { '@type': 'ListItem', position: 3, name: barangay?.name ?? 'Barangay' }
+      ]
+    }
+  }))
 }
 
 // Known projects: strict case-insensitive match on the project barangay field.

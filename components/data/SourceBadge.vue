@@ -13,6 +13,6 @@ defineProps<{
       'bg-charcoal/10 text-charcoal border border-charcoal/20': type === 'external'
     }"
   >
-    {{ type === 'official' ? 'Official Source' : type === 'community' ? 'Community Presentation' : 'External Record' }}
+    {{ type === 'official' ? 'Official source' : type === 'community' ? 'Community presentation' : 'External source' }}
   </span>
 </template>

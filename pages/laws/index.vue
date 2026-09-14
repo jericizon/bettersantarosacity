@@ -4,19 +4,16 @@ import lawsData from '~/data/laws.json'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { toSourceReference } from '~/utils/source'
+import { buildSeoHead } from '~/utils/seo'
 import type { Law } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'Laws & Ordinances — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'Ordinances, resolutions and executive orders of Santa Rosa City, Laguna — searchable by keyword, type and year, each linked to its cited source document.'
-      }
-    ]
-  })
+    description: 'Ordinances, resolutions and executive orders of Santa Rosa City, Laguna — searchable by keyword, type and year, each linked to its cited source document.',
+    path: '/laws'
+  }))
 }
 
 const laws = lawsData as Law[]

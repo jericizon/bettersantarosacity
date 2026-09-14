@@ -7,14 +7,14 @@
   "scripts": {
     "postinstall": "nuxt prepare",
     "build": "nuxt build",
-    "prebuild": "node scripts/sync-public-data.mjs",
+    "prebuild": "node scripts/sync-public-data.mjs && node scripts/generate-sitemap.mjs",
     "generate": "nuxt generate",
-    "pregenerate": "node scripts/sync-public-data.mjs",
+    "pregenerate": "node scripts/sync-public-data.mjs && node scripts/generate-sitemap.mjs",
     "typecheck": "nuxt typecheck",
     "test": "vitest",
     "test:run": "vitest run",
     "index:search": "pagefind --site .output/public",
-    "build:prod": "node scripts/sync-public-data.mjs && nuxt generate && pagefind --site .output/public"
+    "build:prod": "node scripts/sync-public-data.mjs && node scripts/generate-sitemap.mjs && nuxt generate && pagefind --site .output/public"
   },
   "dependencies": {
     "nuxt": "^4.0.0",

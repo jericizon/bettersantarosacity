@@ -8,8 +8,16 @@ import projectsData from '~/data/projects.json'
 import lawsData from '~/data/laws.json'
 import budgetsData from '~/data/budgets.json'
 import servicesData from '~/data/services.json'
+import { buildSeoHead } from '~/utils/seo'
 
-useHead({ title: 'Search — Better Santa Rosa City' })
+// Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
+if (typeof useHead === 'function') {
+  useHead(buildSeoHead({
+    title: 'Search — Better Santa Rosa City',
+    description: 'Search every dataset and page on Better Santa Rosa City — officials, barangays, projects, laws, budgets, services and public records.',
+    path: '/search'
+  }))
+}
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },

@@ -12,22 +12,10 @@ import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { toSourceReference } from '~/utils/source'
 import { toCsv, csvDataUri } from '~/utils/csv'
+import { buildSeoHead, SITE_URL } from '~/utils/seo'
 import type {
   Barangay, Budget, CityProfile, Department, Law, Official, Project, Service, Source
 } from '~/types/civic'
-
-// Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
-if (typeof useHead === 'function') {
-  useHead({
-    title: 'Open Data & Downloads — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'Downloadable civic datasets for Santa Rosa, Laguna — barangays, officials, budgets, projects, ordinances and the source registry — in JSON and CSV.'
-      }
-    ]
-  })
-}
 
 type AnyRecord = Record<string, unknown>
 
@@ -146,6 +134,30 @@ const datasets: DatasetCard[] = [
     `City profile + ${(cityData as CityProfile).timeline.length}-entry timeline`, cityData
   )
 ]
+
+// Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
+// Runs after `datasets` so the Dataset JSON-LD mirrors the published list.
+if (typeof useHead === 'function') {
+  useHead(buildSeoHead({
+    title: 'Open Data & Downloads — Better Santa Rosa City',
+    description: 'Downloadable civic datasets for Santa Rosa, Laguna — barangays, officials, budgets, projects, ordinances and the source registry — in JSON and CSV.',
+    path: '/data',
+    jsonLd: datasets.map(ds => ({
+      '@context': 'https://schema.org',
+      '@type': 'Dataset',
+      name: `Santa Rosa City, Laguna — ${ds.name}`,
+      description: ds.description,
+      url: `${SITE_URL}${ds.jsonHref}`,
+      license: ds.licenseNote,
+      ...(ds.lastUpdated ? { dateModified: ds.lastUpdated } : {}),
+      creator: {
+        '@type': 'Organization',
+        name: 'Better Santa Rosa City',
+        url: SITE_URL
+      }
+    }))
+  }))
+}
 </script>
 
 <template>

@@ -6,19 +6,30 @@ import GovernmentOfficialCard from '~/components/government/OfficialCard.vue'
 import GovernmentDepartmentCard from '~/components/government/DepartmentCard.vue'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { buildSeoHead } from '~/utils/seo'
 import type { Department, Official } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
+// GovernmentOrganization here describes the actual City Government of Santa
+// Rosa — the subject of this directory — not this site (spec §28).
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'Government Directory — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'Elected officials and city departments of Santa Rosa, Laguna — a community-maintained directory built on official city government records.'
+    description: 'Elected officials and city departments of Santa Rosa, Laguna — a community-maintained directory built on official city government records.',
+    path: '/government',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'GovernmentOrganization',
+      name: 'City Government of Santa Rosa',
+      url: 'https://santarosacity.gov.ph',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Santa Rosa',
+        addressRegion: 'Laguna',
+        addressCountry: 'PH'
       }
-    ]
-  })
+    }
+  }))
 }
 
 const officials = officialsData as Official[]

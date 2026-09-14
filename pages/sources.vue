@@ -2,19 +2,16 @@
 import sourcesData from '~/data/sources.json'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { buildSeoHead } from '~/utils/seo'
 import type { Source } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'Sources & Methodology — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'How Better Santa Rosa City collects, verifies and labels public data — the source hierarchy, the full source registry, and the trust rules every dataset follows.'
-      }
-    ]
-  })
+    description: 'How Better Santa Rosa City collects, verifies and labels public data — the source hierarchy, the full source registry, and the trust rules every dataset follows.',
+    path: '/sources'
+  }))
 }
 
 const sources = sourcesData as Source[]

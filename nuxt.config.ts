@@ -24,7 +24,13 @@ export default defineNuxtConfig({
     head: {
       title: 'Better Santa Rosa City — Civic Information Layer',
       meta: [
-        { name: 'description', content: 'Independent, community-maintained public information portal for Santa Rosa, Laguna.' }
+        { name: 'description', content: 'Independent, community-maintained public information portal for Santa Rosa, Laguna.' },
+        { name: 'theme-color', content: '#164A3D' }
+      ],
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+        { rel: 'apple-touch-icon', href: '/icon.svg' }
       ]
     }
   }

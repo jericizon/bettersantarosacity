@@ -5,6 +5,7 @@ import DataLastVerified from '~/components/data/LastVerified.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import { formatPeso, formatPesoFull } from '~/utils/currency'
 import { toSourceReference } from '~/utils/source'
+import { buildSeoHead, SITE_URL } from '~/utils/seo'
 import type { Project } from '~/types/civic'
 
 // useRoute/createError/useHead are Nuxt auto-imports; guards keep this page
@@ -22,15 +23,20 @@ if (!project && typeof createError === 'function') {
 }
 
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: `${project?.name ?? 'Project Not Found'} — Better Santa Rosa City`,
-    meta: [
-      {
-        name: 'description',
-        content: project?.description ?? 'City project record for Santa Rosa City, Laguna.'
-      }
-    ]
-  })
+    description: project?.description ?? 'City project record for Santa Rosa City, Laguna.',
+    path: `/projects/${slug}`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: `${SITE_URL}/projects` },
+        { '@type': 'ListItem', position: 3, name: project?.name ?? 'Project' }
+      ]
+    }
+  }))
 }
 
 const sourceRefs = project ? project.sources.map(toSourceReference) : []

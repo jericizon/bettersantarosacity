@@ -6,20 +6,17 @@ import CivicTimeline from '~/components/civic/Timeline.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { buildSeoHead } from '~/utils/seo'
 import type { Barangay, SourceReference } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'Explore Santa Rosa — City profile and history — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content:
-          'The story and shape of Santa Rosa City, Laguna — from Barrio Bukol to cityhood, its 18 barangays, Laguna Lake frontage, and industrial economy.'
-      }
-    ]
-  })
+    description:
+      'The story and shape of Santa Rosa City, Laguna — from Barrio Bukol to cityhood, its 18 barangays, Laguna Lake frontage, and industrial economy.',
+    path: '/explore'
+  }))
 }
 
 const barangays = barangaysData as Barangay[]

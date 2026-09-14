@@ -11,12 +11,43 @@ import CivicTimeline from '~/components/civic/Timeline.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { buildSeoHead, SITE_URL } from '~/utils/seo'
 
 // Auto-imports are Nuxt-only; guards keep this page mountable under plain Vitest.
+// The Organization schema describes this project — independent and community
+// maintained — never the City Government (spec §28).
 if (typeof useHead === 'function') {
-  useHead({
-    title: 'Better Santa Rosa City — Public information about Santa Rosa, made easier to find'
-  })
+  useHead(buildSeoHead({
+    title: 'Better Santa Rosa City — Public Information Portal',
+    description:
+      'Independent, community-maintained public information portal for Santa Rosa City, Laguna — barangays, budgets, projects, laws, services and sources, each linked to official records.',
+    path: '/',
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Better Santa Rosa City',
+        url: SITE_URL,
+        logo: `${SITE_URL}/icon.svg`,
+        description:
+          'Independent, community-maintained public information project for Santa Rosa City, Laguna. Not affiliated with the City Government of Santa Rosa.'
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Better Santa Rosa City',
+        url: SITE_URL,
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${SITE_URL}/search?q={search_term_string}`
+          },
+          'query-input': 'required name=search_term_string'
+        }
+      }
+    ]
+  }))
 }
 
 // --- Section 1: hero search -------------------------------------------------

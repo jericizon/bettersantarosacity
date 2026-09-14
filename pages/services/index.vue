@@ -4,19 +4,16 @@ import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { toSourceReference } from '~/utils/source'
+import { buildSeoHead } from '~/utils/seo'
 import { ServiceSchema, type Service } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'Public Services Directory — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'Directory of official City of Santa Rosa government services — permits, taxes, civil registry, health and online services — each linked to its official destination.'
-      }
-    ]
-  })
+    description: 'Directory of official City of Santa Rosa government services — permits, taxes, civil registry, health and online services — each linked to its official destination.',
+    path: '/services'
+  }))
 }
 
 const services = servicesData as Service[]

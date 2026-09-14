@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import barangaysData from '~/data/barangays.json'
 import DataBarangayCard from '~/components/data/BarangayCard.vue'
+import { buildSeoHead } from '~/utils/seo'
 import type { Barangay } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'Barangays — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'All 18 barangays of Santa Rosa City, Laguna — grouped by geography, each with a sourced profile.'
-      }
-    ]
-  })
+    description: 'All 18 barangays of Santa Rosa City, Laguna — grouped by geography, each with a sourced profile.',
+    path: '/barangays'
+  }))
 }
 
 const barangays = barangaysData as Barangay[]

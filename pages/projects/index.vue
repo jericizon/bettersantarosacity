@@ -4,19 +4,16 @@ import projectsData from '~/data/projects.json'
 import ProjectsProjectCard from '~/components/projects/ProjectCard.vue'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { buildSeoHead } from '~/utils/seo'
 import type { Project } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: 'City Projects — Better Santa Rosa City',
-    meta: [
-      {
-        name: 'description',
-        content: 'Infrastructure and civic projects in Santa Rosa City, Laguna — filterable by status, barangay, category and year, each traced to its cited source.'
-      }
-    ]
-  })
+    description: 'Infrastructure and civic projects in Santa Rosa City, Laguna — filterable by status, barangay, category and year, each traced to its cited source.',
+    path: '/projects'
+  }))
 }
 
 const projects = projectsData as Project[]

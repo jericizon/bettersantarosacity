@@ -3,6 +3,7 @@ import lawsData from '~/data/laws.json'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import { toSourceReference } from '~/utils/source'
+import { buildSeoHead, SITE_URL } from '~/utils/seo'
 import type { Law, SourceReference } from '~/types/civic'
 
 // Route param is the law id — the dataset has no separate slug field.
@@ -48,15 +49,20 @@ const LAW_BASED_ON: Record<Law['type'], string> = {
 const typeLabel = law ? LAW_TYPE_LABEL[law.type] : 'Measure'
 
 if (typeof useHead === 'function') {
-  useHead({
+  useHead(buildSeoHead({
     title: `${typeLabel} No. ${law?.number ?? 'Not Found'} — Better Santa Rosa City`,
-    meta: [
-      {
-        name: 'description',
-        content: law?.summary ?? 'City law or issuance record for Santa Rosa City, Laguna.'
-      }
-    ]
-  })
+    description: law?.summary ?? 'City law or issuance record for Santa Rosa City, Laguna.',
+    path: `/laws/${slug}`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Laws & Ordinances', item: `${SITE_URL}/laws` },
+        { '@type': 'ListItem', position: 3, name: law ? `${typeLabel} No. ${law.number}` : 'Measure' }
+      ]
+    }
+  }))
 }
 
 // source strings hold "Title (url); Title (url)" — split into citation records.
