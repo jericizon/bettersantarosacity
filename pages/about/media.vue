@@ -6,7 +6,7 @@ import type { MediaItem } from '~/types/civic'
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
     title: 'Media & Photography Credits — Better Santa Rosa City',
-    description: 'Complete licensing, provenance, and attribution details for all photographs and media assets used across Better Santa Rosa City.',
+    description: 'Complete licensing, provenance, and attribution details for all media assets used across Better Santa Rosa City.',
     path: '/about/media'
   }))
 }
@@ -15,7 +15,7 @@ const mediaList = mediaData as MediaItem[]
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto py-8 space-y-8">
+  <div data-pagefind-filter="type:pages" class="max-w-4xl mx-auto py-8 space-y-8">
     <div>
       <p class="text-xs font-semibold uppercase tracking-widest text-rose-accent-dark">
         Provenance & Transparency
@@ -24,7 +24,7 @@ const mediaList = mediaData as MediaItem[]
         Media & Photography Credits
       </h1>
       <p class="mt-3 text-sm text-charcoal/80 leading-relaxed">
-        Better Santa Rosa City is committed to copyright integrity and open licensing. Every photographic asset displayed across this site is sourced from openly licensed repositories (primarily Wikimedia Commons) and credited below.
+        Better Santa Rosa City is committed to copyright integrity and open licensing. Every media asset displayed across this site is an original illustration created for this project and released under an open license — credited below.
       </p>
     </div>
 
@@ -37,6 +37,9 @@ const mediaList = mediaData as MediaItem[]
         <img
           :src="item.file"
           :alt="item.title"
+          :width="item.width"
+          :height="item.height"
+          loading="lazy"
           class="w-full h-44 object-cover rounded-lg border border-charcoal/10"
         />
         <div>
@@ -47,13 +50,13 @@ const mediaList = mediaData as MediaItem[]
           <p><strong>Author:</strong> {{ item.author }}</p>
           <p>
             <strong>License:</strong>
-            <a :href="item.licenseUrl" target="_blank" rel="noopener noreferrer" class="ml-1 text-laguna-green underline hover:text-rose-accent-dark">
+            <a :href="item.licenseUrl" target="_blank" rel="noopener noreferrer" class="ml-1 text-laguna-green underline hover:text-rose-accent-dark rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
               {{ item.license }}
             </a>
           </p>
           <p>
             <strong>Source:</strong>
-            <a :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" class="ml-1 text-laguna-green underline hover:text-rose-accent-dark">
+            <a :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" class="ml-1 text-laguna-green underline hover:text-rose-accent-dark rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
               {{ item.source }} ↗
             </a>
           </p>

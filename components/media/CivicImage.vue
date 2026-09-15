@@ -35,8 +35,9 @@ const props = withDefaults(defineProps<{
     />
     <!-- Optional overlay slot for tone treatments (e.g. hero gradient). -->
     <slot />
+    <!-- attributionRequired licenses must show credit even when showCredit is off. -->
     <MediaCredit
-      v-if="showCredit"
+      v-if="showCredit || media.attributionRequired"
       :media="media"
       :variant="creditVariant"
     />

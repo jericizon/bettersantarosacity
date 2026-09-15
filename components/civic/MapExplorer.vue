@@ -58,33 +58,25 @@ function onSelect(slug: string) {
         <div>
           <span
             :class="[
-              'inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full mb-3',
-              selectedBarangay.group === 'Laguna Lake' ? 'bg-laguna-blue/20 text-laguna-blue' :
-              selectedBarangay.group === 'Upper / Tagaytay' ? 'bg-heritage-gold/20 text-heritage-gold' :
-              'bg-laguna-green/15 text-laguna-green'
+              'inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full mb-3 text-charcoal',
+              selectedBarangay.group === 'Laguna Lake' ? 'bg-laguna-blue/20' :
+              selectedBarangay.group === 'Upper / Tagaytay' ? 'bg-heritage-gold/20' :
+              'bg-laguna-green/15'
             ]"
           >
             {{ selectedBarangay.group }}
           </span>
-          <h4 class="font-serif text-2xl font-bold text-charcoal">
+          <h3 class="font-serif text-2xl font-bold text-charcoal">
             {{ selectedBarangay.name }}
-          </h4>
+          </h3>
           <p class="mt-3 text-sm text-charcoal/80 leading-relaxed">
             {{ selectedBarangay.description }}
           </p>
-          <div class="mt-4 pt-4 border-t border-charcoal/10 grid grid-cols-2 gap-4 text-xs">
-            <div>
-              <span class="block text-charcoal/60">2020 Population</span>
-              <span class="font-serif text-base font-bold text-laguna-green">
-                {{ selectedBarangay.population.toLocaleString('en-US') }}
-              </span>
-            </div>
-            <div>
-              <span class="block text-charcoal/60">Zone Category</span>
-              <span class="font-semibold text-charcoal">
-                {{ selectedBarangay.group }}
-              </span>
-            </div>
+          <div class="mt-4 pt-4 border-t border-charcoal/10 text-xs">
+            <span class="block text-charcoal/70">2020 Population</span>
+            <span class="font-serif text-base font-bold text-laguna-green">
+              {{ selectedBarangay.population.toLocaleString('en-US') }}
+            </span>
           </div>
         </div>
 
@@ -95,7 +87,7 @@ function onSelect(slug: string) {
           >
             View full profile →
           </NuxtLink>
-          <span class="text-[10px] text-charcoal/60">Verified Census Data</span>
+          <span class="text-[10px] text-charcoal/70">Verified Census Data</span>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useReducedMotion } from '~/composables/useReducedMotion'
+import { useScrollReveal } from '~/composables/useScrollReveal'
 
 const props = withDefaults(defineProps<{
   end: number
@@ -17,10 +18,17 @@ const props = withDefaults(defineProps<{
   decimals: 0
 })
 
-const current = ref(props.start)
+// SSR and no-JS render the final value so static HTML never shows a fake 0;
+// the count-up replays from `start` once the element scrolls into view.
+const current = ref(props.end)
 const isReduced = useReducedMotion()
 
+const root = ref<HTMLElement | null>(null)
+const { isVisible } = useScrollReveal(root)
+
 function runAnimation() {
+  current.value = props.start
+
   if (isReduced.value) {
     current.value = props.end
     return
@@ -43,15 +51,21 @@ function runAnimation() {
   requestAnimationFrame(step)
 }
 
-onMounted(() => {
-  runAnimation()
+watch(isVisible, (visible) => {
+  if (visible) runAnimation()
 })
 
 watch(() => props.end, () => {
-  runAnimation()
+  // Before the element is visible, keep the static value in sync; afterwards
+  // replay the animation.
+  if (isVisible.value) {
+    runAnimation()
+  } else {
+    current.value = props.end
+  }
 })
 </script>
 
 <template>
-  <span>{{ prefix }}{{ current.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) }}{{ suffix }}</span>
+  <span ref="root">{{ prefix }}{{ current.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) }}{{ suffix }}</span>
 </template>

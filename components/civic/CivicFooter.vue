@@ -1,10 +1,14 @@
+<script setup lang="ts">
+import RoseMotif from './RoseMotif.vue'
+</script>
+
 <template>
   <footer class="bg-charcoal text-parchment mt-20 border-t border-charcoal/20 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
       <div class="md:col-span-2 space-y-4">
         <div class="flex items-center gap-2">
-          <div class="w-6 h-6 rounded-full bg-rose-accent flex items-center justify-center text-xs font-serif font-bold text-white" aria-hidden="true">
-            SR
+          <div class="w-6 h-6 rounded-full bg-rose-accent flex items-center justify-center text-white" aria-hidden="true">
+            <RoseMotif :size="14" />
           </div>
           <h3 class="font-serif font-bold text-lg text-white">Better Santa Rosa City</h3>
         </div>
