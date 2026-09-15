@@ -149,3 +149,21 @@ export const CityProfileSchema = z.object({
 })
 
 export type CityProfile = z.infer<typeof CityProfileSchema>
+
+export const MediaItemSchema = z.object({
+  id: z.string(),
+  file: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  category: z.enum(['heritage', 'civic', 'nature', 'urban']),
+  source: z.string(),
+  sourceUrl: z.string().url(),
+  author: z.string(),
+  license: z.string(),
+  licenseUrl: z.string().url(),
+  attributionRequired: z.boolean(),
+  width: z.number().int().positive(),
+  height: z.number().int().positive()
+})
+
+export type MediaItem = z.infer<typeof MediaItemSchema>

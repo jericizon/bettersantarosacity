@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="cuartel-title cuartel-desc">
+  <title id="cuartel-title">Cuartel de Santo Domingo</title>
+  <desc id="cuartel-desc">Stylized vector illustration of the 1877 Spanish military barracks heritage landmark in Santa Rosa, Laguna.</desc>
+  <rect width="1200" height="800" fill="#F6F3EA"/>
+  <circle cx="1010" cy="160" r="85" fill="#D6A94B" opacity="0.5"/>
+  <rect x="0" y="660" width="1200" height="140" fill="#164A3D"/>
+  <g>
+    <rect x="130" y="360" width="940" height="300" fill="#EFE7D3"/>
+    <path d="M100 360 L600 250 L1100 360 Z" fill="#C96A73"/>
+    <path d="M100 360 L600 250 L1100 360" fill="none" stroke="#A8535E" stroke-width="10" stroke-linejoin="round"/>
+    <rect x="130" y="360" width="940" height="18" fill="#D6A94B"/>
+    <g fill="#164A3D">
+      <path d="M190 660 L190 500 Q190 462 232 462 Q274 462 274 500 L274 660 Z"/>
+      <path d="M330 660 L330 500 Q330 462 372 462 Q414 462 414 500 L414 660 Z"/>
+      <path d="M470 660 L470 500 Q470 462 512 462 Q554 462 554 500 L554 660 Z"/>
+      <path d="M646 660 L646 500 Q646 462 688 462 Q730 462 730 500 L730 660 Z"/>
+      <path d="M786 660 L786 500 Q786 462 828 462 Q870 462 870 500 L870 660 Z"/>
+      <path d="M926 660 L926 500 Q926 462 968 462 Q1010 462 1010 500 L1010 660 Z"/>
+    </g>
+    <g fill="#D6A94B">
+      <path d="M190 500 Q190 462 232 462 Q274 462 274 500" fill="none" stroke="#D6A94B" stroke-width="8"/>
+      <path d="M330 500 Q330 462 372 462 Q414 462 414 500" fill="none" stroke="#D6A94B" stroke-width="8"/>
+      <path d="M470 500 Q470 462 512 462 Q554 462 554 500" fill="none" stroke="#D6A94B" stroke-width="8"/>
+      <path d="M646 500 Q646 462 688 462 Q730 462 730 500" fill="none" stroke="#D6A94B" stroke-width="8"/>
+      <path d="M786 500 Q786 462 828 462 Q870 462 870 500" fill="none" stroke="#D6A94B" stroke-width="8"/>
+      <path d="M926 500 Q926 462 968 462 Q1010 462 1010 500" fill="none" stroke="#D6A94B" stroke-width="8"/>
+    </g>
+    <path d="M560 660 L560 470 Q560 420 600 420 Q640 420 640 470 L640 660 Z" fill="#5E9FA5"/>
+    <path d="M560 470 Q560 420 600 420 Q640 420 640 470" fill="none" stroke="#164A3D" stroke-width="8"/>
+    <rect x="586" y="386" width="28" height="34" fill="#D6A94B"/>
+  </g>
+  <g>
+    <rect x="106" y="430" width="14" height="230" fill="#0E352B"/>
+    <path d="M113 430 Q60 380 30 420 Q70 400 113 452 Z" fill="#164A3D"/>
+    <path d="M113 430 Q166 380 196 420 Q156 400 113 452 Z" fill="#164A3D"/>
+    <path d="M113 430 Q80 360 113 330 Q146 360 113 430 Z" fill="#164A3D"/>
+  </g>
+  <g fill="#F6F3EA" opacity="0.85">
+    <ellipse cx="220" cy="140" rx="74" ry="20"/>
+    <ellipse cx="276" cy="124" rx="46" ry="14"/>
+  </g>
+</svg>

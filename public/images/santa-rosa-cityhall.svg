@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="cityhall-title cityhall-desc">
+  <title id="cityhall-title">Santa Rosa City Hall Complex</title>
+  <desc id="cityhall-desc">Stylized vector illustration of the municipal government headquarters of the City of Santa Rosa.</desc>
+  <rect width="1200" height="800" fill="#F6F3EA"/>
+  <circle cx="250" cy="160" r="95" fill="#D6A94B" opacity="0.45"/>
+  <rect x="0" y="640" width="1200" height="160" fill="#5E9FA5" opacity="0.35"/>
+  <rect x="0" y="700" width="1200" height="100" fill="#164A3D"/>
+  <g>
+    <rect x="180" y="380" width="840" height="290" fill="#5E9FA5"/>
+    <rect x="180" y="380" width="840" height="26" fill="#164A3D"/>
+    <g fill="#F6F3EA">
+      <rect x="220" y="440" width="52" height="180"/>
+      <rect x="300" y="440" width="52" height="180"/>
+      <rect x="848" y="440" width="52" height="180"/>
+      <rect x="926" y="440" width="52" height="180"/>
+    </g>
+    <g fill="#164A3D" opacity="0.85">
+      <rect x="232" y="452" width="28" height="156"/>
+      <rect x="312" y="452" width="28" height="156"/>
+      <rect x="860" y="452" width="28" height="156"/>
+      <rect x="938" y="452" width="28" height="156"/>
+    </g>
+  </g>
+  <g>
+    <rect x="400" y="320" width="400" height="350" fill="#EFE7D3"/>
+    <path d="M380 320 L600 235 L820 320 Z" fill="#C96A73"/>
+    <circle cx="600" cy="292" r="26" fill="#F6F3EA"/>
+    <circle cx="600" cy="292" r="14" fill="#D6A94B"/>
+    <g fill="#F6F3EA">
+      <rect x="440" y="360" width="34" height="310"/>
+      <rect x="508" y="360" width="34" height="310"/>
+      <rect x="658" y="360" width="34" height="310"/>
+      <rect x="726" y="360" width="34" height="310"/>
+    </g>
+    <path d="M576 670 L576 560 Q576 532 600 532 Q624 532 624 560 L624 670 Z" fill="#164A3D"/>
+    <rect x="380" y="660" width="440" height="16" fill="#D6A94B"/>
+    <rect x="360" y="676" width="480" height="14" fill="#C96A73"/>
+  </g>
+  <g>
+    <rect x="594" y="90" width="10" height="150" fill="#164A3D"/>
+    <path d="M604 96 L700 116 L604 140 Z" fill="#D6A94B"/>
+    <path d="M604 96 L652 107 L604 118 Z" fill="#C96A73"/>
+  </g>
+  <g fill="#F6F3EA" opacity="0.85">
+    <ellipse cx="1020" cy="140" rx="72" ry="20"/>
+    <ellipse cx="970" cy="124" rx="46" ry="14"/>
+  </g>
+</svg>

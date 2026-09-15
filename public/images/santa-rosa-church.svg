@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="church-title church-desc">
+  <title id="church-title">Santa Rosa de Lima Parish Church</title>
+  <desc id="church-desc">Stylized vector illustration of the historic Spanish-era parish church founded in 1792.</desc>
+  <rect width="1200" height="800" fill="#F6F3EA"/>
+  <circle cx="880" cy="170" r="90" fill="#D6A94B" opacity="0.5"/>
+  <path d="M0 600 Q350 520 700 600 T1200 580 V800 H0 Z" fill="#5E9FA5" opacity="0.3"/>
+  <rect x="0" y="660" width="1200" height="140" fill="#164A3D"/>
+  <g>
+    <rect x="300" y="330" width="480" height="340" fill="#EFE7D3"/>
+    <path d="M300 330 L540 210 L780 330 Z" fill="#E6DCC2"/>
+    <path d="M300 330 L540 210 L780 330" fill="none" stroke="#C96A73" stroke-width="12" stroke-linejoin="round"/>
+    <rect x="534" y="150" width="12" height="70" fill="#D6A94B"/>
+    <rect x="516" y="168" width="48" height="10" fill="#D6A94B"/>
+    <path d="M470 670 L470 480 Q470 420 540 420 Q610 420 610 480 L610 670 Z" fill="#164A3D"/>
+    <path d="M470 480 Q470 420 540 420 Q610 420 610 480" fill="none" stroke="#D6A94B" stroke-width="10"/>
+    <circle cx="540" cy="368" r="34" fill="#5E9FA5"/>
+    <circle cx="540" cy="368" r="34" fill="none" stroke="#D6A94B" stroke-width="8"/>
+    <path d="M360 560 L360 500 Q360 470 392 470 Q424 470 424 500 L424 560 Z" fill="#5E9FA5"/>
+    <path d="M656 560 L656 500 Q656 470 688 470 Q720 470 720 500 L720 560 Z" fill="#5E9FA5"/>
+  </g>
+  <g>
+    <rect x="800" y="280" width="150" height="390" fill="#EFE7D3"/>
+    <rect x="800" y="280" width="150" height="390" fill="none" stroke="#C96A73" stroke-width="8"/>
+    <path d="M790 280 L875 210 L960 280 Z" fill="#C96A73"/>
+    <rect x="869" y="160" width="12" height="60" fill="#D6A94B"/>
+    <rect x="853" y="176" width="44" height="9" fill="#D6A94B"/>
+    <path d="M836 420 L836 350 Q836 318 875 318 Q914 318 914 350 L914 420 Z" fill="#164A3D"/>
+    <rect x="862" y="350" width="8" height="70" fill="#D6A94B"/>
+    <rect x="880" y="350" width="8" height="70" fill="#D6A94B"/>
+    <path d="M836 540 L836 500 Q836 478 875 478 Q914 478 914 500 L914 540 Z" fill="#5E9FA5"/>
+  </g>
+  <g fill="#F6F3EA" opacity="0.85">
+    <ellipse cx="180" cy="150" rx="76" ry="20"/>
+    <ellipse cx="240" cy="134" rx="48" ry="15"/>
+  </g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="nuvali-title nuvali-desc">
+  <title id="nuvali-title">Nuvali Eco-Corridor &amp; Lake</title>
+  <desc id="nuvali-desc">Stylized vector illustration of the sustainable urban lake landscape in southern Santa Rosa.</desc>
+  <rect width="1200" height="800" fill="#F6F3EA"/>
+  <circle cx="600" cy="240" r="120" fill="#D6A94B"/>
+  <circle cx="600" cy="240" r="150" fill="none" stroke="#D6A94B" stroke-width="6" opacity="0.4"/>
+  <path d="M0 430 L260 250 L470 430 Z" fill="#5E9FA5" opacity="0.55"/>
+  <path d="M330 430 L640 200 L960 430 Z" fill="#164A3D" opacity="0.8"/>
+  <path d="M800 430 L1040 280 L1200 400 L1200 430 Z" fill="#5E9FA5" opacity="0.55"/>
+  <rect x="0" y="430" width="1200" height="200" fill="#5E9FA5"/>
+  <path d="M0 430 H1200" stroke="#F6F3EA" stroke-width="6"/>
+  <g stroke="#F6F3EA" stroke-width="6" stroke-linecap="round" opacity="0.7">
+    <path d="M340 480 H520"/>
+    <path d="M600 500 H760"/>
+    <path d="M420 545 H640"/>
+    <path d="M720 570 H880"/>
+    <path d="M180 520 H300"/>
+  </g>
+  <path d="M0 630 Q300 590 620 630 T1200 615 V800 H0 Z" fill="#164A3D"/>
+  <g fill="#0E352B">
+    <path d="M120 640 Q150 560 180 640 Z"/>
+    <path d="M170 645 Q205 545 240 645 Z"/>
+    <rect x="198" y="640" width="10" height="50"/>
+    <path d="M980 650 Q1010 570 1040 650 Z"/>
+    <path d="M1030 655 Q1065 555 1100 655 Z"/>
+    <rect x="1058" y="650" width="10" height="50"/>
+  </g>
+  <g fill="#C96A73">
+    <circle cx="210" cy="600" r="10"/>
+    <circle cx="1080" cy="610" r="10"/>
+  </g>
+  <g fill="none" stroke="#164A3D" stroke-width="6" stroke-linecap="round">
+    <path d="M820 160 Q840 140 860 160 Q880 140 900 160"/>
+    <path d="M930 200 Q946 184 962 200 Q978 184 994 200"/>
+  </g>
+</svg>

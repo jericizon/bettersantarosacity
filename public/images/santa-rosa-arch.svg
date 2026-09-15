@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="arch-title arch-desc">
+  <title id="arch-title">Historic Santa Rosa Arch</title>
+  <desc id="arch-desc">Stylized vector illustration of the welcome arch monument at the historical boundary of Santa Rosa, Laguna.</desc>
+  <rect width="1200" height="800" fill="#F6F3EA"/>
+  <circle cx="600" cy="330" r="210" fill="#D6A94B" opacity="0.28"/>
+  <path d="M0 560 Q300 480 600 560 T1200 560 V800 H0 Z" fill="#5E9FA5" opacity="0.35"/>
+  <path d="M0 640 Q400 560 800 640 T1200 620 V800 H0 Z" fill="#164A3D"/>
+  <ellipse cx="600" cy="710" rx="320" ry="26" fill="#0E352B" opacity="0.55"/>
+  <g>
+    <path fill="#F6F3EA" fill-rule="evenodd" d="M372 700 L372 410 Q372 232 600 232 Q828 232 828 410 L828 700 L742 700 L742 428 Q742 316 600 316 Q458 316 458 428 L458 700 Z"/>
+    <path fill="none" stroke="#D6A94B" stroke-width="10" d="M372 410 Q372 232 600 232 Q828 232 828 410"/>
+    <rect x="356" y="400" width="32" height="300" fill="#C96A73"/>
+    <rect x="812" y="400" width="32" height="300" fill="#C96A73"/>
+    <rect x="352" y="676" width="60" height="24" fill="#D6A94B"/>
+    <rect x="788" y="676" width="60" height="24" fill="#D6A94B"/>
+    <circle cx="600" cy="286" r="34" fill="#C96A73"/>
+    <circle cx="600" cy="286" r="22" fill="#F6F3EA"/>
+    <rect x="594" y="196" width="12" height="30" fill="#D6A94B"/>
+    <circle cx="600" cy="188" r="12" fill="#D6A94B"/>
+  </g>
+  <g fill="#F6F3EA" opacity="0.85">
+    <ellipse cx="220" cy="180" rx="70" ry="20"/>
+    <ellipse cx="270" cy="165" rx="50" ry="16"/>
+    <ellipse cx="960" cy="140" rx="80" ry="22"/>
+    <ellipse cx="1010" cy="122" rx="52" ry="16"/>
+  </g>
+</svg>
