@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Search, Menu, X } from 'lucide-vue-next'
-import RoseMotif from './RoseMotif.vue'
 
 const isMobileOpen = ref(false)
 const isScrolled = ref(false)
@@ -45,9 +44,14 @@ function closeMobile() {
       :class="isScrolled ? 'py-2' : 'py-3.5'"
     >
       <NuxtLink to="/" class="flex items-center gap-2 group rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
-        <div class="w-8 h-8 rounded-full bg-laguna-green flex items-center justify-center text-parchment shrink-0" aria-hidden="true">
-          <RoseMotif :size="20" />
-        </div>
+        <img
+          src="/images/brand/santa-rosa-emblem.png"
+          alt=""
+          width="36"
+          height="36"
+          class="w-9 h-9 object-contain shrink-0"
+          aria-hidden="true"
+        >
         <div>
           <span class="font-serif font-bold text-lg text-laguna-green tracking-tight group-hover:text-rose-accent-dark transition-colors">
             Better Santa Rosa

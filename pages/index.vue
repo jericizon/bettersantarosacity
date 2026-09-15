@@ -39,7 +39,7 @@ if (typeof useHead === 'function') {
         '@type': 'Organization',
         name: 'Better Santa Rosa City',
         url: SITE_URL,
-        logo: `${SITE_URL}/icon.svg`,
+        logo: `${SITE_URL}/icon.png`,
         description:
           'Independent, community-maintained public information project for Santa Rosa City, Laguna. Not affiliated with the City Government of Santa Rosa.'
       },
