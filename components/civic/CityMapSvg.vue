@@ -11,25 +11,25 @@ const emit = defineEmits<{
 
 // Visual coordinates for Santa Rosa's 18 barangays positioned across 3 zones:
 // Top (Laguna Lake shore), Middle (Lowland Urban), Bottom (Upper Tagaytay ridge)
-const barangayCoords: Record<string, { cx: number; cy: number; r: number; group: string }> = {
-  'aplaya': { cx: 270, cy: 70, r: 24, group: 'Laguna Lake' },
-  'caingin': { cx: 210, cy: 75, r: 26, group: 'Laguna Lake' },
-  'sinalhan': { cx: 330, cy: 90, r: 26, group: 'Laguna Lake' },
-  'tagapo': { cx: 160, cy: 130, r: 28, group: 'Lowland Urban' },
-  'kanluran': { cx: 220, cy: 135, r: 18, group: 'Lowland Urban' },
-  'malusak': { cx: 245, cy: 140, r: 16, group: 'Lowland Urban' },
-  'market-area': { cx: 210, cy: 170, r: 22, group: 'Lowland Urban' },
-  'ibaba': { cx: 265, cy: 165, r: 20, group: 'Lowland Urban' },
-  'labas': { cx: 295, cy: 155, r: 24, group: 'Lowland Urban' },
-  'pooc': { cx: 165, cy: 190, r: 30, group: 'Lowland Urban' },
-  'macabling': { cx: 250, cy: 210, r: 24, group: 'Lowland Urban' },
-  'dila': { cx: 205, cy: 235, r: 28, group: 'Lowland Urban' },
-  'dita': { cx: 270, cy: 260, r: 28, group: 'Lowland Urban' },
-  'balibago': { cx: 215, cy: 290, r: 26, group: 'Lowland Urban' },
-  'malitlit': { cx: 260, cy: 320, r: 26, group: 'Lowland Urban' },
-  'pulong-santa-cruz': { cx: 180, cy: 350, r: 28, group: 'Upper / Tagaytay' },
-  'don-jose': { cx: 150, cy: 405, r: 32, group: 'Upper / Tagaytay' },
-  'santo-domingo': { cx: 120, cy: 460, r: 30, group: 'Upper / Tagaytay' }
+const barangayCoords: Record<string, { cx: number; cy: number; r: number }> = {
+  'aplaya': { cx: 270, cy: 70, r: 24 },
+  'caingin': { cx: 210, cy: 75, r: 26 },
+  'sinalhan': { cx: 330, cy: 90, r: 26 },
+  'tagapo': { cx: 160, cy: 130, r: 28 },
+  'kanluran': { cx: 220, cy: 135, r: 18 },
+  'malusak': { cx: 245, cy: 140, r: 16 },
+  'market-area': { cx: 210, cy: 170, r: 22 },
+  'ibaba': { cx: 265, cy: 165, r: 20 },
+  'labas': { cx: 295, cy: 155, r: 24 },
+  'pooc': { cx: 165, cy: 190, r: 30 },
+  'macabling': { cx: 250, cy: 210, r: 24 },
+  'dila': { cx: 205, cy: 235, r: 28 },
+  'dita': { cx: 270, cy: 260, r: 28 },
+  'balibago': { cx: 215, cy: 290, r: 26 },
+  'malitlit': { cx: 260, cy: 320, r: 26 },
+  'pulong-santa-cruz': { cx: 180, cy: 350, r: 28 },
+  'don-jose': { cx: 150, cy: 405, r: 32 },
+  'santo-domingo': { cx: 120, cy: 460, r: 30 }
 }
 
 // Join each barangay with its map coordinates; skips any slug lacking coords
@@ -55,7 +55,7 @@ function onSelect(slug: string) {
       <span class="font-medium">18 Barangays</span>
     </div>
 
-    <svg viewBox="0 0 420 520" class="h-auto w-full select-none" role="img" aria-label="Interactive Map of Santa Rosa City Barangays">
+    <svg viewBox="0 0 420 520" class="h-auto w-full select-none" role="group" aria-label="Interactive Map of Santa Rosa City Barangays">
       <!-- Water body: Laguna Lake representation on northern border -->
       <path
         d="M 120 20 Q 250 5 400 45 L 400 120 Q 300 100 150 110 Z"
@@ -76,7 +76,9 @@ function onSelect(slug: string) {
         :data-barangay-slug="b.slug"
         role="button"
         tabindex="0"
-        class="cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-laguna-green"
+        :aria-label="b.name"
+        :aria-pressed="selectedSlug === b.slug"
+        class="cursor-pointer transition-all duration-200 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
         @click="onSelect(b.slug)"
         @keydown.enter="onSelect(b.slug)"
         @keydown.space.prevent="onSelect(b.slug)"
@@ -90,7 +92,7 @@ function onSelect(slug: string) {
           :stroke="selectedSlug === b.slug ? '#164A3D' : '#182421'"
           :stroke-width="selectedSlug === b.slug ? 2.5 : 1"
           stroke-opacity="0.6"
-          class="hover:fill-opacity-80 transition-all"
+          class="hover:stroke-opacity-80 transition-all"
         />
         <text
           :x="b.cx"
