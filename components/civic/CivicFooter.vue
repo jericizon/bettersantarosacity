@@ -11,8 +11,9 @@
         <p class="text-xs text-parchment/70 leading-relaxed max-w-md">
           An independent, community-maintained civic intelligence and open-data portal. Our mission is to make public documents, municipal budgets, and city projects understandable and discoverable for every citizen of Santa Rosa, Laguna.
         </p>
-        <p class="text-[11px] text-parchment/50">
-          Not affiliated with or endorsed by the City Government of Santa Rosa. All official municipal services remain accessible at <a href="https://santarosacity.gov.ph" target="_blank" rel="noopener noreferrer" class="underline text-heritage-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold rounded-sm">santarosacity.gov.ph</a>.
+        <p class="text-[11px] text-parchment/60 leading-relaxed border-l-2 border-heritage-gold/60 pl-3">
+          <strong class="font-semibold text-parchment/80">Independent community project.</strong>
+          This website is not affiliated with, endorsed by, or operated by the City Government of Santa Rosa or any government agency. All information is compiled from public sources for civic transparency. For official municipal services and announcements, visit <a href="https://santarosacity.gov.ph" target="_blank" rel="noopener noreferrer" class="underline text-heritage-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold rounded-sm">santarosacity.gov.ph</a>.
         </p>
       </div>
 
@@ -31,6 +32,7 @@
         <h4 class="font-bold text-xs uppercase tracking-wider text-heritage-gold mb-3">Transparency</h4>
         <ul class="space-y-2 text-xs text-parchment/80">
           <li><NuxtLink to="/sources" class="hover:text-white rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold">Sources & Methodology</NuxtLink></li>
+          <li><a href="/about/media" class="hover:text-white rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold">Media & Image Credits</a></li>
           <li><NuxtLink to="/data" class="hover:text-white rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold">Open Data Downloads</NuxtLink></li>
           <li><NuxtLink to="/services" class="hover:text-white rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold">Official Services Directory</NuxtLink></li>
           <li><a href="https://github.com/bettersantarosa" target="_blank" rel="noopener noreferrer" class="hover:text-white rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold">GitHub Repository ↗</a></li>

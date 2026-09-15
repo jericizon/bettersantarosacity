@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Search, Menu, X } from 'lucide-vue-next'
+import RoseMotif from './RoseMotif.vue'
 
 const isMobileOpen = ref(false)
+const isScrolled = ref(false)
 const navLinks = [
   { name: 'Explore', href: '/explore' },
   { name: 'Barangays', href: '/barangays' },
@@ -15,17 +17,36 @@ const navLinks = [
   { name: 'Sources', href: '/sources' }
 ]
 
+function onScroll() {
+  isScrolled.value = window.scrollY > 20
+}
+
+onMounted(() => {
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+})
+
 function closeMobile() {
   isMobileOpen.value = false
 }
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 bg-parchment/95 backdrop-blur border-b border-charcoal/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header
+    class="sticky top-0 z-40 backdrop-blur border-b transition-all duration-300"
+    :class="isScrolled ? 'bg-parchment shadow-md border-charcoal/15' : 'bg-parchment/95 border-charcoal/10'"
+  >
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300"
+      :class="isScrolled ? 'py-2' : 'py-3.5'"
+    >
       <NuxtLink to="/" class="flex items-center gap-2 group rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
-        <div class="w-8 h-8 rounded-full bg-laguna-green flex items-center justify-center text-parchment font-serif font-bold text-sm" aria-hidden="true">
-          SR
+        <div class="w-8 h-8 rounded-full bg-laguna-green flex items-center justify-center text-parchment shrink-0" aria-hidden="true">
+          <RoseMotif :size="20" />
         </div>
         <div>
           <span class="font-serif font-bold text-lg text-laguna-green tracking-tight group-hover:text-rose-accent-dark transition-colors">
