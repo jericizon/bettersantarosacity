@@ -2,13 +2,41 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import IndexPage from '../../pages/index.vue'
+import HeroSearch from '../../components/civic/HeroSearch.vue'
+import MapExplorer from '../../components/civic/MapExplorer.vue'
+import Collage from '../../components/civic/Collage.vue'
+import StatCard from '../../components/data/StatCard.vue'
 
 describe('Homepage Civic Sections', () => {
-  it('contains core city facts (18 barangays, land area, 2004 cityhood)', () => {
+  it('renders the editorial visual components (HeroSearch, MapExplorer, Collage)', () => {
     const wrapper = mount(IndexPage)
-    expect(wrapper.text()).toContain('18')
+    expect(wrapper.findComponent(HeroSearch).exists()).toBe(true)
+    expect(wrapper.findComponent(MapExplorer).exists()).toBe(true)
+    expect(wrapper.findComponent(Collage).exists()).toBe(true)
+  })
+
+  it('wires ambient hero photography with ken-burns motion and a credit', () => {
+    const wrapper = mount(IndexPage)
+    const heroImg = wrapper.find('img.animate-ken-burns')
+    expect(heroImg.exists()).toBe(true)
+    expect(heroImg.attributes('alt')).toBeTruthy()
+    // Every photograph must carry a source credit (spec §5 / §26).
+    expect(wrapper.text()).toContain('Photo:')
+  })
+
+  it('contains core city facts as count-up stat cards', () => {
+    const wrapper = mount(IndexPage)
+    const cards = wrapper.findAllComponents(StatCard)
+    expect(cards).toHaveLength(4)
+    // numericValue props drive the viewport count-up (spec §10); the rendered
+    // number animates asynchronously so assert the prop contract, not "0".
+    expect(cards.map(c => c.props('numericValue'))).toEqual(
+      expect.arrayContaining([18, 5543])
+    )
     expect(wrapper.text()).toContain('Barangays')
-    expect(wrapper.text()).toContain('5,543 ha')
+    expect(wrapper.text()).toContain('Land area')
+    // Cityhood stays a static value — a year must not render as "2,004".
+    expect(wrapper.text()).toContain('Cityhood')
     expect(wrapper.text()).toContain('2004')
   })
 

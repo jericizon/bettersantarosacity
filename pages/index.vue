@@ -1,22 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Search } from 'lucide-vue-next'
+import { onMounted, ref } from 'vue'
 import cityData from '~/data/city.json'
 import barangaysData from '~/data/barangays.json'
 import budgetsData from '~/data/budgets.json'
 import projectsData from '~/data/projects.json'
 import lawsData from '~/data/laws.json'
 import servicesData from '~/data/services.json'
+import mediaData from '~/data/media.json'
 import CivicTimeline from '~/components/civic/Timeline.vue'
+import CivicHeroSearch from '~/components/civic/HeroSearch.vue'
+import CivicMapExplorer from '~/components/civic/MapExplorer.vue'
+import CivicCollage from '~/components/civic/Collage.vue'
+import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
+import MediaCivicImage from '~/components/media/CivicImage.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
-import ProjectsProjectStatus from '~/components/projects/ProjectStatus.vue'
+import ProjectsProjectCard from '~/components/projects/ProjectCard.vue'
+import { useScrollReveal } from '~/composables/useScrollReveal'
 import { buildSeoHead, SITE_URL } from '~/utils/seo'
 import { formatPeso } from '~/utils/currency'
 import { toSourceReference } from '~/utils/source'
 import { LAW_TYPE_LABEL } from '~/utils/law'
-import type { Law, Project } from '~/types/civic'
+import type { Law, MediaItem, Project } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; guards keep this page mountable under plain Vitest.
 // The Organization schema describes this project — independent and community
@@ -55,9 +61,14 @@ if (typeof useHead === 'function') {
   }))
 }
 
-// --- Section 1: hero search -------------------------------------------------
+// --- Section 1: hero ---------------------------------------------------------
 
-const heroQuery = ref('')
+// media.json is validated against MediaItemSchema by media-schema.spec.ts;
+// the JSON import widens `category` to string, so assert the type once here.
+const media = mediaData as MediaItem[]
+// The Santa Rosa Arch is the city's signature welcome landmark (spec §7).
+const heroImage = media.find(m => m.id === 'santa-rosa-arch') ?? media[0]!
+
 const searchExamples = [
   { label: 'Search budgets', q: 'budgets' },
   { label: 'Search projects', q: 'projects' },
@@ -66,28 +77,23 @@ const searchExamples = [
   { label: 'Search barangays', q: 'barangays' }
 ]
 
-function onHeroSearch() {
-  const q = heroQuery.value.trim()
-  const target = q ? `/search?q=${encodeURIComponent(q)}` : '/search'
-  if (typeof navigateTo === 'function') {
-    void navigateTo(target)
-  } else if (typeof window !== 'undefined') {
-    window.location.assign(target)
-  }
-}
-
 // --- Section 2: verified city facts ------------------------------------------
 
 const lakeBarangayCount = barangaysData.filter(b => b.group === 'Laguna Lake').length
 
-const cityStats = [
+// numericValue drives the CountUp reveal in StatCard (spec §10). Cityhood stays
+// a static value — a year rendered through toLocaleString would show "2,004".
+const cityStats: { value: string; label: string; source: string; numericValue?: number; suffix?: string }[] = [
   {
     value: String(cityData.barangayCount),
+    numericValue: cityData.barangayCount,
     label: 'Barangays',
     source: 'City Government of Santa Rosa — About Us'
   },
   {
     value: `${cityData.landAreaHa.toLocaleString('en-US')} ha`,
+    numericValue: cityData.landAreaHa,
+    suffix: ' ha',
     label: 'Land area',
     source: 'City Government of Santa Rosa — About Us'
   },
@@ -98,19 +104,11 @@ const cityStats = [
   },
   {
     value: String(lakeBarangayCount),
+    numericValue: lakeBarangayCount,
     label: 'Laguna Lake barangays',
     source: 'City Government of Santa Rosa — About Us'
   }
 ]
-
-// --- Section 3: barangay groups ------------------------------------------------
-
-const BARANGAY_GROUP_ORDER = ['Laguna Lake', 'Lowland Urban', 'Upper / Tagaytay'] as const
-
-const barangayGroups = BARANGAY_GROUP_ORDER.map(group => ({
-  name: group,
-  barangays: barangaysData.filter(b => b.group === group)
-}))
 
 // --- Section 4: verified revenue figures ----------------------------------------
 
@@ -169,70 +167,116 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
     officialUrl: items.at(0)?.officialUrl ?? 'https://santarosacity.gov.ph'
   }
 })
+
+// --- Scroll reveals (spec §19) ---------------------------------------------------
+
+// Sections fade and rise once as they enter the viewport. The hidden state is
+// only applied after hydration so prerendered/no-JS pages stay fully readable;
+// reduced-motion and no-IntersectionObserver environments start visible.
+const hydrated = ref(false)
+onMounted(() => { hydrated.value = true })
+
+const todaySection = ref<HTMLElement | null>(null)
+const dataBand = ref<HTMLElement | null>(null)
+const projectsBand = ref<HTMLElement | null>(null)
+const lawsServicesBand = ref<HTMLElement | null>(null)
+const heritageBand = ref<HTMLElement | null>(null)
+const collageSection = ref<HTMLElement | null>(null)
+const sourcesBand = ref<HTMLElement | null>(null)
+const aboutSection = ref<HTMLElement | null>(null)
+
+const { isVisible: todayVisible } = useScrollReveal(todaySection, { threshold: 0.1 })
+const { isVisible: dataVisible } = useScrollReveal(dataBand, { threshold: 0.05 })
+const { isVisible: projectsVisible } = useScrollReveal(projectsBand, { threshold: 0.1 })
+const { isVisible: lawsServicesVisible } = useScrollReveal(lawsServicesBand, { threshold: 0.05 })
+const { isVisible: heritageVisible } = useScrollReveal(heritageBand, { threshold: 0.1 })
+const { isVisible: collageVisible } = useScrollReveal(collageSection, { threshold: 0.1 })
+const { isVisible: sourcesVisible } = useScrollReveal(sourcesBand, { threshold: 0.1 })
+const { isVisible: aboutVisible } = useScrollReveal(aboutSection, { threshold: 0.1 })
+
+const REVEAL_CLASS = 'transition-all duration-700 ease-out motion-reduce:transition-none'
+function revealClass(isVisible: boolean) {
+  return [REVEAL_CLASS, hydrated.value && !isVisible ? 'opacity-0 translate-y-5' : 'opacity-100 translate-y-0']
+}
+
+// Full-content-width band: cancels the layout's horizontal padding so the
+// section tone runs edge to edge, then restores it for the inner content.
+const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
 </script>
 
 <template>
   <div data-pagefind-filter="type:pages" class="flex flex-col gap-16 md:gap-24">
-    <!-- 1 — Hero -->
+    <!-- 1 — Hero (parchment) -->
     <section aria-labelledby="hero-heading" class="pt-2 md:pt-6">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
-        Santa Rosa City, Laguna
-      </p>
-      <h1
-        id="hero-heading"
-        class="mt-3 max-w-3xl font-serif text-4xl font-bold leading-tight tracking-tight text-laguna-green sm:text-5xl"
-      >
-        Public information about Santa Rosa, made easier to find.
-      </h1>
-      <p class="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/75 sm:text-lg">
-        Explore the people, projects, budgets, laws, services and public records of Santa Rosa City.
-      </p>
-
-      <form role="search" class="mt-8 max-w-2xl" @submit.prevent="onHeroSearch">
-        <div class="relative">
-          <label for="hero-search-input" class="sr-only">Search Santa Rosa public records</label>
-          <Search
-            :size="20"
-            aria-hidden="true"
-            class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/50"
-          />
-          <input
-            id="hero-search-input"
-            v-model="heroQuery"
-            type="search"
-            name="q"
-            autocomplete="off"
-            placeholder="Search Santa Rosa..."
-            class="w-full rounded-xl border-2 border-charcoal/15 bg-white py-4 pl-12 pr-28 text-base text-charcoal shadow-sm placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
-          />
-          <button
-            type="submit"
-            class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-laguna-green px-4 py-2.5 text-sm font-semibold text-parchment transition hover:bg-laguna-green/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-laguna-green"
+      <div class="grid items-center gap-10 lg:grid-cols-12">
+        <div class="animate-fade-in-up lg:col-span-7">
+          <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
+            <CivicRoseMotif :size="16" class="text-rose-accent" />
+            Santa Rosa City, Laguna
+          </p>
+          <h1
+            id="hero-heading"
+            class="mt-3 max-w-3xl font-serif text-4xl font-bold leading-tight tracking-tight text-laguna-green sm:text-5xl"
           >
-            Search
-          </button>
+            Public information about Santa Rosa, made easier to find.
+          </h1>
+          <p class="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/75 sm:text-lg">
+            Explore the people, projects, budgets, laws, services and public records of Santa Rosa City.
+          </p>
+
+          <CivicHeroSearch class="mt-8" />
+
+          <ul class="mt-4 flex flex-wrap gap-2" aria-label="Example searches">
+            <li v-for="ex in searchExamples" :key="ex.q">
+              <NuxtLink
+                :to="`/search?q=${ex.q}`"
+                class="inline-flex items-center rounded-full border border-charcoal/15 bg-white px-3 py-1.5 text-xs font-medium text-charcoal/70 transition hover:border-laguna-green hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+              >
+                {{ ex.label }}
+              </NuxtLink>
+            </li>
+          </ul>
+
+          <p class="mt-6 flex items-center gap-2 text-xs text-charcoal/70">
+            <span class="inline-block h-1.5 w-1.5 rounded-full bg-laguna-green" aria-hidden="true" />
+            Independent community project • Sources linked to original documents
+          </p>
         </div>
-      </form>
 
-      <ul class="mt-4 flex flex-wrap gap-2" aria-label="Example searches">
-        <li v-for="ex in searchExamples" :key="ex.q">
-          <NuxtLink
-            :to="`/search?q=${ex.q}`"
-            class="inline-flex items-center rounded-full border border-charcoal/15 bg-white px-3 py-1.5 text-xs font-medium text-charcoal/70 transition hover:border-laguna-green hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        <div class="relative lg:col-span-5">
+          <MediaCivicImage
+            :media="heroImage"
+            :alt="heroImage.description"
+            aspect-ratio="4 / 3"
+            priority
+            img-class="animate-ken-burns"
+            credit-variant="overlay"
+            class="shadow-md"
           >
-            {{ ex.label }}
-          </NuxtLink>
-        </li>
-      </ul>
-
-      <p class="mt-6 flex items-center gap-2 text-xs text-charcoal/70">
-        <span class="inline-block h-1.5 w-1.5 rounded-full bg-laguna-green" aria-hidden="true" />
-        Independent community project • Sources linked to original documents
-      </p>
+            <!-- Warm editorial tone treatment (spec §7): a light deep-green
+                 wash — the photograph stays recognizable. -->
+            <div
+              aria-hidden="true"
+              class="pointer-events-none absolute inset-0 bg-gradient-to-t from-laguna-green/30 via-transparent to-transparent"
+            />
+          </MediaCivicImage>
+          <div
+            aria-hidden="true"
+            class="absolute -left-4 -top-4 hidden h-14 w-14 items-center justify-center rounded-full bg-parchment text-rose-accent-dark shadow-md ring-1 ring-charcoal/10 sm:flex"
+          >
+            <CivicRoseMotif :size="28" />
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2 — Santa Rosa Today -->
-    <section aria-labelledby="today-heading">
+    <!-- 2 — Santa Rosa Today (warm parchment band) -->
+    <section
+      ref="todaySection"
+      aria-labelledby="today-heading"
+      class="section-parchment"
+      :class="revealClass(todayVisible)"
+    >
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 id="today-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
@@ -254,160 +298,130 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
           :value="stat.value"
           :label="stat.label"
           :source="stat.source"
+          :numeric-value="stat.numericValue"
+          :suffix="stat.suffix"
         />
       </div>
     </section>
 
-    <!-- 3 — Explore Santa Rosa -->
-    <section aria-labelledby="explore-heading">
-      <h2 id="explore-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-        Explore Santa Rosa
-      </h2>
-      <p class="mt-1 font-serif text-lg italic text-charcoal/70">18 barangays. One city. Many stories.</p>
-
-      <div class="mt-6 grid gap-4 md:grid-cols-3">
-        <div
-          v-for="group in barangayGroups"
-          :key="group.name"
-          class="rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm"
-        >
-          <div class="flex items-baseline justify-between gap-2">
-            <h3 class="font-serif text-lg font-bold text-charcoal">{{ group.name }}</h3>
-            <span class="text-xs font-medium text-charcoal/70">
-              {{ group.barangays.length }} barangay{{ group.barangays.length === 1 ? '' : 's' }}
-            </span>
-          </div>
-          <ul class="mt-3 flex flex-wrap gap-1.5">
-            <li v-for="b in group.barangays" :key="b.slug">
-              <NuxtLink
-                :to="`/barangays#${b.slug}`"
-                class="inline-block rounded-full border border-charcoal/15 bg-parchment px-2.5 py-1 text-xs font-medium text-charcoal/80 transition hover:border-laguna-green hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-              >
-                {{ b.name }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <p class="mt-3 text-xs text-charcoal/70">
-        An interactive barangay map will be added once authoritative GIS boundary data is available.
-      </p>
-      <NuxtLink
-        to="/barangays"
-        class="mt-4 inline-block rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-      >
-        Browse all 18 barangays →
-      </NuxtLink>
-    </section>
-
-    <!-- 4 — Where Does the City's Money Go? -->
-    <section aria-labelledby="money-heading">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="money-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-            Where Does the City's Money Go?
-          </h2>
-          <p class="mt-1 text-sm text-charcoal/70">
-            Only figures backed by audit reports and official disclosures are shown.
-          </p>
-        </div>
-        <NuxtLink
-          to="/money"
-          class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-        >
-          Explore city finances →
-        </NuxtLink>
-      </div>
-
-      <div v-if="latestBudget" class="mt-6 grid gap-4 lg:grid-cols-3">
-        <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
-          <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
-            FY {{ latestBudget.fiscalYear }}
-          </p>
-          <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
-            {{ formatPeso(latestBudget.totalBudgetPhp) }}
-          </p>
-          <p class="mt-1 text-sm font-medium text-charcoal">Verified city revenue (COA/BLGF)</p>
-          <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
-            {{ latestBudget.categories.at(0)?.name }}
-          </p>
-          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/70">
-            <span>Source: {{ budgetSourceTitle(latestBudget.fiscalYear, latestBudget.source) }}</span>
-            <a
-              v-if="latestDocUrl"
-              :href="latestDocUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-            >View source ↗</a>
-            <DataLastVerified :date="latestBudget.lastVerified" />
-          </div>
-        </div>
-
-        <ul class="space-y-3">
-          <li
-            v-for="b in earlierBudgets"
-            :key="b.fiscalYear"
-            class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
+    <!-- 3 & 4 — White data band: Map Explorer + city money -->
+    <div
+      ref="dataBand"
+      class="section-white"
+      :class="[BAND_CLASS, revealClass(dataVisible)]"
+    >
+      <div class="flex flex-col gap-16 md:gap-20">
+        <section aria-label="Explore Santa Rosa">
+          <CivicMapExplorer />
+          <NuxtLink
+            to="/barangays"
+            class="mt-4 inline-block rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
           >
-            <div class="flex items-baseline justify-between gap-2">
-              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">FY {{ b.fiscalYear }}</p>
-              <DataLastVerified :date="b.lastVerified" :show-state="false" />
-            </div>
-            <p class="mt-1 font-serif text-xl font-bold text-laguna-green">{{ formatPeso(b.totalBudgetPhp) }}</p>
-            <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
-              Verified revenue — {{ budgetSourceTitle(b.fiscalYear, b.source) }}
-            </p>
-          </li>
-        </ul>
-      </div>
-    </section>
+            Browse all 18 barangays →
+          </NuxtLink>
+        </section>
 
-    <!-- 5 — Building the City -->
-    <section aria-labelledby="projects-heading">
+        <section aria-labelledby="money-heading">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 id="money-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
+                Where Does the City's Money Go?
+              </h2>
+              <p class="mt-1 text-sm text-charcoal/70">
+                Only figures backed by audit reports and official disclosures are shown.
+              </p>
+            </div>
+            <NuxtLink
+              to="/money"
+              class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+            >
+              Explore city finances →
+            </NuxtLink>
+          </div>
+
+          <div v-if="latestBudget" class="mt-6 grid gap-4 lg:grid-cols-3">
+            <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
+              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
+                FY {{ latestBudget.fiscalYear }}
+              </p>
+              <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
+                {{ formatPeso(latestBudget.totalBudgetPhp) }}
+              </p>
+              <p class="mt-1 text-sm font-medium text-charcoal">Verified city revenue (COA/BLGF)</p>
+              <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
+                {{ latestBudget.categories.at(0)?.name }}
+              </p>
+              <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/70">
+                <span>Source: {{ budgetSourceTitle(latestBudget.fiscalYear, latestBudget.source) }}</span>
+                <a
+                  v-if="latestDocUrl"
+                  :href="latestDocUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+                >View source ↗</a>
+                <DataLastVerified :date="latestBudget.lastVerified" />
+              </div>
+            </div>
+
+            <ul class="space-y-3">
+              <li
+                v-for="b in earlierBudgets"
+                :key="b.fiscalYear"
+                class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
+              >
+                <div class="flex items-baseline justify-between gap-2">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">FY {{ b.fiscalYear }}</p>
+                  <DataLastVerified :date="b.lastVerified" :show-state="false" />
+                </div>
+                <p class="mt-1 font-serif text-xl font-bold text-laguna-green">{{ formatPeso(b.totalBudgetPhp) }}</p>
+                <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
+                  Verified revenue — {{ budgetSourceTitle(b.fiscalYear, b.source) }}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- 5 — Building the City (deep green band) -->
+    <section
+      ref="projectsBand"
+      aria-labelledby="projects-heading"
+      class="section-deep-green"
+      :class="[BAND_CLASS, revealClass(projectsVisible)]"
+    >
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 id="projects-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
+          <h2 id="projects-heading" class="font-serif text-3xl font-bold tracking-tight text-parchment">
             Building the City
           </h2>
-          <p class="mt-1 text-sm text-charcoal/70">Projects tracked against official and reported records.</p>
+          <p class="mt-1 text-sm text-parchment/75">Projects tracked against official and reported records.</p>
         </div>
         <NuxtLink
           to="/projects"
-          class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          class="rounded-sm text-sm font-semibold text-parchment underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-parchment"
         >
           Explore projects →
         </NuxtLink>
       </div>
 
       <div class="mt-6 grid gap-4 md:grid-cols-3">
-        <article
+        <ProjectsProjectCard
           v-for="p in featuredProjects"
           :key="p.id"
-          class="flex flex-col rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm"
-        >
-          <div class="flex flex-wrap items-center gap-2">
-            <ProjectsProjectStatus :status="p.status" />
-            <span class="text-[11px] font-medium uppercase tracking-wide text-charcoal/80">{{ p.category }}</span>
-          </div>
-          <h3 class="mt-3 font-serif text-lg font-bold leading-snug text-charcoal">{{ p.name }}</h3>
-          <p class="mt-1 text-xs text-charcoal/70">
-            {{ p.barangay }}<template v-if="p.location"> · {{ p.location }}</template>
-          </p>
-          <p class="mt-3 text-sm font-medium text-charcoal">
-            <template v-if="p.budgetPhp != null">{{ formatPeso(p.budgetPhp) }} reported</template>
-            <template v-else>Cost not disclosed in sources reviewed</template>
-          </p>
-          <div class="mt-auto flex flex-wrap items-center justify-between gap-2 pt-4 text-[11px] text-charcoal/80">
-            <span v-if="p.sources.at(0)">Source: {{ toSourceReference(p.sources.at(0) ?? '').title }}</span>
-            <DataLastVerified :date="p.lastVerified" :show-state="false" />
-          </div>
-        </article>
+          :project="p"
+        />
       </div>
     </section>
 
     <!-- 6 & 7 — Laws then Services in DOM (spec §9.1); mobile renders Services first (spec §33) -->
-    <div class="flex flex-col gap-16 md:gap-24">
+    <div
+      ref="lawsServicesBand"
+      class="flex flex-col gap-16 md:gap-24"
+      :class="revealClass(lawsServicesVisible)"
+    >
       <section aria-labelledby="laws-heading" class="order-2 md:order-1">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -501,8 +515,13 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
       </section>
     </div>
 
-    <!-- 8 — From Bukol to Modern Santa Rosa -->
-    <section aria-labelledby="history-heading">
+    <!-- 8 — From Bukol to Modern Santa Rosa (Laguna-blue band) -->
+    <section
+      ref="heritageBand"
+      aria-labelledby="history-heading"
+      class="section-lake-blue"
+      :class="[BAND_CLASS, revealClass(heritageVisible)]"
+    >
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 id="history-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
@@ -522,8 +541,23 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
       <CivicTimeline :items="cityData.timeline" class="mt-8" />
     </section>
 
-    <!-- 9 — Data Freshness -->
-    <section aria-labelledby="freshness-heading">
+    <!-- 9 — Signature editorial collage (heritage parchment) -->
+    <section
+      ref="collageSection"
+      aria-label="Santa Rosa life and heritage collage"
+      class="section-parchment"
+      :class="revealClass(collageVisible)"
+    >
+      <CivicCollage />
+    </section>
+
+    <!-- 10 — Data Freshness (white sources band) -->
+    <section
+      ref="sourcesBand"
+      aria-labelledby="freshness-heading"
+      class="section-white"
+      :class="[BAND_CLASS, revealClass(sourcesVisible)]"
+    >
       <h2 id="freshness-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
         Data Freshness
       </h2>
@@ -539,8 +573,13 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
       </NuxtLink>
     </section>
 
-    <!-- 10 — About -->
-    <section aria-labelledby="about-heading" class="rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm sm:p-10">
+    <!-- 11 — About -->
+    <section
+      ref="aboutSection"
+      aria-labelledby="about-heading"
+      class="rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm sm:p-10"
+      :class="revealClass(aboutVisible)"
+    >
       <h2 id="about-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
         About this project
       </h2>

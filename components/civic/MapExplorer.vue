@@ -26,9 +26,9 @@ function onSelect(slug: string) {
           <RoseMotif :size="16" class="text-rose-accent" />
           <span>Interactive Geography</span>
         </div>
-        <h3 class="mt-1 font-serif text-2xl lg:text-3xl font-bold text-laguna-green">
+        <h2 class="mt-1 font-serif text-2xl lg:text-3xl font-bold text-laguna-green">
           Explore Santa Rosa
-        </h3>
+        </h2>
         <p class="text-sm text-charcoal/70">18 barangays across three geographic zones.</p>
       </div>
 

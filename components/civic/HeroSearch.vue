@@ -30,10 +30,13 @@ function cyclePlaceholder() {
 }
 
 function handleGlobalKeydown(e: KeyboardEvent) {
-  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-    e.preventDefault()
-    searchInput.value?.focus()
-  }
+  if (!(e.metaKey || e.ctrlKey) || e.key.toLowerCase() !== 'k') return
+  // Don't yank focus while the user is typing in another field — e.g. the
+  // header GlobalSearch input, which also binds ⌘K on this page.
+  const t = e.target
+  if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement || t instanceof HTMLSelectElement) return
+  e.preventDefault()
+  searchInput.value?.focus()
 }
 
 function onSubmit() {

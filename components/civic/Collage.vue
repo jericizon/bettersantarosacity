@@ -20,9 +20,9 @@ const nuvaliImage = media.find(m => m.id === 'nuvali-lake') || media[3]!
         <RoseMotif :size="16" class="text-heritage-gold" />
         <span>Santa Rosa Life & Heritage</span>
       </div>
-      <h3 class="mt-2 font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+      <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
         A city with deep roots and modern horizons.
-      </h3>
+      </h2>
       <p class="mt-3 text-sm text-parchment/75 leading-relaxed">
         From the lakeside settlements of Barrio Bukol to high-technology corridors and protected heritage sites, Santa Rosa embodies Philippine municipal transformation.
       </p>
