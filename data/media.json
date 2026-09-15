@@ -78,7 +78,7 @@
     "id": "santa-rosa-emblem",
     "file": "/images/brand/santa-rosa-emblem.png",
     "title": "Better Santa Rosa City Emblem",
-    "description": "AI-generated brand mark featuring the Santa Rosa Arch, a golden Philippine sun, green hills, and Laguna Lake waves. Used as the site logo and favicon.",
+    "description": "AI-generated brand mark featuring the lion-flanked Santa Rosa Arch, a golden Philippine sun, green hills, and Laguna Lake waves. Used as the site logo and favicon.",
     "category": "civic",
     "source": "Better Santa Rosa City",
     "sourceUrl": "https://github.com/bettersantarosa/bettersantarosacity",
@@ -86,7 +86,7 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
     "attributionRequired": false,
-    "width": 512,
-    "height": 508
+    "width": 499,
+    "height": 512
   }
 ]
