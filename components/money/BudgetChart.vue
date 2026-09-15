@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useId } from 'vue'
+import { ref, useId } from 'vue'
 import type { BudgetCategory } from '~/types/civic'
+import { useScrollReveal } from '~/composables/useScrollReveal'
 import { formatPeso, formatPesoFull } from '~/utils/currency'
 
 const props = withDefaults(defineProps<{
@@ -11,6 +12,11 @@ const props = withDefaults(defineProps<{
 })
 
 const captionId = `budget-chart-${useId()}`
+
+// Bars grow from zero once the chart scrolls into view (Spec §12). Reduced
+// motion and browsers without IntersectionObserver jump to final values.
+const barsRef = ref<HTMLElement | null>(null)
+const { isVisible: barsVisible } = useScrollReveal(barsRef, { threshold: 0.2 })
 
 const caption = props.fiscalYear != null
   ? `FY ${props.fiscalYear} — verified revenue by category`
@@ -27,24 +33,27 @@ function formatShare(percentage: number): string {
 </script>
 
 <template>
-  <figure :aria-labelledby="captionId" class="rounded-lg border border-charcoal/10 bg-white p-5 shadow-sm">
-    <figcaption :id="captionId" class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
+  <figure :aria-labelledby="captionId" class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm">
+    <figcaption :id="captionId" class="text-xs font-semibold uppercase tracking-[0.15em] text-charcoal/70">
       {{ caption }}
     </figcaption>
 
     <!-- Visual bars are decorative — the table below is the textual equivalent. -->
-    <ul aria-hidden="true" class="mt-4 space-y-4">
-      <li v-for="c in categories" :key="c.name">
+    <ul ref="barsRef" aria-hidden="true" class="mt-5 space-y-4">
+      <li v-for="(c, i) in categories" :key="c.name">
         <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
           <span class="text-sm font-medium text-charcoal">{{ c.name }}</span>
-          <span class="text-sm font-semibold text-laguna-green">
+          <span class="text-sm font-semibold tabular-nums text-laguna-green">
             {{ formatPeso(c.amountPhp) }} · {{ formatShare(c.percentage) }}
           </span>
         </div>
         <div class="mt-1.5 h-3 w-full rounded-full bg-charcoal/10">
           <div
-            class="h-3 rounded-full bg-laguna-green"
-            :style="{ width: `${clampShare(c.percentage)}%` }"
+            class="h-3 rounded-full bg-laguna-green transition-all duration-700 ease-out motion-reduce:transition-none"
+            :style="{
+              width: barsVisible ? `${clampShare(c.percentage)}%` : '0%',
+              transitionDelay: `${i * 75}ms`
+            }"
           ></div>
         </div>
       </li>
@@ -64,7 +73,7 @@ function formatShare(percentage: number): string {
       <tbody>
         <tr v-for="c in categories" :key="`table-${c.name}`" class="border-b border-charcoal/5 align-top">
           <td class="py-2 pr-3 text-charcoal/80">{{ c.name }}</td>
-          <td class="py-2 pr-3 font-medium whitespace-nowrap text-charcoal">
+          <td class="py-2 pr-3 font-medium whitespace-nowrap tabular-nums text-charcoal">
             <span :title="formatPesoFull(c.amountPhp)">{{ formatPeso(c.amountPhp) }}</span>
             <span class="block text-xs font-normal text-charcoal/70">{{ formatPesoFull(c.amountPhp) }}</span>
           </td>
