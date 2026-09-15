@@ -2,6 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-parchment text-charcoal font-sans antialiased selection:bg-rose-accent/20;
+@layer base {
+  body {
+    @apply bg-parchment text-charcoal font-sans antialiased selection:bg-rose-accent/20;
+  }
+}
+
+/* Subtle Civic Motion System (Spec §18 & §30) */
+@keyframes kenBurns {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenBurns 18s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Section transition background tones (Spec §17) */
+.section-parchment {
+  @apply bg-parchment text-charcoal;
+}
+
+.section-white {
+  @apply bg-white text-charcoal;
+}
+
+.section-deep-green {
+  @apply bg-laguna-green text-parchment;
+}
+
+.section-lake-blue {
+  @apply bg-laguna-blue/10 text-charcoal border-y border-laguna-blue/20;
+}
+
+/* Strict prefers-reduced-motion overrides (Spec §8 & §30) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-ken-burns {
+    animation: none !important;
+    transform: none !important;
+  }
 }
