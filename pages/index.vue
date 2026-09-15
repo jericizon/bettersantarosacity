@@ -262,9 +262,15 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
           </MediaCivicImage>
           <div
             aria-hidden="true"
-            class="absolute -left-4 -top-4 hidden h-14 w-14 items-center justify-center rounded-full bg-parchment text-rose-accent-dark shadow-md ring-1 ring-charcoal/10 sm:flex"
+            class="absolute -left-5 -top-5 hidden h-16 w-16 items-center justify-center rounded-full bg-parchment p-1 shadow-md ring-1 ring-charcoal/10 sm:flex"
           >
-            <CivicRoseMotif :size="28" />
+            <img
+              src="/images/brand/santa-rosa-emblem.png"
+              alt=""
+              width="56"
+              height="56"
+              class="h-full w-full object-contain"
+            >
           </div>
         </div>
       </div>
