@@ -3,8 +3,10 @@ import type { SourceReference } from '~/types/civic'
 // Dataset `source` fields are strings like "Title (https://url); Title 2 (https://url2)".
 // Split off the first URL for the citation link; the rest stays as display text.
 export function toSourceReference(source: string): SourceReference {
+  const title = source.split(' (')[0]?.trim() || source
   return {
-    title: source.split(' (')[0]?.trim() || source,
+    // Spec bans em-dashes in rendered copy; dataset source strings still carry them.
+    title: title.replace(/\s*—\s*/g, ' · ').trim(),
     url: source.match(/https?:\/\/[^\s);]+/)?.[0]
   }
 }
