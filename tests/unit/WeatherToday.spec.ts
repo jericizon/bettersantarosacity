@@ -35,7 +35,7 @@ describe('CivicWeatherToday', () => {
     expect(wrapper.text()).toContain('31°C')
     expect(wrapper.text()).toContain('Partly cloudy')
     expect(wrapper.text()).toContain('74% humidity')
-    expect(wrapper.text()).toContain('feels like 35°C')
+    expect(wrapper.text()).toContain('Feels like 35°C')
     const items = wrapper.findAll('[aria-label="3-day forecast"] li')
     expect(items).toHaveLength(3)
     expect(items[0]!.text()).toContain('Today')

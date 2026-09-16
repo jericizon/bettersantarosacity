@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, type Component } from 'vue'
-import {
-  Sun, CloudSun, Cloud, CloudFog, CloudDrizzle, CloudRain,
-  CloudLightning, Snowflake, Droplets
-} from 'lucide-vue-next'
+import { ref, onMounted } from 'vue'
+import { Droplets, Thermometer } from 'lucide-vue-next'
+import AnimatedWeatherIcon from '~/components/civic/AnimatedWeatherIcon.vue'
 
 // Santa Rosa City Hall area, Laguna. Open-Meteo is keyless, CORS-enabled and
 // free for non-commercial use — the site stays fully static; the browser
@@ -14,36 +12,19 @@ const API_URL =
   '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
   '&timezone=Asia%2FManila&forecast_days=3'
 
-interface WmoInfo {
-  label: string
-  icon: Component
+// WMO weather interpretation codes → short label (icons come from
+// AnimatedWeatherIcon, keyed by the same code).
+const WMO_LABEL: Record<number, string> = {
+  0: 'Clear sky', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
+  45: 'Fog', 48: 'Icy fog',
+  51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
+  61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+  71: 'Snow',
+  80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
+  95: 'Thunderstorm', 96: 'Thunderstorm, hail', 99: 'Severe thunderstorm'
 }
 
-// WMO weather interpretation codes → label + icon.
-const WMO: Record<number, WmoInfo> = {
-  0: { label: 'Clear sky', icon: Sun },
-  1: { label: 'Mostly clear', icon: Sun },
-  2: { label: 'Partly cloudy', icon: CloudSun },
-  3: { label: 'Overcast', icon: Cloud },
-  45: { label: 'Fog', icon: CloudFog },
-  48: { label: 'Icy fog', icon: CloudFog },
-  51: { label: 'Light drizzle', icon: CloudDrizzle },
-  53: { label: 'Drizzle', icon: CloudDrizzle },
-  55: { label: 'Heavy drizzle', icon: CloudDrizzle },
-  61: { label: 'Light rain', icon: CloudRain },
-  63: { label: 'Rain', icon: CloudRain },
-  65: { label: 'Heavy rain', icon: CloudRain },
-  71: { label: 'Snow', icon: Snowflake },
-  80: { label: 'Light showers', icon: CloudRain },
-  81: { label: 'Showers', icon: CloudRain },
-  82: { label: 'Heavy showers', icon: CloudRain },
-  95: { label: 'Thunderstorm', icon: CloudLightning },
-  96: { label: 'Thunderstorm, hail', icon: CloudLightning },
-  99: { label: 'Severe thunderstorm', icon: CloudLightning }
-}
-
-const FALLBACK: WmoInfo = { label: 'Unknown', icon: Cloud }
-const wmo = (code: number | undefined): WmoInfo => (code != null && WMO[code]) || FALLBACK
+const label = (code: number | undefined): string => (code != null && WMO_LABEL[code]) || 'Unknown'
 
 interface DayForecast {
   day: string
@@ -59,8 +40,6 @@ const nowFeels = ref(0)
 const nowHumidity = ref(0)
 const nowCode = ref<number>()
 const days = ref<DayForecast[]>([])
-
-const nowInfo = computed(() => wmo(nowCode.value))
 
 onMounted(async () => {
   try {
@@ -86,15 +65,22 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="border-t border-charcoal/10 pt-6" data-testid="weather-today">
+  <div
+    class="rounded-2xl border border-laguna-green/15 bg-light-green/70 px-6 py-6 sm:px-8 sm:py-7"
+    data-testid="weather-today"
+  >
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-laguna-green">
+      Live weather · Santa Rosa
+    </p>
+
     <!-- Loading: keeps SSR/prerender output stable before the client fetch. -->
-    <div v-if="status === 'loading'" class="flex items-center gap-3 text-sm text-charcoal/60" aria-busy="true">
+    <div v-if="status === 'loading'" class="mt-4 flex items-center gap-3 text-sm text-charcoal/60" aria-busy="true">
       <span class="inline-block h-2 w-2 animate-pulse rounded-full bg-laguna-blue" aria-hidden="true" />
       Fetching live weather for Santa Rosa…
     </div>
 
     <!-- Error: point readers at the national forecaster rather than hide. -->
-    <p v-else-if="status === 'error'" class="text-sm text-charcoal/70">
+    <p v-else-if="status === 'error'" class="mt-4 text-sm text-charcoal/70">
       Live weather is unavailable right now. Check
       <a
         href="https://bagong.pagasa.dost.gov.ph"
@@ -105,30 +91,40 @@ onMounted(async () => {
       for the official forecast.
     </p>
 
-    <div v-else class="flex flex-wrap items-start justify-between gap-6">
-      <div class="flex items-center gap-4">
-        <component :is="nowInfo.icon" :size="44" class="shrink-0 text-laguna-blue" aria-hidden="true" />
+    <div v-else class="mt-5 flex flex-wrap items-center justify-between gap-8">
+      <div class="flex items-center gap-5">
+        <AnimatedWeatherIcon :code="nowCode" :size="72" class="shrink-0" />
         <div>
-          <p class="font-serif text-4xl font-bold leading-none text-laguna-green">{{ nowTemp }}°C</p>
-          <p class="mt-1 text-sm font-medium text-charcoal/80">{{ nowInfo.label }}</p>
-          <p class="mt-0.5 flex items-center gap-1.5 text-xs text-charcoal/60">
-            <Droplets :size="12" aria-hidden="true" />
-            {{ nowHumidity }}% humidity · feels like {{ nowFeels }}°C
-          </p>
+          <p class="font-serif text-5xl font-bold leading-none text-laguna-green sm:text-6xl">{{ nowTemp }}°C</p>
+          <p class="mt-1.5 text-base font-medium text-charcoal/80">{{ label(nowCode) }}</p>
+          <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-charcoal/70">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1">
+              <Droplets :size="12" class="text-laguna-blue" aria-hidden="true" />
+              {{ nowHumidity }}% humidity
+            </span>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1">
+              <Thermometer :size="12" class="text-rose-accent" aria-hidden="true" />
+              Feels like {{ nowFeels }}°C
+            </span>
+          </div>
         </div>
       </div>
 
-      <ul class="flex gap-5" aria-label="3-day forecast">
-        <li v-for="d in days" :key="d.day" class="text-center">
+      <ul class="flex gap-3 sm:gap-4" aria-label="3-day forecast">
+        <li
+          v-for="d in days"
+          :key="d.day"
+          class="rounded-xl bg-white/80 px-4 py-3 text-center min-w-[4.5rem]"
+        >
           <p class="text-xs font-semibold uppercase tracking-wide text-charcoal/60">{{ d.day }}</p>
-          <component :is="wmo(d.code).icon" :size="20" class="mx-auto mt-1.5 text-laguna-blue" aria-hidden="true" />
-          <p class="mt-1 text-sm font-semibold text-charcoal">{{ d.hi }}°<span class="font-normal text-charcoal/50"> / {{ d.lo }}°</span></p>
-          <p v-if="d.precip > 0" class="text-[11px] text-laguna-blue">{{ d.precip }}% rain</p>
+          <AnimatedWeatherIcon :code="d.code" :size="30" class="mx-auto mt-1.5" />
+          <p class="mt-1.5 text-sm font-semibold text-charcoal">{{ d.hi }}°<span class="font-normal text-charcoal/50"> / {{ d.lo }}°</span></p>
+          <p v-if="d.precip > 0" class="mt-0.5 text-[11px] font-medium text-laguna-blue">{{ d.precip }}% rain</p>
         </li>
       </ul>
     </div>
 
-    <p class="mt-4 text-[11px] text-charcoal/50">
+    <p class="mt-5 text-[11px] text-charcoal/50">
       Weather data:
       <a
         href="https://open-meteo.com"
