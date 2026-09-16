@@ -260,14 +260,22 @@ function revealClass(isVisible: boolean) {
           </div>
 
           <div class="lg:col-span-5">
-            <img
-              :src="heroImage.file"
-              :alt="heroImage.description"
-              :width="heroImage.width"
-              :height="heroImage.height"
-              fetchpriority="high"
-              class="mx-auto w-full max-w-lg animate-fade-in-up"
-            >
+            <!-- SMIL-animated emblem; reduced-motion users get the static file
+                 via the picture source media query (no JS needed). -->
+            <picture>
+              <source
+                srcset="/images/bettersantarosacity-logo-animated.svg"
+                media="(prefers-reduced-motion: no-preference)"
+              >
+              <img
+                :src="heroImage.file"
+                :alt="heroImage.description"
+                :width="heroImage.width"
+                :height="heroImage.height"
+                fetchpriority="high"
+                class="mx-auto w-full max-w-lg animate-fade-in-up"
+              >
+            </picture>
           </div>
         </div>
       </div>
