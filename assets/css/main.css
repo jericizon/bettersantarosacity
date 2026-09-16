@@ -51,6 +51,10 @@
   @apply bg-laguna-blue/10 text-charcoal border-y border-laguna-blue/20;
 }
 
+.section-light-green {
+  @apply bg-light-green text-charcoal;
+}
+
 /* Strict prefers-reduced-motion overrides (Spec §8 & §30) */
 @media (prefers-reduced-motion: reduce) {
   *,
