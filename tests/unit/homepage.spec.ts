@@ -54,7 +54,42 @@ describe('Homepage Civic Sections', () => {
   it('renders trust statement and source verification indicators', () => {
     const wrapper = mount(IndexPage)
     expect(wrapper.text()).toContain('Independent community project')
-    expect(wrapper.text()).toContain('Last checked')
+    expect(wrapper.text()).toContain('Last verified by Better Santa Rosa')
+  })
+
+  it('renders Laws, Services, Data Downloads, and Data Trust chapters', () => {
+    const wrapper = mount(IndexPage)
+    expect(wrapper.text()).toContain('Laws & Decisions')
+    expect(wrapper.text()).toContain('Services')
+    expect(wrapper.text()).toContain('Data & Downloads')
+    expect(wrapper.text()).toContain('Data Trust')
+    expect(wrapper.text()).toContain('Last verified')
+    // The project disclaimer folds into the Data Trust chapter (spec §10).
+    expect(wrapper.text()).toContain('About this project')
+  })
+
+  it('graduates Laws, Services, Data Downloads and Data Trust into full-bleed chapters', () => {
+    const wrapper = mount(IndexPage)
+
+    const lawsChapter = wrapper.find('section[aria-label="Laws & Decisions"]')
+    expect(lawsChapter.exists()).toBe(true)
+    expect(lawsChapter.classes()).toContain('w-full')
+    expect(lawsChapter.classes()).toContain('section-white')
+
+    const servicesChapter = wrapper.find('section[aria-label="Services"]')
+    expect(servicesChapter.exists()).toBe(true)
+    expect(servicesChapter.classes()).toContain('w-full')
+    expect(servicesChapter.classes()).toContain('section-white')
+
+    const downloadsChapter = wrapper.find('section[aria-label="Data & Downloads"]')
+    expect(downloadsChapter.exists()).toBe(true)
+    expect(downloadsChapter.classes()).toContain('w-full')
+    expect(downloadsChapter.classes()).toContain('section-parchment')
+
+    const trustChapter = wrapper.find('section[aria-label="Data Trust"]')
+    expect(trustChapter.exists()).toBe(true)
+    expect(trustChapter.classes()).toContain('w-full')
+    expect(trustChapter.classes()).toContain('section-white')
   })
 
   it('graduates Explore and City Money into their own full-bleed chapters', () => {

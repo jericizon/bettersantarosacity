@@ -19,6 +19,7 @@ import EditorialSectionHeader from '~/components/editorial/SectionHeader.vue'
 import MoneyBudgetChart from '~/components/money/BudgetChart.vue'
 import ProjectsProjectCard from '~/components/projects/ProjectCard.vue'
 import { useScrollReveal } from '~/composables/useScrollReveal'
+import { buildDatasets } from '~/utils/datasets'
 import { buildSeoHead, SITE_URL } from '~/utils/seo'
 import { formatPeso } from '~/utils/currency'
 import { toSourceReference } from '~/utils/source'
@@ -139,7 +140,7 @@ const revenueYears = budgets.map(b => ({ fiscalYear: b.fiscalYear, amountPhp: b.
 
 const featuredProjects = projectsData as Project[]
 
-// --- Section 6: laws ---------------------------------------------------------------
+// --- Section 8: laws ---------------------------------------------------------------
 
 function lawTimestamp(date: string): number {
   const t = Date.parse(date.length === 4 ? `${date}-01-01` : date)
@@ -150,7 +151,7 @@ const recentLaws = [...(lawsData as Law[])]
   .sort((a, b) => lawTimestamp(b.date) - lawTimestamp(a.date))
   .slice(0, 3)
 
-// --- Section 7: services -------------------------------------------------------------
+// --- Section 9: services -------------------------------------------------------------
 
 const SERVICE_CATEGORY_ORDER = [
   'Business',
@@ -172,6 +173,12 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
   }
 })
 
+// --- Section 10: open datasets -----------------------------------------------------
+
+// Same catalog as /data — JSON hrefs point at the mirrored files under
+// public/data/ and CSV hrefs are generated data URIs (utils/datasets.ts).
+const downloadDatasets = buildDatasets()
+
 // --- Scroll reveals (spec §19) ---------------------------------------------------
 
 // Sections fade and rise once as they enter the viewport. The hidden state is
@@ -184,30 +191,28 @@ const todaySection = ref<HTMLElement | null>(null)
 const exploreSection = ref<HTMLElement | null>(null)
 const moneySection = ref<HTMLElement | null>(null)
 const projectsBand = ref<HTMLElement | null>(null)
-const lawsServicesBand = ref<HTMLElement | null>(null)
 const heritageBand = ref<HTMLElement | null>(null)
 const collageSection = ref<HTMLElement | null>(null)
-const sourcesBand = ref<HTMLElement | null>(null)
-const aboutSection = ref<HTMLElement | null>(null)
+const lawsSection = ref<HTMLElement | null>(null)
+const servicesSection = ref<HTMLElement | null>(null)
+const downloadsSection = ref<HTMLElement | null>(null)
+const trustSection = ref<HTMLElement | null>(null)
 
 const { isVisible: todayVisible } = useScrollReveal(todaySection, { threshold: 0.1 })
 const { isVisible: exploreVisible } = useScrollReveal(exploreSection, { threshold: 0.05 })
 const { isVisible: moneyVisible } = useScrollReveal(moneySection, { threshold: 0.1 })
 const { isVisible: projectsVisible } = useScrollReveal(projectsBand, { threshold: 0.1 })
-const { isVisible: lawsServicesVisible } = useScrollReveal(lawsServicesBand, { threshold: 0.05 })
 const { isVisible: heritageVisible } = useScrollReveal(heritageBand, { threshold: 0.1 })
 const { isVisible: collageVisible } = useScrollReveal(collageSection, { threshold: 0.1 })
-const { isVisible: sourcesVisible } = useScrollReveal(sourcesBand, { threshold: 0.1 })
-const { isVisible: aboutVisible } = useScrollReveal(aboutSection, { threshold: 0.1 })
+const { isVisible: lawsVisible } = useScrollReveal(lawsSection, { threshold: 0.05 })
+const { isVisible: servicesVisible } = useScrollReveal(servicesSection, { threshold: 0.05 })
+const { isVisible: downloadsVisible } = useScrollReveal(downloadsSection, { threshold: 0.1 })
+const { isVisible: trustVisible } = useScrollReveal(trustSection, { threshold: 0.1 })
 
 const REVEAL_CLASS = 'transition-all duration-700 ease-out motion-reduce:transition-none'
 function revealClass(isVisible: boolean) {
   return [REVEAL_CLASS, hydrated.value && !isVisible ? 'opacity-0 translate-y-5' : 'opacity-100 translate-y-0']
 }
-
-// Full-content-width band: cancels the page container's horizontal padding so
-// the section tone runs edge to edge, then restores it for the inner content.
-const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
 </script>
 
 <template>
@@ -268,45 +273,41 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container: chapter 2 keeps the constrained gutter until it
-         graduates to a full-bleed chapter like the ones around it. -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <div class="flex flex-col gap-16 md:gap-24">
-    <!-- 2 — Santa Rosa Today (warm parchment band) -->
+    <!-- 2 — Santa Rosa Today: warm parchment chapter of verified city facts. -->
     <section
       ref="todaySection"
       aria-labelledby="today-heading"
-      class="section-parchment"
+      class="w-full section-parchment py-20 sm:py-24 border-b border-charcoal/10"
       :class="revealClass(todayVisible)"
     >
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="today-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-            Santa Rosa Today
-          </h2>
-          <p class="mt-1 text-sm text-charcoal/70">Verified facts about the city — every figure carries a source.</p>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 id="today-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
+              Santa Rosa Today
+            </h2>
+            <p class="mt-1 text-sm text-charcoal/70">Verified facts about the city — every figure carries a source.</p>
+          </div>
+          <NuxtLink
+            to="/explore"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            View city profile →
+          </NuxtLink>
         </div>
-        <NuxtLink
-          to="/explore"
-          class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-        >
-          View city profile →
-        </NuxtLink>
-      </div>
-      <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <DataStatCard
-          v-for="stat in cityStats"
-          :key="stat.label"
-          :value="stat.value"
-          :label="stat.label"
-          :source="stat.source"
-          :numeric-value="stat.numericValue"
-          :suffix="stat.suffix"
-        />
+        <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <DataStatCard
+            v-for="stat in cityStats"
+            :key="stat.label"
+            :value="stat.value"
+            :label="stat.label"
+            :source="stat.source"
+            :numeric-value="stat.numericValue"
+            :suffix="stat.suffix"
+          />
+        </div>
       </div>
     </section>
-    </div>
-    </div>
 
     <!-- 3 — Explore Santa Rosa: full-bleed chapter on the light-green ground
          reserved for the interactive map (spec §4). -->
@@ -431,112 +432,7 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container resumes: chapters 6-7 keep the constrained
-         gutter until each graduates to a full-bleed chapter. -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <div class="flex flex-col gap-16 md:gap-24">
-    <!-- 6 & 7 — Laws then Services in DOM (spec §9.1); mobile renders Services first (spec §33) -->
-    <div
-      ref="lawsServicesBand"
-      class="flex flex-col gap-16 md:gap-24"
-      :class="revealClass(lawsServicesVisible)"
-    >
-      <section aria-labelledby="laws-heading" class="order-2 md:order-1">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 id="laws-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-              Laws &amp; Decisions
-            </h2>
-            <p class="mt-1 text-sm text-charcoal/70">
-              Ordinances, resolutions and executive orders — searchable and source-linked.
-            </p>
-          </div>
-          <NuxtLink
-            to="/laws"
-            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          >
-            Find a city ordinance →
-          </NuxtLink>
-        </div>
-
-        <ul class="mt-6 space-y-3">
-          <li
-            v-for="law in recentLaws"
-            :key="law.id"
-            class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
-          >
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="rounded bg-laguna-green/10 px-2 py-0.5 text-[11px] font-semibold text-laguna-green">
-                {{ LAW_TYPE_LABEL[law.type] ?? 'Measure' }} No. {{ law.number }}
-              </span>
-              <time :datetime="law.date" class="text-xs text-charcoal/70">{{ law.date }}</time>
-            </div>
-            <h3 class="mt-2 font-serif text-base font-bold leading-snug text-charcoal">{{ law.title }}</h3>
-            <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
-              <a
-                v-if="law.documentUrl"
-                :href="law.documentUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-              >Read the document ↗</a>
-              <span v-else class="text-xs text-charcoal/70">Document copy pending</span>
-              <DataLastVerified :date="law.lastVerified" :show-state="false" />
-            </div>
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="services-heading" class="order-1 md:order-2">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 id="services-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-              Services
-            </h2>
-            <p class="mt-1 text-sm text-charcoal/70">
-              Shortcuts to official city services — linked out, never duplicated here.
-            </p>
-          </div>
-          <NuxtLink
-            to="/services"
-            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          >
-            Browse the services directory →
-          </NuxtLink>
-        </div>
-
-        <div class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-          <div
-            v-for="cat in serviceCategories"
-            :key="cat.name"
-            class="flex flex-col rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
-          >
-            <h3 class="font-serif text-base font-bold text-charcoal">{{ cat.name }}</h3>
-            <ul v-if="cat.items.length" class="mt-2 space-y-1 text-xs leading-snug text-charcoal/70">
-              <li v-for="s in cat.items.slice(0, 2)" :key="s.id">{{ s.title }}</li>
-            </ul>
-            <p v-else class="mt-2 text-xs leading-snug text-charcoal/70">
-              Service standards and transaction steps published by the city.
-            </p>
-            <div class="mt-auto pt-3">
-              <p class="border-t border-charcoal/10 pt-2 text-[10px] font-semibold uppercase tracking-wide text-laguna-green">
-                Official government service
-              </p>
-              <a
-                :href="cat.officialUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-1 inline-block text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-              >Official page ↗</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    </div>
-    </div>
-
-    <!-- 8 — From Bukol to Today: deep-green editorial chapter (spec §4).
+    <!-- 6 — From Bukol to Today: deep-green editorial chapter (spec §4).
          Copy stays neutral and source-backed — no unverified superlatives
          (spec §21). The shared timeline switches to its dark theme here. -->
     <section
@@ -567,7 +463,7 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- 9 — Santa Rosa Life & Heritage: full-bleed parchment chapter (spec §4).
+    <!-- 7 — Santa Rosa Life & Heritage: full-bleed parchment chapter (spec §4).
          The asymmetric collage sits in a dark framed gallery panel; every photo
          carries a caption and a MediaCredit attribution badge. -->
     <section
@@ -581,71 +477,235 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container resumes: chapters 10-11 keep the constrained
-         gutter until each graduates to a full-bleed chapter. -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <div class="flex flex-col gap-16 md:gap-24">
-    <!-- 10 — Data Freshness (white sources band) -->
+    <!-- 8 — Laws & Decisions: clean-white reference chapter. The three most
+         recent issuances carry a type badge, document link and verification
+         date straight from laws.json. -->
     <section
-      ref="sourcesBand"
-      aria-labelledby="freshness-heading"
-      class="section-white"
-      :class="[BAND_CLASS, revealClass(sourcesVisible)]"
+      ref="lawsSection"
+      aria-label="Laws & Decisions"
+      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      :class="revealClass(lawsVisible)"
     >
-      <h2 id="freshness-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-        Data Freshness
-      </h2>
-      <p class="mt-1 max-w-2xl text-sm text-charcoal/70">
-        Every dataset is verified against its own sources on its own schedule — no single date applies to the whole site.
-      </p>
-      <DataFreshness class="mt-6" />
-      <NuxtLink
-        to="/sources"
-        class="mt-4 inline-block rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-      >
-        See the full source registry →
-      </NuxtLink>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            eyebrow="Laws & Decisions"
+            title="City Ordinances & Laws"
+            description="Searchable ordinances, resolutions, and executive orders."
+          />
+          <NuxtLink
+            to="/laws"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            Find a city ordinance →
+          </NuxtLink>
+        </div>
+
+        <ul class="mt-10 space-y-3">
+          <li
+            v-for="law in recentLaws"
+            :key="law.id"
+            class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
+          >
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded bg-laguna-green/10 px-2 py-0.5 text-[11px] font-semibold text-laguna-green">
+                {{ LAW_TYPE_LABEL[law.type] ?? 'Measure' }} No. {{ law.number }}
+              </span>
+              <time :datetime="law.date" class="text-xs text-charcoal/70">{{ law.date }}</time>
+            </div>
+            <h3 class="mt-2 font-serif text-base font-bold leading-snug text-charcoal">{{ law.title }}</h3>
+            <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+              <a
+                v-if="law.documentUrl"
+                :href="law.documentUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              >Read the document ↗</a>
+              <span v-else class="text-xs text-charcoal/70">Document copy pending</span>
+              <DataLastVerified :date="law.lastVerified" :show-state="false" />
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <!-- 11 — About -->
+    <!-- 9 — Services: clean-white reference chapter. Every card links out to
+         the official municipal page; nothing is recreated here. -->
     <section
-      ref="aboutSection"
-      aria-labelledby="about-heading"
-      class="rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm sm:p-10"
-      :class="revealClass(aboutVisible)"
+      ref="servicesSection"
+      aria-label="Services"
+      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      :class="revealClass(servicesVisible)"
     >
-      <h2 id="about-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
-        About this project
-      </h2>
-      <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/80 sm:text-base">
-        Better Santa Rosa is an independent, community-maintained public-information project.
-        It is not affiliated with or operated by the City Government of Santa Rosa.
-      </p>
-      <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-        <li>
-          <NuxtLink to="/sources" class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm">
-            Methodology &amp; sources →
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            eyebrow="Services"
+            title="City Services"
+            description="Find official city services faster. Links out to official municipal pages."
+          />
+          <NuxtLink
+            to="/services"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            Browse the services directory →
           </NuxtLink>
-        </li>
-        <li>
-          <a
-            href="https://github.com/bettersantarosa"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-          >Contribute ↗</a>
-        </li>
-        <li>
-          <a
-            href="https://santarosacity.gov.ph"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-          >Official city website ↗</a>
-        </li>
-      </ul>
+        </div>
+
+        <div class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div
+            v-for="cat in serviceCategories"
+            :key="cat.name"
+            class="flex flex-col rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
+          >
+            <h3 class="font-serif text-base font-bold text-charcoal">{{ cat.name }}</h3>
+            <ul v-if="cat.items.length" class="mt-2 space-y-1 text-xs leading-snug text-charcoal/70">
+              <li v-for="s in cat.items.slice(0, 2)" :key="s.id">{{ s.title }}</li>
+            </ul>
+            <p v-else class="mt-2 text-xs leading-snug text-charcoal/70">
+              Service standards and transaction steps published by the city.
+            </p>
+            <div class="mt-auto pt-3">
+              <p class="border-t border-charcoal/10 pt-2 text-[10px] font-semibold uppercase tracking-wide text-laguna-green">
+                Official government service
+              </p>
+              <a
+                :href="cat.officialUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-1 inline-block text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              >Open official page ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-    </div>
-    </div>
+
+    <!-- 10 — Data & Downloads: parchment reference chapter listing the same
+         catalog as /data — real mirrored JSON files and generated CSV data
+         URIs, never invented URLs. -->
+    <section
+      ref="downloadsSection"
+      aria-label="Data & Downloads"
+      class="w-full section-parchment py-20 sm:py-24 border-b border-charcoal/10"
+      :class="revealClass(downloadsVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            eyebrow="Open Data"
+            title="Data & Downloads"
+            description="Download open datasets in JSON and CSV formats."
+          />
+          <NuxtLink
+            to="/data"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            Browse the full data catalog →
+          </NuxtLink>
+        </div>
+
+        <ul class="mt-10 divide-y divide-charcoal/10 rounded-xl border border-charcoal/10 bg-white shadow-sm">
+          <li
+            v-for="ds in downloadDatasets"
+            :key="ds.slug"
+            class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-4 sm:px-6"
+          >
+            <div class="min-w-0 flex-1 basis-64">
+              <h3 class="font-serif text-base font-bold text-charcoal">{{ ds.name }}</h3>
+              <p class="mt-0.5 text-xs leading-snug text-charcoal/70">
+                {{ ds.coverage }}<template v-if="ds.sourceNote"> · Source: {{ ds.sourceNote }}</template>
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <a
+                :href="ds.jsonHref"
+                :download="`${ds.slug}.json`"
+                class="inline-block rounded-md bg-laguna-green px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-laguna-green/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-laguna-green"
+                :aria-label="`Download ${ds.name} as JSON`"
+              >JSON ↓</a>
+              <a
+                :href="ds.csvHref"
+                :download="`${ds.slug}.csv`"
+                class="inline-block rounded-md border border-laguna-green/40 px-2.5 py-1.5 text-xs font-semibold text-laguna-green transition hover:bg-laguna-green/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-laguna-green"
+                :aria-label="`Download ${ds.name} as CSV`"
+              >CSV ↓</a>
+              <a
+                v-if="ds.sourceUrl"
+                :href="ds.sourceUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              >Source ↗</a>
+              <DataLastVerified :date="ds.lastUpdated" :show-state="false" />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 11 — Data Trust: verification registry + methodology + project
+         disclaimer in one clean-white chapter (spec §4). -->
+    <section
+      ref="trustSection"
+      aria-label="Data Trust"
+      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      :class="revealClass(trustVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            eyebrow="Data Trust"
+            title="Verified against original records"
+            description="Every dataset is verified against its own sources on its own schedule. No single date applies to the whole site."
+          />
+          <NuxtLink
+            to="/sources"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            See the full source registry →
+          </NuxtLink>
+        </div>
+
+        <DataFreshness class="mt-10" />
+
+        <div
+          aria-labelledby="about-heading"
+          class="mt-10 rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm sm:p-10"
+        >
+          <h3 id="about-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
+            About this project
+          </h3>
+          <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/80 sm:text-base">
+            Better Santa Rosa is an independent, community-maintained public-information project.
+            It is not affiliated with or operated by the City Government of Santa Rosa.
+          </p>
+          <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+            <li>
+              <NuxtLink to="/sources" class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm">
+                Methodology &amp; sources →
+              </NuxtLink>
+            </li>
+            <li>
+              <a
+                href="https://github.com/bettersantarosa"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              >Contribute ↗</a>
+            </li>
+            <li>
+              <a
+                href="https://santarosacity.gov.ph"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              >Official city website ↗</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
