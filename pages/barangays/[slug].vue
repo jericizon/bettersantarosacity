@@ -101,6 +101,7 @@ const GROUP_BADGE_CLASSES: Record<string, string> = {
           label="Population"
           note="2020 PSA Census of Population and Housing"
           source="Philippine Statistics Authority via PhilAtlas"
+          variant="card"
         />
       </div>
       <p v-else class="rounded-lg border border-charcoal/10 bg-white p-5 text-sm italic text-charcoal/70">

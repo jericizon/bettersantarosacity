@@ -144,6 +144,7 @@ const censusSources: SourceReference[] = sourcesData
           :label="stat.label"
           :source="stat.source"
           :note="stat.note"
+          variant="card"
         />
       </div>
       <div class="mt-4 flex flex-wrap items-center gap-2">
