@@ -41,7 +41,7 @@ function closeMobile() {
   >
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300"
-      :class="isScrolled ? 'py-2' : 'py-3.5'"
+      :class="isScrolled ? 'py-2' : 'py-3'"
     >
       <NuxtLink to="/" class="flex items-center gap-2 group rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
         <img
@@ -62,13 +62,13 @@ function closeMobile() {
         </div>
       </NuxtLink>
 
-      <nav aria-label="Primary" class="hidden md:flex items-center gap-6">
+      <nav aria-label="Primary" class="hidden xl:flex items-center gap-5">
         <NuxtLink
           v-for="link in navLinks"
           :key="link.href"
           :to="link.href"
-          class="text-sm font-medium text-charcoal/80 hover:text-laguna-green transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          active-class="text-laguna-green font-bold border-b-2 border-laguna-green pb-1"
+          class="whitespace-nowrap inline-flex items-center min-h-11 text-sm font-medium text-charcoal/80 hover:text-laguna-green transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          active-class="text-laguna-green font-bold underline decoration-2 underline-offset-8"
         >
           {{ link.name }}
         </NuxtLink>
@@ -78,17 +78,17 @@ function closeMobile() {
         <SearchGlobalSearch class="hidden sm:block" />
         <NuxtLink
           to="/search"
-          class="sm:hidden inline-flex items-center p-2 rounded-md bg-white border border-charcoal/20 text-charcoal/70 hover:border-laguna-green transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          class="sm:hidden inline-flex items-center justify-center h-11 w-11 rounded-md bg-white border border-charcoal/20 text-charcoal/70 hover:border-laguna-green transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
           aria-label="Search Santa Rosa public records"
         >
-          <Search :size="14" aria-hidden="true" />
+          <Search :size="18" aria-hidden="true" />
         </NuxtLink>
 
         <button
           type="button"
           @click="isMobileOpen = !isMobileOpen"
-          class="md:hidden p-2 rounded text-charcoal hover:bg-charcoal/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          aria-label="Toggle Navigation Menu"
+          class="xl:hidden inline-flex items-center justify-center h-11 w-11 rounded text-charcoal hover:bg-charcoal/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          aria-label="Toggle navigation menu"
           :aria-expanded="isMobileOpen"
           aria-controls="mobile-nav"
         >
@@ -103,13 +103,13 @@ function closeMobile() {
       v-if="isMobileOpen"
       id="mobile-nav"
       aria-label="Mobile"
-      class="md:hidden border-b border-charcoal/10 bg-parchment px-4 py-3 space-y-2"
+      class="xl:hidden border-b border-charcoal/10 bg-parchment px-4 py-3 space-y-1"
       @keydown.escape="closeMobile"
     >
       <NuxtLink
         to="/search"
         @click="closeMobile"
-        class="block py-1.5 text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        class="flex items-center min-h-11 text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
       >
         Search
       </NuxtLink>
@@ -118,7 +118,7 @@ function closeMobile() {
         :key="link.href"
         :to="link.href"
         @click="closeMobile"
-        class="block py-1.5 text-sm font-medium text-charcoal rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        class="flex items-center min-h-11 text-sm font-medium text-charcoal rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
       >
         {{ link.name }}
       </NuxtLink>
