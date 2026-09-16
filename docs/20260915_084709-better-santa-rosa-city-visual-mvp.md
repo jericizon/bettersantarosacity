@@ -2,7 +2,7 @@
 
 You are enhancing the Better Santa Rosa City MVP.
 
-Read and follow the existing `BetterSantaRosaCity-MVP.md` specification first.
+Read and follow the existing `20260915_082837-better-santa-rosa-city-mvp.md` specification first.
 
 Do NOT replace the existing product architecture or MVP scope.
 

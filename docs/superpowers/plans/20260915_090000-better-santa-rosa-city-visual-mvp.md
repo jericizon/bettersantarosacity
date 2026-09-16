@@ -1652,7 +1652,7 @@ git commit -m "feat(media): implement public /about/media credits and licensing 
 
 **Interfaces:**
 - Consumes: `HeroSearch.vue`, `MapExplorer.vue`, `Collage.vue`, `RoseMotif.vue`, `MediaCredit.vue`
-- Produces: Complete editorial homepage matching all 34 sections of `BetterSantaRosaCity-Visual-MVP.md`.
+- Produces: Complete editorial homepage matching all 34 sections of `20260915_084709-better-santa-rosa-city-visual-mvp.md`.
 
 - [ ] **Step 1: Write the updated homepage tests verifying new visual components**
 
