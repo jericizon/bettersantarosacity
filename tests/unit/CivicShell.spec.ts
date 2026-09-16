@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h } from 'vue'
+import { defineComponent, h } from 'vue'
 import CivicHeader from '~/components/civic/CivicHeader.vue'
 import CivicFooter from '~/components/civic/CivicFooter.vue'
 import DisclaimerBanner from '../../components/civic/DisclaimerBanner.vue'
@@ -8,13 +8,14 @@ import SourceBadge from '../../components/data/SourceBadge.vue'
 
 // NuxtLink and SearchGlobalSearch resolve via Nuxt auto-imports at runtime;
 // under plain Vitest, NuxtLink is stubbed as a real anchor so href and
-// class assertions stay meaningful.
-const NuxtLinkStub = {
+// class assertions stay meaningful. defineComponent keeps the stub
+// assignable to VTU's Stub type under vue-tsc.
+const NuxtLinkStub = defineComponent({
   props: { to: { type: String, default: '' } },
-  setup(props: { to: string }, { slots }: { slots: Record<string, () => unknown> }) {
+  setup(props, { slots }) {
     return () => h('a', { href: props.to }, slots.default?.())
   }
-}
+})
 
 const SHELL_STUBS = {
   NuxtLink: NuxtLinkStub,
