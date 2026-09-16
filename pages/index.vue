@@ -397,41 +397,44 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container resumes: chapters 5-11 keep the constrained
-         gutter until each graduates to a full-bleed chapter. -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <div class="flex flex-col gap-16 md:gap-24">
-    <!-- 5 — Building the City (deep green band) -->
+    <!-- 5 — Building the City: clean-white editorial chapter (spec §4).
+         Project stories carry status, budget and source straight from
+         official and reported records. -->
     <section
       ref="projectsBand"
-      aria-labelledby="projects-heading"
-      class="section-deep-green"
-      :class="[BAND_CLASS, revealClass(projectsVisible)]"
+      aria-label="Building the City"
+      class="w-full section-white py-20 sm:py-28 lg:py-32 border-b border-charcoal/10"
+      :class="revealClass(projectsVisible)"
     >
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="projects-heading" class="font-serif text-3xl font-bold tracking-tight text-parchment">
-            Building the City
-          </h2>
-          <p class="mt-1 text-sm text-parchment/75">Projects tracked against official and reported records.</p>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            eyebrow="Building the City"
+            title="Projects & Development"
+            description="Projects tracked against official and reported records. Major municipal and national infrastructure verified through public disclosures."
+          />
+          <NuxtLink
+            to="/projects"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            Explore all public projects →
+          </NuxtLink>
         </div>
-        <NuxtLink
-          to="/projects"
-          class="rounded-sm text-sm font-semibold text-parchment underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-parchment"
-        >
-          Explore projects →
-        </NuxtLink>
-      </div>
 
-      <div class="mt-6 grid gap-4 md:grid-cols-3">
-        <ProjectsProjectCard
-          v-for="p in featuredProjects"
-          :key="p.id"
-          :project="p"
-        />
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <ProjectsProjectCard
+            v-for="p in featuredProjects"
+            :key="p.id"
+            :project="p"
+          />
+        </div>
       </div>
     </section>
 
+    <!-- Interim page container resumes: chapters 6-11 keep the constrained
+         gutter until each graduates to a full-bleed chapter. -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="flex flex-col gap-16 md:gap-24">
     <!-- 6 & 7 — Laws then Services in DOM (spec §9.1); mobile renders Services first (spec §33) -->
     <div
       ref="lawsServicesBand"
