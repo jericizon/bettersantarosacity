@@ -1,7 +1,7 @@
 [
   {
     "id": "santa-rosa-arch",
-    "file": "/images/brand/bettersantarosacity-logo.png",
+    "file": "/images/bettersantarosacity-logo.png",
     "title": "Historic Santa Rosa Arch",
     "description": "The welcoming monument at the city's historical boundary in Poblacion.",
     "category": "heritage",
@@ -11,8 +11,8 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
     "attributionRequired": false,
-    "width": 1024,
-    "height": 1024
+    "width": 500,
+    "height": 500
   },
   {
     "id": "santa-rosa-church",
@@ -76,7 +76,7 @@
   },
   {
     "id": "santa-rosa-emblem",
-    "file": "/images/brand/bettersantarosacity-logo.png",
+    "file": "/images/bettersantarosacity-logo.png",
     "title": "Better Santa Rosa City Emblem",
     "description": "AI-generated brand mark featuring the lion-flanked Santa Rosa Arch, a golden Philippine sun, green hills, and Laguna Lake waves. Used as the site logo and favicon.",
     "category": "civic",
@@ -86,7 +86,7 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
     "attributionRequired": false,
-    "width": 1024,
-    "height": 1024
+    "width": 500,
+    "height": 500
   }
 ]

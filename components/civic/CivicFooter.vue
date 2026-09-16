@@ -7,7 +7,7 @@
       <div class="md:col-span-2 space-y-4">
         <div class="flex items-center gap-2">
           <div class="w-9 h-9 rounded-full bg-parchment flex items-center justify-center p-0.5 shrink-0" aria-hidden="true">
-            <img src="/images/brand/bettersantarosacity-logo.png" alt="" width="32" height="32" class="w-full h-full object-contain">
+            <img src="/images/bettersantarosacity-logo.png" alt="" width="32" height="32" class="w-full h-full object-contain">
           </div>
           <h3 class="font-serif font-bold text-lg text-white">Better Santa Rosa City</h3>
         </div>
