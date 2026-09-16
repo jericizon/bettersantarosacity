@@ -15,6 +15,15 @@ describe('Homepage Civic Sections', () => {
     expect(wrapper.findComponent(Collage).exists()).toBe(true)
   })
 
+  it('renders hero chapter on parchment ground with search and local image', () => {
+    const wrapper = mount(IndexPage)
+    const heroSection = wrapper.find('section[aria-labelledby="hero-heading"]')
+    expect(heroSection.exists()).toBe(true)
+    expect(heroSection.findComponent(HeroSearch).exists()).toBe(true)
+    expect(wrapper.text()).toContain('Public information about Santa Rosa, made easier to find.')
+    expect(wrapper.text()).toContain('Independent community project')
+  })
+
   it('shows the site emblem as the hero image', () => {
     const wrapper = mount(IndexPage)
     const heroImg = wrapper.find('section[aria-labelledby="hero-heading"] img')

@@ -204,61 +204,67 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
 </script>
 
 <template>
-  <!-- Interim page container: the layout's <main> is now full-width for
-       full-bleed chapters, so the page supplies its own max-width and
-       gutters until the chapter rebuild lands. -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-  <div data-pagefind-filter="type:pages" class="flex flex-col gap-16 md:gap-24">
-    <!-- 1 — Hero (parchment) -->
-    <section aria-labelledby="hero-heading" class="pt-2 md:pt-6">
-      <div class="grid items-center gap-10 lg:grid-cols-12">
-        <div class="animate-fade-in-up lg:col-span-7">
-          <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
-            <CivicRoseMotif :size="16" class="text-rose-accent" />
-            Santa Rosa City, Laguna
-          </p>
-          <h1
-            id="hero-heading"
-            class="mt-3 max-w-3xl font-serif text-4xl font-bold leading-tight tracking-tight text-laguna-green sm:text-5xl"
-          >
-            Public information about Santa Rosa, made easier to find.
-          </h1>
-          <p class="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/75 sm:text-lg">
-            Explore the people, projects, budgets, laws, services and public records of Santa Rosa City.
-          </p>
+  <div data-pagefind-filter="type:pages">
+    <!-- 1 — Hero: the first full-bleed chapter (parchment). The layout's
+         <main> is full-width, so the chapter supplies its own inner measure. -->
+    <section
+      aria-labelledby="hero-heading"
+      class="w-full section-parchment py-16 sm:py-24 lg:py-28 border-b border-charcoal/10"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid items-center gap-10 lg:grid-cols-12">
+          <div class="animate-fade-in-up lg:col-span-7">
+            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
+              <CivicRoseMotif :size="16" class="text-rose-accent" />
+              Santa Rosa City, Laguna
+            </p>
+            <h1
+              id="hero-heading"
+              class="mt-3 max-w-3xl font-serif text-4xl font-bold leading-[1.1] tracking-tight text-laguna-green sm:text-5xl"
+            >
+              Public information about Santa Rosa, made easier to find.
+            </h1>
+            <p class="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/75 sm:text-lg">
+              Explore the people, projects, budgets, laws, services and public records of Santa Rosa City.
+            </p>
 
-          <CivicHeroSearch class="mt-8" />
+            <CivicHeroSearch class="mt-8" />
 
-          <ul class="mt-4 flex flex-wrap gap-2" aria-label="Example searches">
-            <li v-for="ex in searchExamples" :key="ex.q">
-              <NuxtLink
-                :to="`/search?q=${ex.q}`"
-                class="inline-flex items-center rounded-full border border-charcoal/15 bg-white px-3 py-1.5 text-xs font-medium text-charcoal/70 transition hover:border-laguna-green hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-              >
-                {{ ex.label }}
-              </NuxtLink>
-            </li>
-          </ul>
+            <ul class="mt-4 flex flex-wrap gap-2" aria-label="Example searches">
+              <li v-for="ex in searchExamples" :key="ex.q">
+                <NuxtLink
+                  :to="`/search?q=${ex.q}`"
+                  class="inline-flex items-center rounded-full border border-charcoal/15 bg-white px-3 py-1.5 text-xs font-medium text-charcoal/70 transition hover:border-laguna-green hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+                >
+                  {{ ex.label }}
+                </NuxtLink>
+              </li>
+            </ul>
 
-          <p class="mt-6 flex items-center gap-2 text-xs text-charcoal/70">
-            <span class="inline-block h-1.5 w-1.5 rounded-full bg-laguna-green" aria-hidden="true" />
-            Independent community project • Sources linked to original documents
-          </p>
-        </div>
+            <p class="mt-6 flex items-center gap-2 text-xs text-charcoal/70">
+              <span class="inline-block h-1.5 w-1.5 rounded-full bg-laguna-green" aria-hidden="true" />
+              Independent community project • Sources linked to original documents
+            </p>
+          </div>
 
-        <div class="lg:col-span-5">
-          <img
-            :src="heroImage.file"
-            :alt="heroImage.description"
-            :width="heroImage.width"
-            :height="heroImage.height"
-            fetchpriority="high"
-            class="mx-auto w-full max-w-md animate-fade-in-up"
-          >
+          <div class="lg:col-span-5">
+            <img
+              :src="heroImage.file"
+              :alt="heroImage.description"
+              :width="heroImage.width"
+              :height="heroImage.height"
+              fetchpriority="high"
+              class="mx-auto w-full max-w-md animate-fade-in-up rounded-2xl border border-charcoal/10 shadow-sm object-cover"
+            >
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Interim page container: chapters 2-11 keep the constrained gutter
+         until each graduates to a full-bleed chapter. -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="flex flex-col gap-16 md:gap-24">
     <!-- 2 — Santa Rosa Today (warm parchment band) -->
     <section
       ref="todaySection"
@@ -600,6 +606,7 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
         </li>
       </ul>
     </section>
-  </div>
+    </div>
+    </div>
   </div>
 </template>
