@@ -13,7 +13,7 @@ import type { Budget } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Annual Budget Breakdown — Better Santa Rosa City',
+    title: 'Annual Budget Breakdown · Better Santa Rosa City',
     description: 'Fiscal-year breakdown of Santa Rosa City\'s verified revenue records from COA audit reports and BLGF statements, with source documents and methodology notes.',
     path: '/money/budget'
   }))
@@ -53,7 +53,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Verified revenue figures by fiscal year, drawn from Commission on Audit
         reports and Bureau of Local Government Finance statements. Appropriation-level
-        spending detail was unavailable in the sources reviewed — figures below are
+        spending detail was unavailable in the sources reviewed. Figures below are
         labeled as the revenue totals they are.
       </p>
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -98,7 +98,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
             {{ formatPeso(selectedBudget.totalBudgetPhp) }}
           </p>
           <p class="mt-1 text-sm font-medium text-charcoal">
-            Verified city revenue (COA/BLGF) — {{ formatPesoFull(selectedBudget.totalBudgetPhp) }}
+            Verified city revenue (COA/BLGF) · {{ formatPesoFull(selectedBudget.totalBudgetPhp) }}
           </p>
         </div>
 
@@ -135,8 +135,8 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
       </h2>
       <div class="mt-3 max-w-3xl space-y-3 text-sm leading-relaxed text-charcoal/75">
         <p>
-          Figures are verified city revenue — income reported in COA Annual Audit
-          Reports and BLGF statements — not appropriation budgets. No authoritative
+          Figures are verified city revenue: income reported in COA Annual Audit
+          Reports and BLGF statements, not appropriation budgets. No authoritative
           line-item spending breakdown was available in the sources reviewed, so the
           category rows above reproduce each record's source-labeled revenue line
           verbatim rather than a constructed expenditure split.
@@ -145,7 +145,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
           Coverage reflects selected publicly available records and is not
           necessarily complete; gaps between fiscal years simply mark years without
           a verified figure in our sources. Records are presented without political
-          characterization — spending is not labeled wasteful, corrupt, or
+          characterization. Spending is not labeled wasteful, corrupt, or
           suspicious, and only what the cited documents support is shown.
         </p>
       </div>

@@ -14,8 +14,8 @@ import type { Department, Official } from '~/types/civic'
 // Rosa — the subject of this directory — not this site (spec §28).
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Government Directory — Better Santa Rosa City',
-    description: 'Elected officials and city departments of Santa Rosa, Laguna — a community-maintained directory built on official city government records.',
+    title: 'Government Directory · Better Santa Rosa City',
+    description: 'Elected officials and city departments of Santa Rosa, Laguna, a community-maintained directory built on official city government records.',
     path: '/government',
     jsonLd: {
       '@context': 'https://schema.org',
@@ -71,7 +71,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Elected officials and city departments, compiled from official city
         government records. This is a <span class="font-medium">community-maintained
-        presentation</span> — each entry cites the official source it was verified
+        presentation</span>. Each entry cites the official source it was verified
         against, and details we cannot confirm are labeled
         <span class="font-medium">“Needs verification”</span>, never filled in.
       </p>
@@ -125,7 +125,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
         </h2>
       </div>
       <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/70">
-        Elected citywide but sits in the House of Representatives — a national
+        Elected citywide but sits in the House of Representatives, a national
         office, listed here because the city's official directory includes the
         post alongside city officials.
       </p>
@@ -153,7 +153,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
           v-model="departmentQuery"
           type="search"
           autocomplete="off"
-          placeholder="Filter departments — e.g. permits, health, budget..."
+          placeholder="Filter departments · e.g. permits, health, budget..."
           class="w-full rounded-md border border-charcoal/20 bg-white py-2 px-3 text-sm text-charcoal placeholder:text-charcoal/70 focus:border-laguna-green focus:outline-none focus:ring-2 focus:ring-laguna-green/30"
         />
       </div>

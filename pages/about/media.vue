@@ -5,7 +5,7 @@ import type { MediaItem } from '~/types/civic'
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Media & Photography Credits — Better Santa Rosa City',
+    title: 'Media & Photography Credits · Better Santa Rosa City',
     description: 'Complete licensing, provenance, and attribution details for all media assets used across Better Santa Rosa City.',
     path: '/about/media'
   }))
@@ -24,7 +24,7 @@ const mediaList = mediaData as MediaItem[]
         Media & Photography Credits
       </h1>
       <p class="mt-3 text-sm text-charcoal/80 leading-relaxed">
-        Better Santa Rosa City is committed to copyright integrity and open licensing. Every media asset displayed across this site is an original illustration created for this project and released under an open license — credited below.
+        Better Santa Rosa City is committed to copyright integrity and open licensing. Every media asset displayed across this site is an original illustration created for this project and released under an open license · credited below.
       </p>
     </div>
 

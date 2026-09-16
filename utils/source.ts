@@ -1,12 +1,16 @@
 import type { SourceReference } from '~/types/civic'
 
+// Spec bans em-dashes in rendered copy; dataset strings still carry them.
+export function normalizeDisplayText(text: string): string {
+  return text.replace(/\s*—\s*/g, ' · ').trim()
+}
+
 // Dataset `source` fields are strings like "Title (https://url); Title 2 (https://url2)".
 // Split off the first URL for the citation link; the rest stays as display text.
 export function toSourceReference(source: string): SourceReference {
   const title = source.split(' (')[0]?.trim() || source
   return {
-    // Spec bans em-dashes in rendered copy; dataset source strings still carry them.
-    title: title.replace(/\s*—\s*/g, ' · ').trim(),
+    title: normalizeDisplayText(title),
     url: source.match(/https?:\/\/[^\s);]+/)?.[0]
   }
 }

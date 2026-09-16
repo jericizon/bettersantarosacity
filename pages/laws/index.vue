@@ -11,8 +11,8 @@ import type { Law } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Laws & Ordinances — Better Santa Rosa City',
-    description: 'Ordinances, resolutions and executive orders of Santa Rosa City, Laguna — searchable by keyword, type and year, each linked to its cited source document.',
+    title: 'Laws & Ordinances · Better Santa Rosa City',
+    description: 'Ordinances, resolutions and executive orders of Santa Rosa City, Laguna, searchable by keyword, type and year, each linked to its cited source document.',
     path: '/laws'
   }))
 }
@@ -91,7 +91,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Ordinances, resolutions and executive orders of the City of Santa Rosa,
         each traced to a cited document copy. Summaries are neutral Better Santa
-        Rosa summaries — always check the linked document for the official text.
+        Rosa summaries. Always check the linked document for the official text.
       </p>
       <DataLastVerified v-if="lastVerified" :date="lastVerified" :show-state="false" />
     </header>
@@ -206,8 +206,8 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
     </section>
 
     <p class="text-xs text-charcoal/70">
-      This directory lists selected issuances verified against the cited sources —
-      it is not a complete record of all city legislation.
+      This directory lists selected issuances verified against the cited sources.
+      It is not a complete record of all city legislation.
     </p>
   </div>
 </template>

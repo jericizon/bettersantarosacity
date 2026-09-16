@@ -6,16 +6,16 @@ import CivicTimeline from '~/components/civic/Timeline.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
-import { toSourceReference } from '~/utils/source'
+import { normalizeDisplayText, toSourceReference } from '~/utils/source'
 import { buildSeoHead } from '~/utils/seo'
 import type { Barangay, SourceReference } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Explore Santa Rosa — City profile and history — Better Santa Rosa City',
+    title: 'Explore Santa Rosa · City profile and history · Better Santa Rosa City',
     description:
-      'The story and shape of Santa Rosa City, Laguna — from Barrio Bukol to cityhood, its 18 barangays, Laguna Lake frontage, and industrial economy.',
+      'The story and shape of Santa Rosa City, Laguna, from Barrio Bukol to cityhood, its 18 barangays, Laguna Lake frontage, and industrial economy.',
     path: '/explore'
   }))
 }
@@ -31,12 +31,12 @@ const cityStats = [
   {
     value: String(cityData.barangayCount),
     label: 'Barangays',
-    source: 'City Government of Santa Rosa — About Us'
+    source: 'City Government of Santa Rosa · About Us'
   },
   {
     value: `${cityData.landAreaHa.toLocaleString('en-US')} ha`,
     label: 'Land area',
-    source: 'City Government of Santa Rosa — About Us'
+    source: 'City Government of Santa Rosa · About Us'
   },
   {
     value: String(cityData.cityhoodYear),
@@ -70,7 +70,7 @@ const landmarks = [
     slug: 'balibago',
     barangayName: 'Balibago',
     description:
-      'Theme park in Barangay Balibago along the National Highway corridor — the city\'s signature visitor attraction.'
+      'Theme park in Barangay Balibago along the National Highway corridor · the city\'s signature visitor attraction.'
   },
   {
     name: 'Cuartel de Santo Domingo',
@@ -100,7 +100,7 @@ const vlrSource = profileSources.at(2)
 
 const censusSources: SourceReference[] = sourcesData
   .filter(s => s.id === 'psa' || s.id === 'philatlas')
-  .map(s => ({ title: s.name, url: s.url }))
+  .map(s => ({ title: normalizeDisplayText(s.name), url: s.url }))
 </script>
 
 <template>
@@ -118,7 +118,7 @@ const censusSources: SourceReference[] = sourcesData
       </h1>
       <p class="mt-4 max-w-2xl font-serif text-lg italic leading-relaxed text-charcoal/70">
         Two centuries as a lakeside barrio of Biñan, a farming and fishing town, an
-        industrial anchor of Laguna — and since 2004 a city in its own right.
+        industrial anchor of Laguna, and since 2004 a city in its own right.
       </p>
       <p class="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/75">
         This profile covers the city's history, geography, people and economy.
@@ -134,7 +134,7 @@ const censusSources: SourceReference[] = sourcesData
         Santa Rosa at a glance
       </h2>
       <p class="mt-1 text-sm text-charcoal/70">
-        The city's core figures — each carries its source.
+        The city's core figures · each carries its source.
       </p>
       <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <DataStatCard
@@ -165,7 +165,7 @@ const censusSources: SourceReference[] = sourcesData
       <p class="mt-1 max-w-3xl text-sm leading-relaxed text-charcoal/70">
         The city government's published historical timeline, from its days as a
         sitio of Biñan called Barrio Bukol through cityhood in 2004 and today's
-        growth — edited only for length, never for substance.
+        growth, edited only for length, never for substance.
       </p>
       <CivicTimeline :items="timeline" class="mt-8" />
       <div class="mt-6 flex flex-wrap items-center gap-2">
@@ -192,7 +192,7 @@ const censusSources: SourceReference[] = sourcesData
         ridge toward the Silang, Cavite boundary.
       </p>
       <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/75 sm:text-base">
-        Three barangays face the lake — Aplaya, Caingin and Sinalhan — the
+        Three barangays face the lake: Aplaya, Caingin and Sinalhan, the
         shoreline communities whose fishing grounds sustained the settlement long
         before industrialization.
       </p>
@@ -231,7 +231,7 @@ const censusSources: SourceReference[] = sourcesData
       </NuxtLink>
       <div class="mt-4 flex flex-wrap items-center gap-2">
         <DataSourceCitation
-          :source="{ title: 'City Government of Santa Rosa — About Us', url: 'https://santarosacity.gov.ph/about-us' }"
+          :source="{ title: 'City Government of Santa Rosa · About Us', url: 'https://santarosacity.gov.ph/about-us' }"
           :verified-date="cityData.lastVerified"
         />
         <DataSourceCitation
@@ -271,7 +271,7 @@ const censusSources: SourceReference[] = sourcesData
         <p class="rounded-lg border border-heritage-gold/30 bg-heritage-gold/10 p-4 text-xs leading-relaxed text-charcoal/70">
           Honest gap: detailed industrial-park inventories, employment counts,
           and visitor statistics are not yet compiled here from authoritative
-          sources — only claims tied to the cited datasets above are shown.
+          sources. Only claims tied to the cited datasets above are shown.
         </p>
       </div>
       <div class="mt-5 flex flex-wrap items-center gap-2">
@@ -281,7 +281,7 @@ const censusSources: SourceReference[] = sourcesData
           :verified-date="cityData.lastVerified"
         />
         <DataSourceCitation
-          :source="{ title: 'City Government of Santa Rosa — About Us', url: 'https://santarosacity.gov.ph/about-us' }"
+          :source="{ title: 'City Government of Santa Rosa · About Us', url: 'https://santarosacity.gov.ph/about-us' }"
         />
         <DataLastVerified :date="cityData.lastVerified" :show-state="false" />
       </div>

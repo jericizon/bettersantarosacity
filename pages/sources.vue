@@ -3,18 +3,21 @@ import sourcesData from '~/data/sources.json'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { buildSeoHead } from '~/utils/seo'
+import { normalizeDisplayText } from '~/utils/source'
 import type { Source } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Sources & Methodology — Better Santa Rosa City',
-    description: 'How Better Santa Rosa City collects, verifies and labels public data — the source hierarchy, the full source registry, and the trust rules every dataset follows.',
+    title: 'Sources & Methodology · Better Santa Rosa City',
+    description: 'How Better Santa Rosa City collects, verifies and labels public data: the source hierarchy, the full source registry, and the trust rules every dataset follows.',
     path: '/sources'
   }))
 }
 
-const sources = sourcesData as Source[]
+// Registry names render verbatim, so apply the same em-dash normalization
+// toSourceReference gives dataset source strings.
+const sources = (sourcesData as Source[]).map(s => ({ ...s, name: normalizeDisplayText(s.name) }))
 
 // Preference order from the editorial spec — reproduced verbatim.
 const sourceHierarchy = [
@@ -66,11 +69,11 @@ const trustQuestions = [
   },
   {
     question: 'When was it last checked?',
-    answer: 'Every record carries a lastVerified date — the day it was last compared against the source. Freshness badges flag records due for re-checking.'
+    answer: 'Every record carries a lastVerified date, the day it was last compared against the source. Freshness badges flag records due for re-checking.'
   },
   {
     question: 'What period does it cover?',
-    answer: 'Each dataset declares its coverage — the fiscal years, census rounds or term periods its records span.'
+    answer: 'Each dataset declares its coverage: the fiscal years, census rounds or term periods its records span.'
   },
   {
     question: 'Is it complete?',
@@ -78,7 +81,7 @@ const trustQuestions = [
   },
   {
     question: 'Who maintains this page?',
-    answer: 'Independent community volunteers — not the city government. Corrections are welcome through the public GitHub repository.'
+    answer: 'Independent community volunteers, not the city government. Corrections are welcome through the public GitHub repository.'
   }
 ]
 </script>
@@ -98,7 +101,7 @@ const trustQuestions = [
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Where every figure on this site comes from, how it is checked, and the
         rules that keep this project honest. Nothing here is published without a
-        traceable source — and nothing missing is invented.
+        traceable source, and nothing missing is invented.
       </p>
     </header>
 
@@ -119,8 +122,8 @@ const trustQuestions = [
         </li>
       </ol>
       <p class="mt-4 max-w-3xl text-xs leading-relaxed text-charcoal/70">
-        Official government datasets (tier 5) — census tables, procurement
-        postings, budget statements — are published by the agencies in tiers 2–4
+        Official government datasets (tier 5) such as census tables, procurement
+        postings, and budget statements are published by the agencies in tiers 2–4
         and are cited per record. Every factual dataset on this site records its
         source.
       </p>
@@ -136,7 +139,7 @@ const trustQuestions = [
       <div class="mt-5 max-w-3xl space-y-5 font-serif text-base leading-relaxed text-charcoal/80">
         <p>
           <span class="font-bold text-laguna-green">Collection.</span>
-          Every dataset is compiled by hand from public records — full
+          Every dataset is compiled by hand from public records: full
           disclosure documents, annual audit reports, census releases, budget
           statements and the official portals listed in the registry below.
           There is no automated scraping: a person reads the source document
@@ -145,7 +148,7 @@ const trustQuestions = [
         <p>
           <span class="font-bold text-laguna-green">Verification.</span>
           Each record carries a <code class="font-sans text-sm">lastVerified</code>
-          date — the day it was last checked against its source. The freshness
+          date, the day it was last checked against its source. The freshness
           badges shown across the site are computed from that date, so a stale
           record is visibly stale rather than silently wrong.
         </p>
@@ -164,7 +167,7 @@ const trustQuestions = [
           No dataset here claims to be complete. Each declares what period and
           scope it covers, and known gaps are stated on the page rather than
           footnoted away. If a figure matters to you, verify it against the
-          original document — that is what the links are for.
+          original document. That is what the links are for.
         </p>
       </div>
     </section>
@@ -248,7 +251,7 @@ const trustQuestions = [
           <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Community presentation</dt>
           <dd class="mt-2"><DataSourceBadge type="community" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
-            Our own organization or summary of official records — presentation, not endorsement.
+            Our own organization or summary of official records: presentation, not endorsement.
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
@@ -268,8 +271,8 @@ const trustQuestions = [
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm sm:col-span-2">
           <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Coverage</dt>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
-            The period and scope a dataset spans — which fiscal years, census
-            rounds, terms or barangays — and any known gaps in it.
+            The period and scope a dataset spans (which fiscal years, census
+            rounds, terms or barangays) and any known gaps in it.
           </dd>
         </div>
       </dl>

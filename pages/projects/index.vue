@@ -10,8 +10,8 @@ import type { Project } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'City Projects — Better Santa Rosa City',
-    description: 'Infrastructure and civic projects in Santa Rosa City, Laguna — filterable by status, barangay, category and year, each traced to its cited source.',
+    title: 'City Projects · Better Santa Rosa City',
+    description: 'Infrastructure and civic projects in Santa Rosa City, Laguna, filterable by status, barangay, category and year, each traced to its cited source.',
     path: '/projects'
   }))
 }
@@ -86,8 +86,8 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
       </div>
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Infrastructure and civic projects traced to public records and verified
-        reporting. Coverage is limited to what the cited sources support —
-        undisclosed costs and unverified details are labeled, never filled in.
+        reporting. Coverage is limited to what the cited sources support.
+        Undisclosed costs and unverified details are labeled, never filled in.
       </p>
       <DataLastVerified v-if="lastVerified" :date="lastVerified" :show-state="false" />
     </header>

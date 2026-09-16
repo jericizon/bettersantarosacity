@@ -12,13 +12,13 @@ const datasets = buildDatasets()
 // Runs after `datasets` so the Dataset JSON-LD mirrors the published list.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Open Data & Downloads — Better Santa Rosa City',
-    description: 'Downloadable civic datasets for Santa Rosa, Laguna — barangays, officials, budgets, projects, ordinances and the source registry — in JSON and CSV.',
+    title: 'Open Data & Downloads · Better Santa Rosa City',
+    description: 'Downloadable civic datasets for Santa Rosa, Laguna: barangays, officials, budgets, projects, ordinances and the source registry, in JSON and CSV.',
     path: '/data',
     jsonLd: datasets.map(ds => ({
       '@context': 'https://schema.org',
       '@type': 'Dataset',
-      name: `Santa Rosa City, Laguna — ${ds.name}`,
+      name: `Santa Rosa City, Laguna · ${ds.name}`,
       description: ds.description,
       url: `${SITE_URL}${ds.jsonHref}`,
       license: ds.licenseNote,
@@ -48,7 +48,7 @@ if (typeof useHead === 'function') {
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Every dataset behind this site, downloadable for your own research,
         reporting or verification. Each file keeps its per-record source
-        citations and verification dates — check the original documents before
+        citations and verification dates. Check the original documents before
         relying on any figure.
       </p>
     </header>

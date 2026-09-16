@@ -26,7 +26,7 @@ const typeLabel = law ? LAW_TYPE_LABEL[law.type] : 'Measure'
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: `${typeLabel} No. ${law?.number ?? 'Not Found'} — Better Santa Rosa City`,
+    title: `${typeLabel} No. ${law?.number ?? 'Not Found'} · Better Santa Rosa City`,
     description: law?.summary ?? 'City law or issuance record for Santa Rosa City, Laguna.',
     path: `/laws/${slug}`,
     jsonLd: {

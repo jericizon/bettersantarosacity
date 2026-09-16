@@ -26,7 +26,7 @@ if (!barangay && typeof createError === 'function') {
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: `Barangay ${barangay?.name ?? 'Not Found'} — Better Santa Rosa City`,
+    title: `Barangay ${barangay?.name ?? 'Not Found'} · Better Santa Rosa City`,
     description: barangay?.description ?? 'Barangay profile for Santa Rosa City, Laguna.',
     path: `/barangays/${slug}`,
     jsonLd: {

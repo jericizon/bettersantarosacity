@@ -15,8 +15,8 @@ import type { Law } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Search — Better Santa Rosa City',
-    description: 'Search every dataset and page on Better Santa Rosa City — officials, barangays, projects, laws, budgets, services and public records.',
+    title: 'Search · Better Santa Rosa City',
+    description: 'Search every dataset and page on Better Santa Rosa City: officials, barangays, projects, laws, budgets, services and public records.',
     path: '/search'
   }))
 }
@@ -66,7 +66,7 @@ const fallbackDocs: FallbackDoc[] = [
   ...projectsData.map(p =>
     doc(p.name, `${p.category} · ${p.status}. ${p.description} Barangay: ${p.barangay}`, `/projects#${p.slug}`, 'projects')),
   ...(lawsData as Law[]).map(l =>
-    doc(`${LAW_TYPE_LABEL[l.type] ?? 'Measure'} No. ${l.number} — ${l.title}`, l.summary, `/laws#${l.id}`, 'laws')),
+    doc(`${LAW_TYPE_LABEL[l.type] ?? 'Measure'} No. ${l.number} · ${l.title}`, l.summary, `/laws#${l.id}`, 'laws')),
   ...budgetsData.map(b =>
     doc(
       `Verified city revenue FY ${b.fiscalYear}`,
@@ -346,7 +346,7 @@ onBeforeUnmount(() => clearTimeout(debounce))
     </div>
 
     <p v-if="statusText" role="status" aria-live="polite" class="text-sm text-charcoal/70">
-      {{ statusText }}<template v-if="searching"> — searching…</template>
+      {{ statusText }}<template v-if="searching"> · searching…</template>
     </p>
 
     <div
@@ -354,7 +354,7 @@ onBeforeUnmount(() => clearTimeout(debounce))
       class="rounded-md border border-heritage-gold/40 bg-heritage-gold/10 p-4 text-sm text-charcoal"
       role="note"
     >
-      <p class="font-medium">Full-text search index unavailable — showing basic results from the civic datasets.</p>
+      <p class="font-medium">Full-text search index unavailable · showing basic results from the civic datasets.</p>
       <p class="mt-1 text-charcoal/70">
         Run <code class="rounded bg-parchment px-1">pnpm run generate &amp;&amp; pnpm run index:search</code>
         to enable Pagefind-powered search across every page.
