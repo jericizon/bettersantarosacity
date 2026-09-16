@@ -314,6 +314,7 @@ function revealClass(isVisible: boolean) {
             :suffix="stat.suffix"
           />
         </div>
+        <CivicWeatherToday class="mt-8" />
       </div>
     </section>
 
