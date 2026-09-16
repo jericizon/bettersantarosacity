@@ -10,9 +10,14 @@ interface TimelineItem {
   description: string
 }
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   items: TimelineItem[]
-}>()
+  // 'dark' pairs with the deep-green homepage chapter (spec §4); default stays
+  // light for the explore page.
+  theme?: 'light' | 'dark'
+}>(), {
+  theme: 'light'
+})
 
 // media.json is validated against MediaItemSchema by media-schema.spec.ts;
 // the JSON import widens `category` to string, so assert the type once here.
@@ -40,7 +45,10 @@ const entries = computed(() =>
   <!-- Continuous rule via pseudo-element (ol may only contain li children):
        left rail on mobile, centered spine on md+ -->
   <ol
-    class="relative space-y-12 md:space-y-16 before:absolute before:top-1 before:bottom-1 before:left-1.5 before:w-0.5 before:-translate-x-1/2 before:rounded-full before:bg-charcoal/15 before:content-[''] md:before:left-1/2"
+    :class="[
+      'relative space-y-12 md:space-y-16 before:absolute before:top-1 before:bottom-1 before:left-1.5 before:w-0.5 before:-translate-x-1/2 before:rounded-full before:content-[\'\'] md:before:left-1/2',
+      theme === 'dark' ? 'before:bg-parchment/25' : 'before:bg-charcoal/15'
+    ]"
   >
     <li
       v-for="(entry, i) in entries"
@@ -51,7 +59,9 @@ const entries = computed(() =>
       <span
         aria-hidden="true"
         :class="[
-          'absolute left-1.5 top-2.5 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-parchment md:left-1/2 md:top-1/2 md:-translate-y-1/2',
+          'absolute left-1.5 top-2.5 h-3 w-3 -translate-x-1/2 rounded-full border-2 md:left-1/2 md:top-1/2 md:-translate-y-1/2',
+          // Marker ring matches the ground so the dot reads as a break in the spine.
+          theme === 'dark' ? 'border-laguna-green' : 'border-parchment',
           entry.landmark ? 'bg-heritage-gold' : 'bg-rose-accent'
         ]"
       />
@@ -61,11 +71,26 @@ const entries = computed(() =>
           : 'md:col-start-2 md:justify-self-start'"
         class="md:max-w-md"
       >
-        <p class="font-serif text-2xl font-bold leading-none tracking-tight text-rose-accent-dark md:text-3xl">
+        <p
+          :class="[
+            'font-serif text-2xl font-bold leading-none tracking-tight md:text-3xl',
+            theme === 'dark' ? 'text-heritage-gold' : 'text-rose-accent-dark'
+          ]"
+        >
           {{ entry.year }}
         </p>
-        <h3 class="mt-2 font-serif text-lg font-bold leading-snug text-laguna-green">{{ entry.title }}</h3>
-        <p class="mt-1 text-sm leading-relaxed text-charcoal/75">{{ entry.description }}</p>
+        <h3
+          :class="[
+            'mt-2 font-serif text-lg font-bold leading-snug',
+            theme === 'dark' ? 'text-parchment' : 'text-laguna-green'
+          ]"
+        >{{ entry.title }}</h3>
+        <p
+          :class="[
+            'mt-1 text-sm leading-relaxed',
+            theme === 'dark' ? 'text-parchment/80' : 'text-charcoal/75'
+          ]"
+        >{{ entry.description }}</p>
       </div>
       <div
         v-if="entry.landmark"

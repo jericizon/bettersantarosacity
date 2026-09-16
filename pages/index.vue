@@ -431,7 +431,7 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container resumes: chapters 6-11 keep the constrained
+    <!-- Interim page container resumes: chapters 6-7 keep the constrained
          gutter until each graduates to a full-bleed chapter. -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="flex flex-col gap-16 md:gap-24">
@@ -533,33 +533,44 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
         </div>
       </section>
     </div>
+    </div>
+    </div>
 
-    <!-- 8 — From Bukol to Modern Santa Rosa (Laguna-blue band) -->
+    <!-- 8 — From Bukol to Today: deep-green editorial chapter (spec §4).
+         Copy stays neutral and source-backed — no unverified superlatives
+         (spec §21). The shared timeline switches to its dark theme here. -->
     <section
       ref="heritageBand"
-      aria-labelledby="history-heading"
-      class="section-lake-blue"
-      :class="[BAND_CLASS, revealClass(heritageVisible)]"
+      aria-label="From Bukol to Today"
+      class="w-full section-deep-green py-20 sm:py-28 lg:py-32"
+      :class="revealClass(heritageVisible)"
     >
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="history-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-            From Bukol to Modern Santa Rosa
-          </h2>
-          <p class="mt-1 text-sm text-charcoal/70">
-            From a lakeside barrio of Biñan to Luzon's richest city outside Metro Manila.
-          </p>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            theme="dark"
+            eyebrow="Heritage & Evolution"
+            title="From Bukol to Today"
+            description="From a lakeside barrio of Biñan to cityhood, manufacturing center, and cultural heritage."
+          />
+          <NuxtLink
+            to="/explore"
+            class="rounded-sm text-sm font-semibold text-parchment underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold"
+          >
+            Discover Santa Rosa's history →
+          </NuxtLink>
         </div>
-        <NuxtLink
-          to="/explore"
-          class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-        >
-          Discover Santa Rosa's history →
-        </NuxtLink>
+
+        <div class="max-w-5xl mx-auto mt-12 sm:mt-16">
+          <CivicTimeline :items="cityData.timeline" theme="dark" />
+        </div>
       </div>
-      <CivicTimeline :items="cityData.timeline" class="mt-8" />
     </section>
 
+    <!-- Interim page container resumes: chapters 9-11 keep the constrained
+         gutter until each graduates to a full-bleed chapter. -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="flex flex-col gap-16 md:gap-24">
     <!-- 9 — Signature editorial collage (heritage parchment) -->
     <section
       ref="collageSection"

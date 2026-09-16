@@ -5,6 +5,7 @@ import IndexPage from '../../pages/index.vue'
 import HeroSearch from '../../components/civic/HeroSearch.vue'
 import MapExplorer from '../../components/civic/MapExplorer.vue'
 import Collage from '../../components/civic/Collage.vue'
+import Timeline from '../../components/civic/Timeline.vue'
 import StatCard from '../../components/data/StatCard.vue'
 
 describe('Homepage Civic Sections', () => {
@@ -68,5 +69,23 @@ describe('Homepage Civic Sections', () => {
     expect(moneyChapter.exists()).toBe(true)
     expect(moneyChapter.classes()).toContain('w-full')
     expect(moneyChapter.classes()).toContain('section-parchment')
+  })
+
+  it('renders history chapter with neutral source-backed wording without unsupported superlatives', () => {
+    const wrapper = mount(IndexPage)
+    expect(wrapper.text()).toContain('From Bukol to Today')
+    // Superlatives lacking verifiable comparison methodology must NOT be present (spec §21)
+    expect(wrapper.text()).not.toContain("Luzon's richest city outside Metro Manila")
+    expect(wrapper.text()).toContain('From a lakeside barrio of Biñan to cityhood')
+  })
+
+  it('graduates the history chapter into a full-bleed deep-green chapter', () => {
+    const wrapper = mount(IndexPage)
+    const historyChapter = wrapper.find('section[aria-label="From Bukol to Today"]')
+    expect(historyChapter.exists()).toBe(true)
+    expect(historyChapter.classes()).toContain('w-full')
+    expect(historyChapter.classes()).toContain('section-deep-green')
+    // The shared timeline switches to its dark theme on the deep-green ground.
+    expect(historyChapter.findComponent(Timeline).props('theme')).toBe('dark')
   })
 })
