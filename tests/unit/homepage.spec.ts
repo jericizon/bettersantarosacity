@@ -19,7 +19,7 @@ describe('Homepage Civic Sections', () => {
     const wrapper = mount(IndexPage)
     const heroImg = wrapper.find('section[aria-labelledby="hero-heading"] img')
     expect(heroImg.exists()).toBe(true)
-    expect(heroImg.attributes('src')).toBe('/images/bettersantarosacity-logo.png')
+    expect(heroImg.attributes('src')).toBe('/images/bettersantarosacity-logo.svg')
     expect(heroImg.attributes('alt')).toBeTruthy()
     // Every photograph must carry a source credit (spec §5 / §26).
     expect(wrapper.text()).toContain('Photo:')
