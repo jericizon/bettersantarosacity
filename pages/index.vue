@@ -265,7 +265,7 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
             class="absolute -left-5 -top-5 hidden h-16 w-16 items-center justify-center rounded-full bg-parchment p-1 shadow-md ring-1 ring-charcoal/10 sm:flex"
           >
             <img
-              src="/images/brand/santa-rosa-emblem.png"
+              src="/images/brand/bettersantarosacity-logo.png"
               alt=""
               width="56"
               height="56"

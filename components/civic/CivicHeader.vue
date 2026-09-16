@@ -45,7 +45,7 @@ function closeMobile() {
     >
       <NuxtLink to="/" class="flex items-center gap-2 group rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
         <img
-          src="/images/brand/santa-rosa-emblem.png"
+          src="/images/brand/bettersantarosacity-logo.png"
           alt=""
           width="36"
           height="36"
