@@ -252,8 +252,7 @@ const censusSources: SourceReference[] = sourcesData
           The timeline tells the arc plainly: when Santa Rosa's income reached
           ₱54.2&nbsp;million in 1993 it became a first-class municipality; eleven
           years later it was a city. By FY2024, Commission on Audit-reported
-          revenue reached ₱6.251&nbsp;billion — reported as the largest of any
-          city in Luzon outside Metro Manila.
+          revenue reached ₱6.251&nbsp;billion.
         </p>
         <p>
           Santa Rosa sits along the South Luzon Expressway corridor at the

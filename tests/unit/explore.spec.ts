@@ -20,5 +20,7 @@ describe('City Profile / Explore Page', () => {
     // Superlatives lacking verifiable comparison methodology must NOT be present (spec §21)
     expect(wrapper.text()).not.toContain("Luzon's richest city outside Metro Manila")
     expect(wrapper.text()).not.toContain('Richest city')
+    expect(wrapper.text()).not.toContain('largest of any city')
+    expect(wrapper.text()).not.toContain('outside Metro Manila')
   })
 })

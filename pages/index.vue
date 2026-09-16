@@ -31,9 +31,9 @@ import type { Law, MediaItem, Project } from '~/types/civic'
 // maintained — never the City Government (spec §28).
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Better Santa Rosa City — Public Information Portal',
+    title: 'Better Santa Rosa City · Public Information Portal',
     description:
-      'Independent, community-maintained public information portal for Santa Rosa City, Laguna — barangays, budgets, projects, laws, services and sources, each linked to official records.',
+      'Independent, community-maintained public information portal for Santa Rosa City, Laguna: barangays, budgets, projects, laws, services and sources, each linked to official records.',
     path: '/',
     jsonLd: [
       {
@@ -90,14 +90,14 @@ const cityStats: { value: string; label: string; source: string; numericValue?: 
     value: String(cityData.barangayCount),
     numericValue: cityData.barangayCount,
     label: 'Barangays',
-    source: 'City Government of Santa Rosa — About Us'
+    source: 'City Government of Santa Rosa · About Us'
   },
   {
     value: `${cityData.landAreaHa.toLocaleString('en-US')} ha`,
     numericValue: cityData.landAreaHa,
     suffix: ' ha',
     label: 'Land area',
-    source: 'City Government of Santa Rosa — About Us'
+    source: 'City Government of Santa Rosa · About Us'
   },
   {
     value: String(cityData.cityhoodYear),
@@ -108,7 +108,7 @@ const cityStats: { value: string; label: string; source: string; numericValue?: 
     value: String(lakeBarangayCount),
     numericValue: lakeBarangayCount,
     label: 'Laguna Lake barangays',
-    source: 'City Government of Santa Rosa — About Us'
+    source: 'City Government of Santa Rosa · About Us'
   }
 ]
 
@@ -121,9 +121,9 @@ const latestBudget = budgets.at(0)
 const earlierBudgets = budgets.slice(1)
 
 const BUDGET_SOURCE_TITLES: Record<number, string> = {
-  2024: 'Commission on Audit — Annual Audit Report FY2024 · LGU Full Disclosure',
-  2022: 'Commission on Audit — Annual Audit Report FY2022 (via Wikipedia)',
-  2016: 'Bureau of Local Government Finance — Annual Regular Income (via PhilAtlas)'
+  2024: 'Commission on Audit · Annual Audit Report FY2024 · LGU Full Disclosure',
+  2022: 'Commission on Audit · Annual Audit Report FY2022 (via Wikipedia)',
+  2016: 'Bureau of Local Government Finance · Annual Regular Income (via PhilAtlas)'
 }
 
 function budgetSourceTitle(year: number, source: string): string {
@@ -286,7 +286,7 @@ function revealClass(isVisible: boolean) {
             <h2 id="today-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
               Santa Rosa Today
             </h2>
-            <p class="mt-1 text-sm text-charcoal/70">Verified facts about the city — every figure carries a source.</p>
+            <p class="mt-1 text-sm text-charcoal/70">Verified facts about the city: every figure carries a source.</p>
           </div>
           <NuxtLink
             to="/explore"

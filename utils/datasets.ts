@@ -56,7 +56,7 @@ function firstSourceUrl(records: AnyRecord[]): string | undefined {
 }
 
 // Same usage note on every dataset: compiled public data, originals win.
-const LICENSE_NOTE = 'Public data compiled from official sources — verify against original documents.'
+const LICENSE_NOTE = 'Public data compiled from official sources: verify against original documents.'
 
 export interface DatasetCard {
   slug: string
@@ -108,7 +108,7 @@ export function buildDatasets(): DatasetCard[] {
     ),
     makeDataset(
       'officials', 'Elected Officials',
-      'City officials — mayor, vice mayor, councilors and the lone district representative — with positions, terms and offices.',
+      'City officials (mayor, vice mayor, councilors and the lone district representative) with positions, terms and offices.',
       `${(officialsData as Official[]).length} officials`, officialsData
     ),
     makeDataset(
@@ -133,18 +133,18 @@ export function buildDatasets(): DatasetCard[] {
     ),
     makeDataset(
       'services', 'Public Services Directory',
-      'Directory entries linking out to official government service pages — never recreated here.',
+      'Directory entries linking out to official government service pages · never recreated here.',
       `${(servicesData as Service[]).length} services`, servicesData
     ),
     makeDataset(
       'sources', 'Source Registry',
-      'Every source cited across the site\'s datasets — official portals, audits, census and secondary references.',
+      'Every source cited across the site\'s datasets: official portals, audits, census and secondary references.',
       `${(sourcesData as Source[]).length} registered sources`, sourcesData,
-      'The registry itself — per-source notes included in the records'
+      'The registry itself (per-source notes included in the records)'
     ),
     makeDataset(
       'city', 'City Profile',
-      'City of Santa Rosa profile — cityhood, land area, barangay count and the historical timeline.',
+      'City of Santa Rosa profile: cityhood, land area, barangay count and the historical timeline.',
       `City profile + ${(cityData as CityProfile).timeline.length}-entry timeline`, cityData
     )
   ]

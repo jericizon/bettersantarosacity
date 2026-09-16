@@ -36,7 +36,7 @@ function onSelect(slug: string) {
         <select
           id="barangay-mobile-select"
           v-model="selectedSlug"
-          class="w-full min-h-11 rounded-lg border border-charcoal/20 bg-white px-3 py-2 text-sm text-charcoal font-medium focus:border-laguna-green focus:outline-none"
+          class="w-full min-h-11 rounded-lg border border-charcoal/20 bg-white px-3 py-2 text-sm text-charcoal font-medium focus:border-laguna-green focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
         >
           <option v-for="b in barangaysData" :key="b.slug" :value="b.slug">
             {{ b.name }} ({{ b.group }})
@@ -89,10 +89,5 @@ function onSelect(slug: string) {
         </div>
       </div>
     </div>
-
-    <!-- Mandatory Cadastral Survey Disclaimer -->
-    <p class="text-center text-xs text-charcoal/60 leading-relaxed">
-      Simplified map for information purposes. Not official cadastral survey data.
-    </p>
   </div>
 </template>

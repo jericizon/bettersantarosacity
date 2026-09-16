@@ -107,5 +107,10 @@ function onSelect(slug: string) {
         </text>
       </g>
     </svg>
+
+    <!-- Mandatory disclaimer (spec §1.5): must always render with the map. -->
+    <p class="mt-2 text-center text-xs text-charcoal/60">
+      Simplified map for information purposes. Not official cadastral survey data.
+    </p>
   </div>
 </template>
