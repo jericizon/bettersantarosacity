@@ -15,6 +15,8 @@ import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import EditorialSectionHeader from '~/components/editorial/SectionHeader.vue'
+import MoneyBudgetChart from '~/components/money/BudgetChart.vue'
 import ProjectsProjectCard from '~/components/projects/ProjectCard.vue'
 import { useScrollReveal } from '~/composables/useScrollReveal'
 import { buildSeoHead, SITE_URL } from '~/utils/seo'
@@ -130,6 +132,9 @@ function budgetSourceTitle(year: number, source: string): string {
 // Each year's document URL falls back to the first URL embedded in the source string.
 const latestDocUrl = latestBudget?.documentUrl ?? (latestBudget ? toSourceReference(latestBudget.source).url : undefined)
 
+// One entry per fiscal year feeds the revenue trend chart in the Money chapter.
+const revenueYears = budgets.map(b => ({ fiscalYear: b.fiscalYear, amountPhp: b.totalBudgetPhp }))
+
 // --- Section 5: projects ---------------------------------------------------------
 
 const featuredProjects = projectsData as Project[]
@@ -176,7 +181,8 @@ const hydrated = ref(false)
 onMounted(() => { hydrated.value = true })
 
 const todaySection = ref<HTMLElement | null>(null)
-const dataBand = ref<HTMLElement | null>(null)
+const exploreSection = ref<HTMLElement | null>(null)
+const moneySection = ref<HTMLElement | null>(null)
 const projectsBand = ref<HTMLElement | null>(null)
 const lawsServicesBand = ref<HTMLElement | null>(null)
 const heritageBand = ref<HTMLElement | null>(null)
@@ -185,7 +191,8 @@ const sourcesBand = ref<HTMLElement | null>(null)
 const aboutSection = ref<HTMLElement | null>(null)
 
 const { isVisible: todayVisible } = useScrollReveal(todaySection, { threshold: 0.1 })
-const { isVisible: dataVisible } = useScrollReveal(dataBand, { threshold: 0.05 })
+const { isVisible: exploreVisible } = useScrollReveal(exploreSection, { threshold: 0.05 })
+const { isVisible: moneyVisible } = useScrollReveal(moneySection, { threshold: 0.1 })
 const { isVisible: projectsVisible } = useScrollReveal(projectsBand, { threshold: 0.1 })
 const { isVisible: lawsServicesVisible } = useScrollReveal(lawsServicesBand, { threshold: 0.05 })
 const { isVisible: heritageVisible } = useScrollReveal(heritageBand, { threshold: 0.1 })
@@ -261,8 +268,8 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container: chapters 2-11 keep the constrained gutter
-         until each graduates to a full-bleed chapter. -->
+    <!-- Interim page container: chapter 2 keeps the constrained gutter until it
+         graduates to a full-bleed chapter like the ones around it. -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="flex flex-col gap-16 md:gap-24">
     <!-- 2 — Santa Rosa Today (warm parchment band) -->
@@ -298,88 +305,102 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
         />
       </div>
     </section>
-
-    <!-- 3 & 4 — White data band: Map Explorer + city money -->
-    <div
-      ref="dataBand"
-      class="section-white"
-      :class="[BAND_CLASS, revealClass(dataVisible)]"
-    >
-      <div class="flex flex-col gap-16 md:gap-20">
-        <section aria-label="Explore Santa Rosa">
-          <CivicMapExplorer />
-          <NuxtLink
-            to="/barangays"
-            class="mt-4 inline-block rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          >
-            Browse all 18 barangays →
-          </NuxtLink>
-        </section>
-
-        <section aria-labelledby="money-heading">
-          <div class="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 id="money-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-                Where Does the City's Money Go?
-              </h2>
-              <p class="mt-1 text-sm text-charcoal/70">
-                Only figures backed by audit reports and official disclosures are shown.
-              </p>
-            </div>
-            <NuxtLink
-              to="/money"
-              class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-            >
-              Explore city finances →
-            </NuxtLink>
-          </div>
-
-          <div v-if="latestBudget" class="mt-6 grid gap-4 lg:grid-cols-3">
-            <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
-              <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
-                FY {{ latestBudget.fiscalYear }}
-              </p>
-              <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
-                {{ formatPeso(latestBudget.totalBudgetPhp) }}
-              </p>
-              <p class="mt-1 text-sm font-medium text-charcoal">Verified city revenue (COA/BLGF)</p>
-              <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
-                {{ latestBudget.categories.at(0)?.name }}
-              </p>
-              <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/70">
-                <span>Source: {{ budgetSourceTitle(latestBudget.fiscalYear, latestBudget.source) }}</span>
-                <a
-                  v-if="latestDocUrl"
-                  :href="latestDocUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-                >View source ↗</a>
-                <DataLastVerified :date="latestBudget.lastVerified" />
-              </div>
-            </div>
-
-            <ul class="space-y-3">
-              <li
-                v-for="b in earlierBudgets"
-                :key="b.fiscalYear"
-                class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
-              >
-                <div class="flex items-baseline justify-between gap-2">
-                  <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">FY {{ b.fiscalYear }}</p>
-                  <DataLastVerified :date="b.lastVerified" :show-state="false" />
-                </div>
-                <p class="mt-1 font-serif text-xl font-bold text-laguna-green">{{ formatPeso(b.totalBudgetPhp) }}</p>
-                <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
-                  Verified revenue — {{ budgetSourceTitle(b.fiscalYear, b.source) }}
-                </p>
-              </li>
-            </ul>
-          </div>
-        </section>
-      </div>
+    </div>
     </div>
 
+    <!-- 3 — Explore Santa Rosa: full-bleed chapter on the light-green ground
+         reserved for the interactive map (spec §4). -->
+    <section
+      ref="exploreSection"
+      aria-label="Explore Santa Rosa"
+      class="w-full section-light-green py-20 sm:py-28 lg:py-32 border-b border-charcoal/10"
+      :class="revealClass(exploreVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CivicMapExplorer />
+        <NuxtLink
+          to="/barangays"
+          class="mt-8 inline-block rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        >
+          Browse all 18 barangays →
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- 4 — City Money: data journalism chapter on warm parchment. Lead stat,
+         comparison entries and the revenue trend all trace to COA/BLGF records. -->
+    <section
+      ref="moneySection"
+      aria-label="City Money"
+      class="w-full section-parchment py-20 sm:py-28 lg:py-32 border-b border-charcoal/10"
+      :class="revealClass(moneyVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <EditorialSectionHeader
+            eyebrow="City Money"
+            title="How city revenue has changed"
+            description="Verified city revenue compiled from Commission on Audit (COA) and Bureau of Local Government Finance (BLGF) reports."
+          />
+          <NuxtLink
+            to="/money"
+            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          >
+            Explore detailed city finances →
+          </NuxtLink>
+        </div>
+
+        <div v-if="latestBudget" class="mt-10 grid gap-4 lg:grid-cols-3">
+          <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
+            <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">
+              FY {{ latestBudget.fiscalYear }}
+            </p>
+            <p class="mt-2 font-serif text-4xl font-bold tracking-tight text-laguna-green sm:text-5xl">
+              {{ formatPeso(latestBudget.totalBudgetPhp) }}
+            </p>
+            <p class="mt-1 text-sm font-medium text-charcoal">Verified city revenue (COA/BLGF)</p>
+            <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
+              {{ latestBudget.categories.at(0)?.name }}
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal/70">
+              <span>Source: {{ budgetSourceTitle(latestBudget.fiscalYear, latestBudget.source) }}</span>
+              <a
+                v-if="latestDocUrl"
+                :href="latestDocUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-medium text-rose-accent-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
+              >View source ↗</a>
+              <DataLastVerified :date="latestBudget.lastVerified" />
+            </div>
+          </div>
+
+          <ul class="space-y-3">
+            <li
+              v-for="b in earlierBudgets"
+              :key="b.fiscalYear"
+              class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm"
+            >
+              <div class="flex items-baseline justify-between gap-2">
+                <p class="text-xs font-semibold uppercase tracking-wider text-charcoal/70">FY {{ b.fiscalYear }}</p>
+                <DataLastVerified :date="b.lastVerified" :show-state="false" />
+              </div>
+              <p class="mt-1 font-serif text-xl font-bold text-laguna-green">{{ formatPeso(b.totalBudgetPhp) }}</p>
+              <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
+                Verified revenue · {{ budgetSourceTitle(b.fiscalYear, b.source) }}
+              </p>
+            </li>
+          </ul>
+
+          <MoneyBudgetChart :years="revenueYears" class="lg:col-span-3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Interim page container resumes: chapters 5-11 keep the constrained
+         gutter until each graduates to a full-bleed chapter. -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="flex flex-col gap-16 md:gap-24">
     <!-- 5 — Building the City (deep green band) -->
     <section
       ref="projectsBand"

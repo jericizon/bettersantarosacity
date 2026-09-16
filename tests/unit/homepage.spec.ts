@@ -55,4 +55,18 @@ describe('Homepage Civic Sections', () => {
     expect(wrapper.text()).toContain('Independent community project')
     expect(wrapper.text()).toContain('Last checked')
   })
+
+  it('graduates Explore and City Money into their own full-bleed chapters', () => {
+    const wrapper = mount(IndexPage)
+    const exploreChapter = wrapper.find('section[aria-label="Explore Santa Rosa"]')
+    expect(exploreChapter.exists()).toBe(true)
+    expect(exploreChapter.classes()).toContain('w-full')
+    expect(exploreChapter.classes()).toContain('section-light-green')
+    expect(exploreChapter.findComponent(MapExplorer).exists()).toBe(true)
+
+    const moneyChapter = wrapper.find('section[aria-label="City Money"]')
+    expect(moneyChapter.exists()).toBe(true)
+    expect(moneyChapter.classes()).toContain('w-full')
+    expect(moneyChapter.classes()).toContain('section-parchment')
+  })
 })
