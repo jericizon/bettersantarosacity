@@ -294,7 +294,7 @@ onBeforeUnmount(() => clearTimeout(debounce))
 </script>
 
 <template>
-  <div data-pagefind-filter="type:pages" class="space-y-6">
+  <div data-pagefind-filter="type:pages" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-6">
     <header class="space-y-2">
       <h1 class="font-serif text-3xl font-bold text-laguna-green tracking-tight">Search</h1>
       <p class="text-sm text-charcoal/70 max-w-2xl">

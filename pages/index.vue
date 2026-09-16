@@ -198,12 +198,16 @@ function revealClass(isVisible: boolean) {
   return [REVEAL_CLASS, hydrated.value && !isVisible ? 'opacity-0 translate-y-5' : 'opacity-100 translate-y-0']
 }
 
-// Full-content-width band: cancels the layout's horizontal padding so the
-// section tone runs edge to edge, then restores it for the inner content.
+// Full-content-width band: cancels the page container's horizontal padding so
+// the section tone runs edge to edge, then restores it for the inner content.
 const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
 </script>
 
 <template>
+  <!-- Interim page container: the layout's <main> is now full-width for
+       full-bleed chapters, so the page supplies its own max-width and
+       gutters until the chapter rebuild lands. -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
   <div data-pagefind-filter="type:pages" class="flex flex-col gap-16 md:gap-24">
     <!-- 1 — Hero (parchment) -->
     <section aria-labelledby="hero-heading" class="pt-2 md:pt-6">
@@ -596,5 +600,6 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
         </li>
       </ul>
     </section>
+  </div>
   </div>
 </template>

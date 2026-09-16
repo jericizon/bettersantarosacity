@@ -104,7 +104,7 @@ const censusSources: SourceReference[] = sourcesData
 </script>
 
 <template>
-  <div data-pagefind-filter="type:pages" class="flex flex-col gap-16 md:gap-24">
+  <div data-pagefind-filter="type:pages" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-16 md:gap-24">
     <!-- 1 — Hero -->
     <section aria-labelledby="hero-heading" class="pt-2 md:pt-6">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">

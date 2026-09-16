@@ -67,7 +67,7 @@ const GROUP_BADGE_CLASSES: Record<string, string> = {
 </script>
 
 <template>
-  <div v-if="barangay" data-pagefind-filter="type:barangays" class="flex flex-col gap-10">
+  <div v-if="barangay" data-pagefind-filter="type:barangays" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-10">
     <nav aria-label="Breadcrumb">
       <NuxtLink
         to="/barangays"

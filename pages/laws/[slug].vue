@@ -52,7 +52,7 @@ const relatedLaws = law
 </script>
 
 <template>
-  <div v-if="law" data-pagefind-filter="type:laws" class="flex flex-col gap-10">
+  <div v-if="law" data-pagefind-filter="type:laws" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-10">
     <nav aria-label="Breadcrumb">
       <NuxtLink
         to="/laws"
