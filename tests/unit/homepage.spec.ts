@@ -15,10 +15,11 @@ describe('Homepage Civic Sections', () => {
     expect(wrapper.findComponent(Collage).exists()).toBe(true)
   })
 
-  it('wires ambient hero photography with ken-burns motion and a credit', () => {
+  it('shows the site emblem as the hero image', () => {
     const wrapper = mount(IndexPage)
-    const heroImg = wrapper.find('img.animate-ken-burns')
+    const heroImg = wrapper.find('section[aria-labelledby="hero-heading"] img')
     expect(heroImg.exists()).toBe(true)
+    expect(heroImg.attributes('src')).toBe('/images/bettersantarosacity-logo.png')
     expect(heroImg.attributes('alt')).toBeTruthy()
     // Every photograph must carry a source credit (spec §5 / §26).
     expect(wrapper.text()).toContain('Photo:')

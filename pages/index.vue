@@ -12,7 +12,6 @@ import CivicHeroSearch from '~/components/civic/HeroSearch.vue'
 import CivicMapExplorer from '~/components/civic/MapExplorer.vue'
 import CivicCollage from '~/components/civic/Collage.vue'
 import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
-import MediaCivicImage from '~/components/media/CivicImage.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
 import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
@@ -66,8 +65,8 @@ if (typeof useHead === 'function') {
 // media.json is validated against MediaItemSchema by media-schema.spec.ts;
 // the JSON import widens `category` to string, so assert the type once here.
 const media = mediaData as MediaItem[]
-// The Santa Rosa Arch is the city's signature welcome landmark (spec §7).
-const heroImage = media.find(m => m.id === 'santa-rosa-arch') ?? media[0]!
+// The site emblem doubles as the hero image (spec §7).
+const heroImage = media.find(m => m.id === 'santa-rosa-emblem') ?? media[0]!
 
 const searchExamples = [
   { label: 'Search budgets', q: 'budgets' },
@@ -243,35 +242,15 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
           </p>
         </div>
 
-        <div class="relative lg:col-span-5">
-          <MediaCivicImage
-            :media="heroImage"
+        <div class="lg:col-span-5">
+          <img
+            :src="heroImage.file"
             :alt="heroImage.description"
-            aspect-ratio="4 / 3"
-            priority
-            img-class="animate-ken-burns"
-            credit-variant="overlay"
-            class="shadow-md"
+            :width="heroImage.width"
+            :height="heroImage.height"
+            fetchpriority="high"
+            class="mx-auto w-full max-w-md animate-fade-in-up"
           >
-            <!-- Warm editorial tone treatment (spec §7): a light deep-green
-                 wash — the photograph stays recognizable. -->
-            <div
-              aria-hidden="true"
-              class="pointer-events-none absolute inset-0 bg-gradient-to-t from-laguna-green/30 via-transparent to-transparent"
-            />
-          </MediaCivicImage>
-          <div
-            aria-hidden="true"
-            class="absolute -left-5 -top-5 hidden h-16 w-16 items-center justify-center rounded-full bg-parchment p-1 shadow-md ring-1 ring-charcoal/10 sm:flex"
-          >
-            <img
-              src="/images/bettersantarosacity-logo.png"
-              alt=""
-              width="56"
-              height="56"
-              class="h-full w-full object-contain"
-            >
-          </div>
         </div>
       </div>
     </section>

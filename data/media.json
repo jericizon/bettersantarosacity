@@ -1,7 +1,7 @@
 [
   {
     "id": "santa-rosa-arch",
-    "file": "/images/bettersantarosacity-logo.png",
+    "file": "/images/santa-rosa-arch.svg",
     "title": "Historic Santa Rosa Arch",
     "description": "The welcoming monument at the city's historical boundary in Poblacion.",
     "category": "heritage",
@@ -11,8 +11,8 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
     "attributionRequired": false,
-    "width": 500,
-    "height": 500
+    "width": 1200,
+    "height": 800
   },
   {
     "id": "santa-rosa-church",
