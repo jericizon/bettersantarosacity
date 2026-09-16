@@ -567,20 +567,24 @@ const BAND_CLASS = '-mx-4 px-4 py-10 sm:-mx-6 sm:px-6 md:py-14 lg:-mx-8 lg:px-8'
       </div>
     </section>
 
-    <!-- Interim page container resumes: chapters 9-11 keep the constrained
+    <!-- 9 — Santa Rosa Life & Heritage: full-bleed parchment chapter (spec §4).
+         The asymmetric collage sits in a dark framed gallery panel; every photo
+         carries a caption and a MediaCredit attribution badge. -->
+    <section
+      ref="collageSection"
+      aria-label="Santa Rosa Life & Heritage"
+      class="w-full section-parchment py-20 sm:py-28 lg:py-32 border-b border-charcoal/10"
+      :class="revealClass(collageVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CivicCollage />
+      </div>
+    </section>
+
+    <!-- Interim page container resumes: chapters 10-11 keep the constrained
          gutter until each graduates to a full-bleed chapter. -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="flex flex-col gap-16 md:gap-24">
-    <!-- 9 — Signature editorial collage (heritage parchment) -->
-    <section
-      ref="collageSection"
-      aria-label="Santa Rosa life and heritage collage"
-      class="section-parchment"
-      :class="revealClass(collageVisible)"
-    >
-      <CivicCollage />
-    </section>
-
     <!-- 10 — Data Freshness (white sources band) -->
     <section
       ref="sourcesBand"
