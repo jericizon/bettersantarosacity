@@ -266,7 +266,7 @@ function revealClass(isVisible: boolean) {
               :width="heroImage.width"
               :height="heroImage.height"
               fetchpriority="high"
-              class="mx-auto w-full max-w-md animate-fade-in-up rounded-2xl border border-charcoal/10 shadow-sm object-cover"
+              class="mx-auto w-full max-w-lg animate-fade-in-up"
             >
           </div>
         </div>
