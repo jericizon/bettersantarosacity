@@ -13,6 +13,9 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
+  nitro: {
+    preset: 'cloudflare-pages-static'
+  },
   app: {
     head: {
       title: 'Better Santa Rosa City — Civic Information Layer',

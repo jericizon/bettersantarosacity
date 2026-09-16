@@ -14,9 +14,9 @@
     "typecheck": "nuxt typecheck",
     "test": "vitest",
     "test:run": "vitest run",
-    "index:search": "pagefind --site .output/public",
-    "build:prod": "node scripts/sync-public-data.mjs && node scripts/generate-sitemap.mjs && nuxt generate && pagefind --site .output/public",
-    "serve": "serve .output/public -l 4026"
+    "index:search": "pagefind --site dist",
+    "build:prod": "node scripts/sync-public-data.mjs && node scripts/generate-sitemap.mjs && nuxt generate && pagefind --site dist",
+    "serve": "serve dist -l 4026"
   },
   "dependencies": {
     "lucide-vue-next": "^0.475.0",
