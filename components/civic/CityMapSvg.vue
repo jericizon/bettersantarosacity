@@ -107,8 +107,5 @@ function onSelect(slug: string) {
         </text>
       </g>
     </svg>
-    <p class="mt-2 text-[11px] text-charcoal/60 text-center">
-      Simplified topological map for civic navigation · Not official cadastral survey data
-    </p>
   </div>
 </template>
