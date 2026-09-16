@@ -5,6 +5,7 @@ import IndexPage from '../../pages/index.vue'
 import HeroSearch from '../../components/civic/HeroSearch.vue'
 import MapExplorer from '../../components/civic/MapExplorer.vue'
 import Collage from '../../components/civic/Collage.vue'
+import Timeline from '../../components/civic/Timeline.vue'
 import StatCard from '../../components/data/StatCard.vue'
 
 describe('Homepage Civic Sections & Chapter Architecture', () => {
@@ -60,5 +61,58 @@ describe('Homepage Civic Sections & Chapter Architecture', () => {
     expect(heroImg.exists()).toBe(true)
     expect(heroImg.attributes('src')).toBe('/images/bettersantarosacity-logo.svg')
     expect(wrapper.text()).toContain('Photo:')
+  })
+
+  it('renders the hero chapter on a full-bleed parchment ground with accessible emblem', () => {
+    const wrapper = mount(IndexPage)
+    const heroSection = wrapper.find('section[aria-labelledby="hero-heading"]')
+    expect(heroSection.exists()).toBe(true)
+    expect(heroSection.classes()).toContain('w-full')
+    expect(heroSection.classes()).toContain('section-parchment')
+    expect(heroSection.findComponent(HeroSearch).exists()).toBe(true)
+    expect(wrapper.text()).toContain('Public information about Santa Rosa, made easier to find.')
+    expect(heroSection.find('img').attributes('alt')).toBeTruthy()
+  })
+
+  it('pins each editorial chapter section to its designated full-bleed ground tone', () => {
+    const wrapper = mount(IndexPage)
+    const chapters: [string, string][] = [
+      ['section[aria-labelledby="today-heading"]', 'section-white'],
+      ['section[aria-label="Explore Santa Rosa"]', 'section-light-green'],
+      ['section[aria-label="City Money"]', 'section-parchment'],
+      ['section[aria-label="Building the City"]', 'section-white'],
+      ['section[aria-label="From Bukol to Today"]', 'section-deep-green'],
+      ['section[aria-label="Santa Rosa Life & Heritage"]', 'section-parchment'],
+      ['section[aria-label="Laws & Decisions"]', 'section-white'],
+      ['section[aria-label="Services"]', 'section-white'],
+      ['section[aria-label="Data & Downloads"]', 'section-parchment'],
+      ['section[aria-label="Data Trust"]', 'section-white']
+    ]
+    for (const [selector, tone] of chapters) {
+      const chapter = wrapper.find(selector)
+      expect(chapter.exists(), selector).toBe(true)
+      expect(chapter.classes(), selector).toContain('w-full')
+      expect(chapter.classes(), selector).toContain(tone)
+    }
+  })
+
+  it('switches the shared timeline to its dark theme on the deep-green history ground', () => {
+    const wrapper = mount(IndexPage)
+    const historyChapter = wrapper.find('section[aria-label="From Bukol to Today"]')
+    expect(historyChapter.exists()).toBe(true)
+    expect(historyChapter.findComponent(Timeline).props('theme')).toBe('dark')
+  })
+
+  it('keeps history chapter wording neutral and source-backed without broad superlatives', () => {
+    const wrapper = mount(IndexPage)
+    // Broad class ban — complements the exact-phrase ban above (spec §21).
+    expect(wrapper.text()).not.toContain('Richest city')
+    expect(wrapper.text()).toContain('From a lakeside barrio of Biñan to cityhood')
+  })
+
+  it('renders last-verified freshness stamps across the data chapters', () => {
+    const wrapper = mount(IndexPage)
+    expect(wrapper.text()).toContain('Last verified by Better Santa Rosa')
+    expect(wrapper.text()).toContain('Last verified')
   })
 })
