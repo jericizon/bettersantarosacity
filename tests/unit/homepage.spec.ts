@@ -20,6 +20,7 @@ describe('Homepage Civic Sections', () => {
     const wrapper = mount(IndexPage)
     const heroSection = wrapper.find('section[aria-labelledby="hero-heading"]')
     expect(heroSection.exists()).toBe(true)
+    expect(heroSection.classes()).toContain('section-parchment')
     expect(heroSection.findComponent(HeroSearch).exists()).toBe(true)
     expect(wrapper.text()).toContain('Public information about Santa Rosa, made easier to find.')
     expect(wrapper.text()).toContain('Independent community project')
@@ -49,6 +50,14 @@ describe('Homepage Civic Sections', () => {
     // Cityhood stays a static value — a year must not render as "2,004".
     expect(wrapper.text()).toContain('Cityhood')
     expect(wrapper.text()).toContain('2004')
+  })
+
+  it('graduates Santa Rosa Today into a full-bleed white chapter', () => {
+    const wrapper = mount(IndexPage)
+    const todayChapter = wrapper.find('section[aria-labelledby="today-heading"]')
+    expect(todayChapter.exists()).toBe(true)
+    expect(todayChapter.classes()).toContain('w-full')
+    expect(todayChapter.classes()).toContain('section-white')
   })
 
   it('renders trust statement and source verification indicators', () => {

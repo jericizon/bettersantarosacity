@@ -273,11 +273,11 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 2 — Santa Rosa Today: warm parchment chapter of verified city facts. -->
+    <!-- 2 — Santa Rosa Today: clean-white chapter of verified city facts (spec §4). -->
     <section
       ref="todaySection"
       aria-labelledby="today-heading"
-      class="w-full section-parchment py-20 sm:py-24 border-b border-charcoal/10"
+      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
       :class="revealClass(todayVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
