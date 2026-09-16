@@ -4,6 +4,7 @@ import { Search, Menu, X } from 'lucide-vue-next'
 
 const isMobileOpen = ref(false)
 const isScrolled = ref(false)
+const mobileToggle = ref<HTMLButtonElement | null>(null)
 const navLinks = [
   { name: 'Explore', href: '/explore' },
   { name: 'Barangays', href: '/barangays' },
@@ -31,6 +32,8 @@ onUnmounted(() => {
 
 function closeMobile() {
   isMobileOpen.value = false
+  // v-if destroys the drawer; without this, focus inside it drops to <body>.
+  mobileToggle.value?.focus()
 }
 </script>
 
@@ -85,6 +88,7 @@ function closeMobile() {
         </NuxtLink>
 
         <button
+          ref="mobileToggle"
           type="button"
           @click="isMobileOpen = !isMobileOpen"
           class="xl:hidden inline-flex items-center justify-center h-11 w-11 rounded text-charcoal hover:bg-charcoal/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"

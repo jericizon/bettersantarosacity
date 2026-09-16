@@ -74,6 +74,29 @@ describe('Civic Shell Components', () => {
     expect(drawer.findAll('a').length).toBeGreaterThanOrEqual(4)
   })
 
+  it('returns focus to the nav toggle when the drawer closes via Escape', async () => {
+    const wrapper = mount(CivicHeader, {
+      attachTo: document.body,
+      global: { stubs: SHELL_STUBS }
+    })
+    const toggle = wrapper.find('button[aria-controls="mobile-nav"]')
+    await toggle.trigger('click')
+
+    const drawer = wrapper.find('#mobile-nav')
+    expect(drawer.exists()).toBe(true)
+
+    // Simulate a keyboard user focused inside the drawer.
+    const firstLink = drawer.find('a')
+    ;(firstLink.element as HTMLElement).focus()
+    expect(document.activeElement).toBe(firstLink.element)
+
+    await drawer.trigger('keydown', { key: 'Escape' })
+    expect(wrapper.find('#mobile-nav').exists()).toBe(false)
+    expect(document.activeElement).toBe(toggle.element)
+
+    wrapper.unmount()
+  })
+
   it('renders CivicFooter with distinct legal disclaimer and media credits link', () => {
     const wrapper = mount(CivicFooter, { global: { stubs: SHELL_STUBS } })
     expect(wrapper.text()).toContain('Independent community project')
