@@ -166,5 +166,47 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
         No departments match “{{ departmentQuery.trim() }}”.
       </p>
     </section>
+
+    <!-- Transparency & Citizen's Charter -->
+    <section aria-labelledby="transparency-charter-heading" class="rounded-xl border border-charcoal/10 bg-white p-6 sm:p-8 space-y-4 shadow-sm">
+      <div class="flex items-baseline justify-between gap-2 border-b border-charcoal/10 pb-2">
+        <h2 id="transparency-charter-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
+          Citizen’s Charter &amp; Transparency
+        </h2>
+      </div>
+      <p class="text-sm leading-relaxed text-charcoal/75">
+        Under Republic Act No. 11032 (Ease of Doing Business and Efficient Government Service Delivery Act of 2018), local government units maintain an official Citizen's Charter detailing service standards, fees, processing times, and document requirements.
+      </p>
+      <div class="grid gap-4 sm:grid-cols-2 pt-2">
+        <div class="rounded-lg border border-charcoal/10 bg-parchment/60 p-4 space-y-2">
+          <h3 class="font-serif text-base font-bold text-charcoal">Anti-Red Tape Authority (ARTA) Compliance</h3>
+          <p class="text-xs text-charcoal/70 leading-relaxed">
+            Review service processing times, checklists, and fee schedules published in the official Citizen's Charter handbook.
+          </p>
+          <a
+            href="https://santarosacity.gov.ph"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex text-xs font-semibold text-laguna-green underline hover:text-rose-accent-dark"
+          >
+            Access City Citizen's Charter at santarosacity.gov.ph ↗
+          </a>
+        </div>
+        <div class="rounded-lg border border-charcoal/10 bg-parchment/60 p-4 space-y-2">
+          <h3 class="font-serif text-base font-bold text-charcoal">DILG Full Disclosure Portal (eFDP)</h3>
+          <p class="text-xs text-charcoal/70 leading-relaxed">
+            The Department of the Interior and Local Government requires all LGUs to post quarterly financial documents, bids, and budgets online.
+          </p>
+          <a
+            href="https://efdp.dilg.gov.ph"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex text-xs font-semibold text-laguna-green underline hover:text-rose-accent-dark"
+          >
+            Visit DILG Full Disclosure Portal ↗
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
