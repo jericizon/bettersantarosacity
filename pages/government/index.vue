@@ -175,7 +175,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
         </h2>
       </div>
       <p class="text-sm leading-relaxed text-charcoal/75">
-        Under Republic Act No. 11032 (Ease of Doing Business and Efficient Government Service Delivery Act of 2018), local government units maintain an official Citizen's Charter detailing service standards, fees, processing times, and document requirements.
+        Under Republic Act No. 11032 (Ease of Doing Business and Efficient Government Service Delivery Act of 2018), local government units maintain an official Citizen's Charter detailing service standards, fees, processing times, and document requirements. All government transactions and payments are completed exclusively through official City Government channels, never through this portal.
       </p>
       <div class="grid gap-4 sm:grid-cols-2 pt-2">
         <div class="rounded-lg border border-charcoal/10 bg-parchment/60 p-4 space-y-2">

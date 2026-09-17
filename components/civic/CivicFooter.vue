@@ -37,6 +37,7 @@ const linkClass = 'flex items-center min-h-11 hover:text-white rounded-sm focus-
           <h4 class="font-bold text-xs uppercase tracking-wider text-heritage-gold mb-3">Transparency</h4>
           <ul class="text-xs text-parchment/80">
             <li><NuxtLink to="/about" :class="linkClass">About &amp; Disclaimer</NuxtLink></li>
+            <li><NuxtLink to="/history" :class="linkClass">City History</NuxtLink></li>
             <li><NuxtLink to="/sources" :class="linkClass">Sources &amp; Methodology</NuxtLink></li>
             <li><NuxtLink to="/about/media" :class="linkClass">Media &amp; Image Credits</NuxtLink></li>
             <li><NuxtLink to="/data" :class="linkClass">Open Data Downloads</NuxtLink></li>

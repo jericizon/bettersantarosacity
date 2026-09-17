@@ -471,7 +471,7 @@ function revealClass(isVisible: boolean) {
             description="From a lakeside barrio of Biñan to cityhood, manufacturing center, and cultural heritage."
           />
           <NuxtLink
-            to="/explore"
+            to="/history"
             class="rounded-sm text-sm font-semibold text-parchment underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold"
           >
             Discover Santa Rosa's history →

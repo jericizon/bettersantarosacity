@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
+import BrandMark from '~/components/brand/BrandMark.vue'
 import { buildSeoHead } from '~/utils/seo'
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'About · Better Santa Rosa City',
+    title: 'About Better Santa Rosa City · Civic Transparency & Methodology',
     description: 'Learn about Better Santa Rosa City: an independent, community-maintained public information portal for Santa Rosa, Laguna.',
     path: '/about',
     jsonLd: {
@@ -49,6 +50,7 @@ const principles = [
         About Better Santa Rosa City
       </h1>
       <div class="flex flex-wrap items-center gap-2">
+        <BrandMark :size="32" />
         <DataSourceBadge type="community" />
       </div>
       <p class="text-base sm:text-lg leading-relaxed text-charcoal/80">
@@ -122,6 +124,12 @@ const principles = [
       <NuxtLink to="/data" class="underline hover:text-rose-accent-dark">
         Open Data Downloads →
       </NuxtLink>
+      <a href="https://santarosacity.gov.ph" target="_blank" rel="noopener noreferrer" class="underline hover:text-rose-accent-dark">
+        Official City Portal ↗
+      </a>
+      <a href="/images/brand/santa-rosa-arch.svg" target="_blank" rel="noopener noreferrer" class="underline hover:text-rose-accent-dark">
+        Brand mark (SVG) ↗
+      </a>
     </nav>
   </div>
 </template>

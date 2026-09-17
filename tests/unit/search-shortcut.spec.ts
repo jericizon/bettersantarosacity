@@ -27,6 +27,37 @@ describe('Search Keyboard Shortcut', () => {
     expect(onTrigger).toHaveBeenCalledTimes(2)
   })
 
+  it('triggers callback on a bare "/" keypress', () => {
+    const onTrigger = vi.fn()
+    const cleanup = registerSearchShortcut(onTrigger)
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '/' }))
+    expect(onTrigger).toHaveBeenCalledTimes(1)
+
+    // Modified "/" chords (e.g. Ctrl+/) must not trigger
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '/', ctrlKey: true }))
+    expect(onTrigger).toHaveBeenCalledTimes(1)
+
+    cleanup()
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '/' }))
+    expect(onTrigger).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not trigger on "/" while typing in a field', () => {
+    const onTrigger = vi.fn()
+    const cleanup = registerSearchShortcut(onTrigger)
+
+    const input = document.createElement('input')
+    document.body.appendChild(input)
+    input.focus()
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '/' }))
+    expect(onTrigger).not.toHaveBeenCalled()
+
+    document.body.removeChild(input)
+    cleanup()
+  })
+
   it('ignores shortcut when user is actively typing in an input or textarea', () => {
     const onTrigger = vi.fn()
     const cleanup = registerSearchShortcut(onTrigger)
