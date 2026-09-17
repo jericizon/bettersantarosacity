@@ -35,6 +35,7 @@ const centroids = new Map<string, { lat: number; lon: number }>()
 watch(selectedSlug, slug => {
   if (!map) return
   map.setFilter('barangay-selected', ['==', ['get', 'slug'], slug])
+  map.setFilter('barangay-fill-selected', ['==', ['get', 'slug'], slug])
   const c = centroids.get(slug)
   if (c) map.easeTo({ center: [c.lon, c.lat], duration: 500 })
 })
@@ -42,11 +43,17 @@ watch(selectedSlug, slug => {
 onMounted(async () => {
   const maplibregl = (await import('maplibre-gl')).default
 
-  // Centroids are a static asset; if it fails the basemap still renders.
+  // Centroids + Voronoi coverage cells are static assets; if either fails the
+  // basemap still renders.
   let geo: Record<string, { lat: number; lon: number; group: string }> = {}
+  let areas: { features?: { properties?: Record<string, unknown> }[] } | null = null
   try {
-    const res = await fetch('/data/barangay-centroids.json')
-    if (res.ok) geo = (await res.json()).barangays
+    const [cRes, aRes] = await Promise.all([
+      fetch('/data/barangay-centroids.json'),
+      fetch('/data/barangay-areas.json')
+    ])
+    if (cRes.ok) geo = (await cRes.json()).barangays
+    if (aRes.ok) areas = await aRes.json()
   } catch { /* markers are additive */ }
   for (const [slug, c] of Object.entries(geo)) centroids.set(slug, c)
 
@@ -78,6 +85,45 @@ onMounted(async () => {
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
 
   map.on('load', () => {
+    if (areas?.features?.length) {
+      // Coverage fills sit under the dots; selection paints a stronger fill.
+      map.addSource('barangay-areas', {
+        type: 'geojson',
+        data: {
+          ...areas,
+          features: areas.features.map(f => ({
+            ...f,
+            properties: { ...f.properties, color: markerColor(String(f.properties?.group ?? '')) }
+          }))
+        }
+      })
+      map.addLayer({
+        id: 'barangay-fills',
+        type: 'fill',
+        source: 'barangay-areas',
+        paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.1 }
+      })
+      map.addLayer({
+        id: 'barangay-fill-selected',
+        type: 'fill',
+        source: 'barangay-areas',
+        filter: ['==', ['get', 'slug'], selectedSlug.value],
+        paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.32 }
+      })
+      map.addLayer({
+        id: 'barangay-fill-outline',
+        type: 'line',
+        source: 'barangay-areas',
+        paint: { 'line-color': ['get', 'color'], 'line-width': 1, 'line-opacity': 0.45 }
+      })
+      map.on('click', 'barangay-fills', (e: { features?: { properties?: { slug?: string } }[] }) => {
+        const slug = e.features?.[0]?.properties?.slug
+        if (slug) selectedSlug.value = slug
+      })
+      map.on('mouseenter', 'barangay-fills', () => { map.getCanvas().style.cursor = 'pointer' })
+      map.on('mouseleave', 'barangay-fills', () => { map.getCanvas().style.cursor = '' })
+    }
+
     map.addSource('barangays', {
       type: 'geojson',
       data: {
@@ -237,7 +283,7 @@ onBeforeUnmount(() => {
     </div>
 
     <p class="text-[11px] text-charcoal/60">
-      Map © OpenStreetMap contributors · barangay markers are community-mapped centroids, not official cadastral boundaries.
+      Map © OpenStreetMap contributors · shaded zones are approximate coverage areas derived from community-mapped centroids, not official cadastral boundaries.
     </p>
   </div>
 </template>

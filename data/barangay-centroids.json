@@ -1,0 +1,131 @@
+{
+  "_source": "Centroids via OpenStreetMap Nominatim (c) OpenStreetMap contributors, ODbL 1.0",
+  "barangays": {
+    "aplaya": {
+      "lat": 14.31444,
+      "lon": 121.12251,
+      "group": "Laguna Lake",
+      "name": "Aplaya",
+      "population": 15858
+    },
+    "caingin": {
+      "lat": 14.30095,
+      "lon": 121.12546,
+      "group": "Laguna Lake",
+      "name": "Caingin",
+      "population": 24481
+    },
+    "sinalhan": {
+      "lat": 14.33231,
+      "lon": 121.10692,
+      "group": "Laguna Lake",
+      "name": "Sinalhan",
+      "population": 26274
+    },
+    "balibago": {
+      "lat": 14.29648,
+      "lon": 121.10566,
+      "group": "Lowland Urban",
+      "name": "Balibago",
+      "population": 21566
+    },
+    "dila": {
+      "lat": 14.28985,
+      "lon": 121.10959,
+      "group": "Lowland Urban",
+      "name": "Dila",
+      "population": 39496
+    },
+    "dita": {
+      "lat": 14.28261,
+      "lon": 121.11114,
+      "group": "Lowland Urban",
+      "name": "Dita",
+      "population": 34650
+    },
+    "ibaba": {
+      "lat": 14.31351,
+      "lon": 121.11715,
+      "group": "Lowland Urban",
+      "name": "Ibaba",
+      "population": 8069
+    },
+    "kanluran": {
+      "lat": 14.31271,
+      "lon": 121.10914,
+      "group": "Lowland Urban",
+      "name": "Kanluran",
+      "population": 4236
+    },
+    "labas": {
+      "lat": 14.30792,
+      "lon": 121.11122,
+      "group": "Lowland Urban",
+      "name": "Labas",
+      "population": 21288
+    },
+    "macabling": {
+      "lat": 14.30671,
+      "lon": 121.10111,
+      "group": "Lowland Urban",
+      "name": "Macabling",
+      "population": 20406
+    },
+    "malitlit": {
+      "lat": 14.2677,
+      "lon": 121.11121,
+      "group": "Lowland Urban",
+      "name": "Malitlit",
+      "population": 27433
+    },
+    "malusak": {
+      "lat": 14.31178,
+      "lon": 121.11237,
+      "group": "Lowland Urban",
+      "name": "Malusak",
+      "population": 2906
+    },
+    "market-area": {
+      "lat": 14.31934,
+      "lon": 121.11294,
+      "group": "Lowland Urban",
+      "name": "Market Area",
+      "population": 16017
+    },
+    "pooc": {
+      "lat": 14.30233,
+      "lon": 121.10867,
+      "group": "Lowland Urban",
+      "name": "Pooc",
+      "population": 55705
+    },
+    "tagapo": {
+      "lat": 14.31364,
+      "lon": 121.1001,
+      "group": "Lowland Urban",
+      "name": "Tagapo",
+      "population": 42104
+    },
+    "don-jose": {
+      "lat": 14.25626,
+      "lon": 121.06597,
+      "group": "Upper / Tagaytay",
+      "name": "Don Jose",
+      "population": 18039
+    },
+    "pulong-santa-cruz": {
+      "lat": 14.27762,
+      "lon": 121.0835,
+      "group": "Upper / Tagaytay",
+      "name": "Pulong Santa Cruz",
+      "population": 29421
+    },
+    "santo-domingo": {
+      "lat": 14.22841,
+      "lon": 121.04792,
+      "group": "Upper / Tagaytay",
+      "name": "Santo Domingo",
+      "population": 6863
+    }
+  }
+}
