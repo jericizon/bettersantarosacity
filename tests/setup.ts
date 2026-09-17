@@ -9,6 +9,7 @@ vi.mock('maplibre-gl', () => ({
       addSource = vi.fn()
       addLayer = vi.fn()
       setFilter = vi.fn()
+      setPaintProperty = vi.fn()
       easeTo = vi.fn()
       remove = vi.fn()
       fitBounds = vi.fn()

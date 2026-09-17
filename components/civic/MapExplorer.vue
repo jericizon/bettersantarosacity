@@ -31,13 +31,32 @@ const mapReady = ref(false)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let map: any = null
 const centroids = new Map<string, { lat: number; lon: number }>()
+// Per-slug [[minLon,minLat],[maxLon,maxLat]] for zoom-to-area on selection.
+const areaBounds = new Map<string, [[number, number], [number, number]]>()
 
-watch(selectedSlug, slug => {
-  if (!map) return
+function focusBarangay(slug: string) {
   map.setFilter('barangay-selected', ['==', ['get', 'slug'], slug])
   map.setFilter('barangay-fill-selected', ['==', ['get', 'slug'], slug])
-  const c = centroids.get(slug)
-  if (c) map.easeTo({ center: [c.lon, c.lat], duration: 500 })
+
+  // Spotlight the selection: fade other fills, dots, and labels.
+  const isSelected = ['==', ['get', 'slug'], slug]
+  map.setPaintProperty('barangay-fills', 'fill-opacity', ['case', isSelected, 0.02, 0.05])
+  map.setPaintProperty('barangay-dots', 'circle-opacity', ['case', isSelected, 0.95, 0.3])
+  map.setPaintProperty('barangay-dots', 'circle-stroke-opacity', ['case', isSelected, 1, 0.4])
+  map.setPaintProperty('barangay-labels', 'text-opacity', ['case', isSelected, 1, 0.35])
+
+  const b = areaBounds.get(slug)
+  if (b) {
+    map.fitBounds(b, { padding: 140, maxZoom: 14, duration: 800 })
+  } else {
+    const c = centroids.get(slug)
+    if (c) map.easeTo({ center: [c.lon, c.lat], zoom: 13.5, duration: 600 })
+  }
+}
+
+watch(selectedSlug, slug => {
+  if (!map || !mapReady.value) return
+  focusBarangay(slug)
 })
 
 onMounted(async () => {
@@ -56,6 +75,23 @@ onMounted(async () => {
     if (aRes.ok) areas = await aRes.json()
   } catch { /* markers are additive */ }
   for (const [slug, c] of Object.entries(geo)) centroids.set(slug, c)
+
+  // Bbox per coverage cell → fitBounds target on selection.
+  type Pos = [number, number]
+  const walk = (coords: unknown, cb: (p: Pos) => void): void => {
+    if (!Array.isArray(coords)) return
+    if (typeof coords[0] === 'number') { cb(coords as Pos); return }
+    for (const c of coords) walk(c, cb)
+  }
+  for (const f of areas?.features ?? []) {
+    const slug = String(f.properties?.slug ?? '')
+    let minLon = Infinity, minLat = Infinity, maxLon = -Infinity, maxLat = -Infinity
+    walk((f as { geometry?: { coordinates?: unknown } }).geometry?.coordinates, ([x, y]) => {
+      if (x < minLon) minLon = x; if (x > maxLon) maxLon = x
+      if (y < minLat) minLat = y; if (y > maxLat) maxLat = y
+    })
+    if (slug && isFinite(minLon)) areaBounds.set(slug, [[minLon, minLat], [maxLon, maxLat]])
+  }
 
   // Frame all 18 markers — pad right on desktop so the overlay card doesn't
   // cover dots. `bounds` must be a constructor option: camera set before
@@ -85,8 +121,10 @@ onMounted(async () => {
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
 
   map.on('load', () => {
+    const isSelected = ['==', ['get', 'slug'], selectedSlug.value]
     if (areas?.features?.length) {
-      // Coverage fills sit under the dots; selection paints a stronger fill.
+      // Coverage fills sit under the dots; the selected cell gets a stronger
+      // fill while everything else fades into the basemap.
       map.addSource('barangay-areas', {
         type: 'geojson',
         data: {
@@ -101,13 +139,16 @@ onMounted(async () => {
         id: 'barangay-fills',
         type: 'fill',
         source: 'barangay-areas',
-        paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.1 }
+        paint: {
+          'fill-color': ['get', 'color'],
+          'fill-opacity': ['case', isSelected, 0.02, 0.05]
+        }
       })
       map.addLayer({
         id: 'barangay-fill-selected',
         type: 'fill',
         source: 'barangay-areas',
-        filter: ['==', ['get', 'slug'], selectedSlug.value],
+        filter: isSelected,
         paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.32 }
       })
       map.addLayer({
@@ -147,7 +188,8 @@ onMounted(async () => {
         'circle-color': ['get', 'color'],
         'circle-stroke-width': 2,
         'circle-stroke-color': '#ffffff',
-        'circle-opacity': 0.85
+        'circle-opacity': ['case', isSelected, 0.95, 0.3],
+        'circle-stroke-opacity': ['case', isSelected, 1, 0.4]
       }
     })
     // Selected-state ring drawn above the base dots.
@@ -179,7 +221,8 @@ onMounted(async () => {
       paint: {
         'text-color': '#182421',
         'text-halo-color': '#ffffff',
-        'text-halo-width': 1.5
+        'text-halo-width': 1.5,
+        'text-opacity': ['case', isSelected, 1, 0.35]
       }
     })
 
@@ -191,6 +234,9 @@ onMounted(async () => {
     map.on('mouseleave', 'barangay-dots', () => { map.getCanvas().style.cursor = '' })
 
     mapReady.value = true
+    // A pick made while the style was still loading was skipped by the
+    // watcher — apply its spotlight + zoom now.
+    if (selectedSlug.value !== defaultBarangay.slug) focusBarangay(selectedSlug.value)
   })
 })
 
@@ -228,7 +274,7 @@ onBeforeUnmount(() => {
     <!-- Full-bleed map band: breaks out of the inner max-w-7xl measure.
          overflow-x-clip on the section ancestor prevents the 100vw scrollbar gap. -->
     <div class="relative">
-      <div class="relative left-1/2 h-[420px] w-screen -translate-x-1/2 sm:h-[520px] lg:h-[560px]">
+      <div class="relative left-1/2 h-[540px] w-screen -translate-x-1/2 sm:h-[660px] lg:h-[760px]">
         <!-- maplibre-gl.css sets .maplibregl-map{position:relative} unlayered, which
          beats Tailwind's layered .absolute — size with h-full/w-full instead. -->
         <div ref="mapEl" class="h-full w-full bg-light-green" data-testid="explore-map" />
