@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CityUpdate } from '~/types/civic'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
-import { UPDATE_SOURCE_BADGE } from '~/utils/source'
+import { UPDATE_SOURCE_BADGE, UPDATE_SOURCE_LABEL } from '~/utils/source'
 import { humanizeLabel } from '~/utils/labels'
 import { ArrowRight, Calendar } from 'lucide-vue-next'
 
@@ -35,7 +35,11 @@ defineProps<{
     </div>
 
     <div class="mt-4 pt-3 border-t border-charcoal/10 flex flex-wrap items-center justify-between gap-2 text-xs">
-      <DataSourceBadge :type="UPDATE_SOURCE_BADGE[update.sourceType]" :organization="update.sourceOrganization" />
+      <DataSourceBadge
+        :type="UPDATE_SOURCE_BADGE[update.sourceType]"
+        :label="UPDATE_SOURCE_LABEL[update.sourceType]"
+        :organization="update.sourceOrganization"
+      />
       <NuxtLink
         :to="`/updates/${update.slug}`"
         class="inline-flex items-center gap-1 font-semibold text-laguna-green hover:underline"

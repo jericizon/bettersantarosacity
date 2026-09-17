@@ -266,7 +266,7 @@ function revealClass(isVisible: boolean) {
           </div>
 
           <div class="lg:col-span-5">
-            <!-- relative wrapper pins the live-weather chip to the emblem's
+            <!-- relative wrapper pins the weather chip to the emblem's
                  top corner; the chip appears only after data loads. -->
             <div class="relative mx-auto w-full max-w-lg">
               <!-- Inner relative box bounds the fog veil to the emblem only. -->
@@ -332,9 +332,9 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 3 — Santa Rosa Now: live civic conditions chapter (weather, traffic
-         overview, official advisories) on parchment, separating the white
-         Today chapter from the light-green map chapter (spec §4). -->
+    <!-- 3 — Santa Rosa Now: current weather and recent city updates chapter
+         on parchment, separating the white Today chapter from the
+         light-green map chapter (spec §4). -->
     <section
       ref="nowSection"
       aria-label="Santa Rosa Now"

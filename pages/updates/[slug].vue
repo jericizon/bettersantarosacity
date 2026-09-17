@@ -2,7 +2,7 @@
 import updatesData from '~/data/updates.json'
 import type { CityUpdate } from '~/types/civic'
 import { buildSeoHead, SITE_URL } from '~/utils/seo'
-import { UPDATE_SOURCE_BADGE } from '~/utils/source'
+import { UPDATE_SOURCE_BADGE, UPDATE_SOURCE_LABEL } from '~/utils/source'
 import { humanizeLabel } from '~/utils/labels'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
@@ -66,6 +66,7 @@ if (typeof useHead === 'function') {
       <div class="flex flex-wrap items-center gap-3 pt-1">
         <DataSourceBadge
           :type="UPDATE_SOURCE_BADGE[update.sourceType]"
+          :label="UPDATE_SOURCE_LABEL[update.sourceType]"
           :organization="update.sourceOrganization"
           :date="update.date"
           :url="update.sourceUrl"
@@ -92,7 +93,9 @@ if (typeof useHead === 'function') {
           Source Transparency
         </h2>
         <p class="text-xs text-charcoal/70">
-          This advisory was posted by {{ update.sourceOrganization }}. Better Santa Rosa City summarizes public advisories to improve civic awareness.
+          <template v-if="update.sourceType === 'official-facebook'">Posted by the City Government of Santa Rosa on its official Facebook page.</template>
+          <template v-else>This advisory was posted by {{ update.sourceOrganization }}.</template>
+          Better Santa Rosa City summarizes public advisories to improve civic awareness.
         </p>
         <div class="pt-1">
           <a

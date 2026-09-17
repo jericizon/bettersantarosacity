@@ -30,3 +30,13 @@ export const UPDATE_SOURCE_BADGE: Record<CityUpdate['sourceType'], 'official' | 
   'advisory': 'primary',
   'secondary': 'secondary'
 }
+
+// Update contexts show a descriptive label instead of the terse tier word;
+// SourceBadge's optional `label` prop overrides the tier text when passed.
+export const UPDATE_SOURCE_LABEL: Record<CityUpdate['sourceType'], string> = {
+  'official-portal': 'Official City Source',
+  'official-facebook': 'Official City Source',
+  'city-ordinance': 'Primary Government Source',
+  'advisory': 'Primary Government Source',
+  'secondary': 'Secondary Source'
+}

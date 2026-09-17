@@ -8,15 +8,18 @@ const props = withDefaults(
     organization?: string
     date?: string
     url?: string
+    label?: string
   }>(),
   {
     organization: undefined,
     date: undefined,
-    url: undefined
+    url: undefined,
+    label: undefined
   }
 )
 
 const badgeLabel = computed(() => {
+  if (props.label) return props.label
   switch (props.type) {
     case 'official':
       return 'OFFICIAL'
