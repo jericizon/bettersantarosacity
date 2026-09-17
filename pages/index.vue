@@ -227,9 +227,9 @@ function revealClass(isVisible: boolean) {
       <CivicWeatherAmbience />
       <!-- Dev-only scene picker, anchored to the banner edge (not sticky). -->
       <CivicWeatherSceneSwitcher />
-      <!-- Emergency hotline flash strip: pinned to the banner's top edge so
-           key numbers are visible on first paint without a full section. -->
-      <CivicHotlineTicker class="absolute inset-x-0 top-0 z-20" />
+      <!-- Emergency hotline flash strip: pinned to the banner's bottom edge,
+           clear of the header/nav row above the hero. -->
+      <CivicHotlineTicker class="absolute inset-x-0 bottom-0 z-20" />
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid items-center gap-10 lg:grid-cols-12">
           <div class="animate-fade-in-up lg:col-span-7">
