@@ -10,6 +10,7 @@ import mediaData from '~/data/media.json'
 import CivicTimeline from '~/components/civic/Timeline.vue'
 import CivicHeroSearch from '~/components/civic/HeroSearch.vue'
 import CivicMapExplorer from '~/components/civic/MapExplorer.vue'
+import CivicSantaRosaNow from '~/components/civic/SantaRosaNow.vue'
 import CivicCollage from '~/components/civic/Collage.vue'
 import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
@@ -112,7 +113,7 @@ const cityStats: { value: string; label: string; source: string; numericValue?: 
   }
 ]
 
-// --- Section 4: verified revenue figures ----------------------------------------
+// --- Section 5: verified revenue figures ----------------------------------------
 
 // budgets.json holds verified COA/BLGF revenue figures, not appropriations —
 // surfaced to readers as "Verified city revenue", never as total budget.
@@ -133,14 +134,14 @@ function budgetSourceTitle(year: number, source: string): string {
 // Each year's document URL falls back to the first URL embedded in the source string.
 const latestDocUrl = latestBudget?.documentUrl ?? (latestBudget ? toSourceReference(latestBudget.source).url : undefined)
 
-// One entry per fiscal year feeds the revenue trend chart in the Money chapter.
+// One entry per fiscal year feeds the revenue trend chart in the Finances chapter.
 const revenueYears = budgets.map(b => ({ fiscalYear: b.fiscalYear, amountPhp: b.totalBudgetPhp }))
 
-// --- Section 5: projects ---------------------------------------------------------
+// --- Section 6: projects ---------------------------------------------------------
 
 const featuredProjects = projectsData as Project[]
 
-// --- Section 8: laws ---------------------------------------------------------------
+// --- Section 9: laws ---------------------------------------------------------------
 
 function lawTimestamp(date: string): number {
   const t = Date.parse(date.length === 4 ? `${date}-01-01` : date)
@@ -151,7 +152,7 @@ const recentLaws = [...(lawsData as Law[])]
   .sort((a, b) => lawTimestamp(b.date) - lawTimestamp(a.date))
   .slice(0, 3)
 
-// --- Section 9: services -------------------------------------------------------------
+// --- Section 10: services ------------------------------------------------------------
 
 const SERVICE_CATEGORY_ORDER = [
   'Business',
@@ -173,7 +174,7 @@ const serviceCategories = SERVICE_CATEGORY_ORDER.map(name => {
   }
 })
 
-// --- Section 10: open datasets -----------------------------------------------------
+// --- Section 11: open datasets -----------------------------------------------------
 
 // Same catalog as /data — JSON hrefs point at the mirrored files under
 // public/data/ and CSV hrefs are generated data URIs (utils/datasets.ts).
@@ -188,8 +189,9 @@ const hydrated = ref(false)
 onMounted(() => { hydrated.value = true })
 
 const todaySection = ref<HTMLElement | null>(null)
+const nowSection = ref<HTMLElement | null>(null)
 const exploreSection = ref<HTMLElement | null>(null)
-const moneySection = ref<HTMLElement | null>(null)
+const financesSection = ref<HTMLElement | null>(null)
 const projectsBand = ref<HTMLElement | null>(null)
 const heritageBand = ref<HTMLElement | null>(null)
 const collageSection = ref<HTMLElement | null>(null)
@@ -199,8 +201,9 @@ const downloadsSection = ref<HTMLElement | null>(null)
 const trustSection = ref<HTMLElement | null>(null)
 
 const { isVisible: todayVisible } = useScrollReveal(todaySection, { threshold: 0.1 })
+const { isVisible: nowVisible } = useScrollReveal(nowSection, { threshold: 0.1 })
 const { isVisible: exploreVisible } = useScrollReveal(exploreSection, { threshold: 0.05 })
-const { isVisible: moneyVisible } = useScrollReveal(moneySection, { threshold: 0.1 })
+const { isVisible: financesVisible } = useScrollReveal(financesSection, { threshold: 0.1 })
 const { isVisible: projectsVisible } = useScrollReveal(projectsBand, { threshold: 0.1 })
 const { isVisible: heritageVisible } = useScrollReveal(heritageBand, { threshold: 0.1 })
 const { isVisible: collageVisible } = useScrollReveal(collageSection, { threshold: 0.1 })
@@ -297,7 +300,7 @@ function revealClass(isVisible: boolean) {
     <section
       ref="todaySection"
       aria-labelledby="today-heading"
-      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      class="w-full section-white py-20 sm:py-24 lg:py-28 border-b border-charcoal/10"
       :class="revealClass(todayVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -330,7 +333,21 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 3 — Explore Santa Rosa: full-bleed chapter on the light-green ground
+    <!-- 3 — Santa Rosa Now: live civic conditions chapter (weather, traffic
+         overview, official advisories) on parchment, separating the white
+         Today chapter from the light-green map chapter (spec §4). -->
+    <section
+      ref="nowSection"
+      aria-label="Santa Rosa Now"
+      class="w-full section-parchment py-16 sm:py-24 lg:py-28 border-b border-charcoal/10"
+      :class="revealClass(nowVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CivicSantaRosaNow />
+      </div>
+    </section>
+
+    <!-- 4 — Explore Santa Rosa: full-bleed chapter on the light-green ground
          reserved for the interactive map (spec §4). -->
     <section
       ref="exploreSection"
@@ -349,18 +366,18 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 4 — City Money: data journalism chapter on warm parchment. Lead stat,
+    <!-- 5 — City Finances: data journalism chapter on warm parchment. Lead stat,
          comparison entries and the revenue trend all trace to COA/BLGF records. -->
     <section
-      ref="moneySection"
-      aria-label="City Money"
+      ref="financesSection"
+      aria-label="City Finances"
       class="w-full section-parchment py-20 sm:py-28 lg:py-32 border-b border-charcoal/10"
-      :class="revealClass(moneyVisible)"
+      :class="revealClass(financesVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap items-end justify-between gap-6">
           <EditorialSectionHeader
-            eyebrow="City Money"
+            eyebrow="City Finances"
             title="How city revenue has changed"
             description="Verified city revenue compiled from Commission on Audit (COA) and Bureau of Local Government Finance (BLGF) reports."
           />
@@ -371,6 +388,10 @@ function revealClass(isVisible: boolean) {
             Explore detailed city finances →
           </NuxtLink>
         </div>
+
+        <p class="mt-6 max-w-3xl text-xs leading-relaxed text-charcoal/60">
+          Revenue is not the same as the city's appropriation budget or total expenditure.
+        </p>
 
         <div v-if="latestBudget" class="mt-10 grid gap-4 lg:grid-cols-3">
           <div class="rounded-xl border border-charcoal/10 bg-white p-6 shadow-sm lg:col-span-2">
@@ -419,7 +440,7 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 5 — Building the City: clean-white editorial chapter (spec §4).
+    <!-- 6 — Building the City: clean-white editorial chapter (spec §4).
          Project stories carry status, budget and source straight from
          official and reported records. -->
     <section
@@ -453,7 +474,7 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 6 — From Bukol to Today: deep-green editorial chapter (spec §4).
+    <!-- 7 — From Bukol to Today: deep-green editorial chapter (spec §4).
          Copy stays neutral and source-backed — no unverified superlatives
          (spec §21). The shared timeline switches to its dark theme here. -->
     <section
@@ -484,9 +505,10 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 7 — Santa Rosa Life & Heritage: full-bleed parchment chapter (spec §4).
+    <!-- 8 — Santa Rosa Life & Heritage: full-bleed parchment chapter (spec §4).
          The asymmetric collage sits in a dark framed gallery panel; every photo
-         carries a caption and a MediaCredit attribution badge. -->
+         carries a caption and a MediaCredit attribution badge. The places link
+         gives /places its homepage entry point. -->
     <section
       ref="collageSection"
       aria-label="Santa Rosa Life & Heritage"
@@ -495,16 +517,22 @@ function revealClass(isVisible: boolean) {
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <CivicCollage />
+        <NuxtLink
+          to="/places"
+          class="mt-8 inline-block rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        >
+          Browse places &amp; landmarks →
+        </NuxtLink>
       </div>
     </section>
 
-    <!-- 8 — Laws & Decisions: clean-white reference chapter. The three most
+    <!-- 9 — Laws & Decisions: clean-white reference chapter. The three most
          recent issuances carry a type badge, document link and verification
          date straight from laws.json. -->
     <section
       ref="lawsSection"
       aria-label="Laws & Decisions"
-      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      class="w-full section-white py-20 sm:py-24 lg:py-28 border-b border-charcoal/10"
       :class="revealClass(lawsVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -551,12 +579,12 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 9 — Services: clean-white reference chapter. Every card links out to
+    <!-- 10 — Services: clean-white reference chapter. Every card links out to
          the official municipal page; nothing is recreated here. -->
     <section
       ref="servicesSection"
       aria-label="Services"
-      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      class="w-full section-white py-20 sm:py-24 lg:py-28 border-b border-charcoal/10"
       :class="revealClass(servicesVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -603,13 +631,13 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 10 — Data & Downloads: parchment reference chapter listing the same
+    <!-- 11 — Data & Downloads: parchment reference chapter listing the same
          catalog as /data — real mirrored JSON files and generated CSV data
          URIs, never invented URLs. -->
     <section
       ref="downloadsSection"
       aria-label="Data & Downloads"
-      class="w-full section-parchment py-20 sm:py-24 border-b border-charcoal/10"
+      class="w-full section-parchment py-20 sm:py-24 lg:py-28 border-b border-charcoal/10"
       :class="revealClass(downloadsVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -666,12 +694,12 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 11 — Data Trust: verification registry + methodology + project
+    <!-- 12 — Data Trust: verification registry + methodology + project
          disclaimer in one clean-white chapter (spec §4). -->
     <section
       ref="trustSection"
       aria-label="Data Trust"
-      class="w-full section-white py-20 sm:py-24 border-b border-charcoal/10"
+      class="w-full section-white py-20 sm:py-24 lg:py-28 border-b border-charcoal/10"
       :class="revealClass(trustVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

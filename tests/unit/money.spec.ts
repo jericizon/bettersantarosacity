@@ -20,13 +20,13 @@ describe('City Finances & Budget', () => {
 
   it('renders the verified revenue trend for earlier fiscal years', () => {
     const wrapper = mount(IndexPage)
-    const moneyChapter = wrapper.find('section[aria-label="City Money"]')
-    expect(moneyChapter.exists()).toBe(true)
+    const financesChapter = wrapper.find('section[aria-label="City Finances"]')
+    expect(financesChapter.exists()).toBe(true)
     // FY2022 and FY2016 verified revenue figures appear in the trend treatment.
-    expect(moneyChapter.text()).toContain('₱4.99B')
-    expect(moneyChapter.text()).toContain('₱2.302B')
-    expect(moneyChapter.text()).toContain('Verified city revenue')
+    expect(financesChapter.text()).toContain('₱4.99B')
+    expect(financesChapter.text()).toContain('₱2.302B')
+    expect(financesChapter.text()).toContain('Verified city revenue')
     // Chapter links through to the detailed finances page.
-    expect(moneyChapter.text()).toContain('Explore detailed city finances')
+    expect(financesChapter.text()).toContain('Explore detailed city finances')
   })
 })

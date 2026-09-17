@@ -4,36 +4,44 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import IndexPage from '../../pages/index.vue'
 import HeroSearch from '../../components/civic/HeroSearch.vue'
+import SantaRosaNow from '../../components/civic/SantaRosaNow.vue'
 import MapExplorer from '../../components/civic/MapExplorer.vue'
 import Collage from '../../components/civic/Collage.vue'
 import Timeline from '../../components/civic/Timeline.vue'
 import StatCard from '../../components/data/StatCard.vue'
 
 describe('Homepage Civic Sections & Chapter Architecture', () => {
-  it('renders all 10 editorial chapters with their designated components', () => {
+  it('renders all 12 editorial chapters including Santa Rosa Now', () => {
     const wrapper = mount(IndexPage)
     // 1. Hero
     expect(wrapper.findComponent(HeroSearch).exists()).toBe(true)
+    expect(wrapper.text()).toContain('Public information about Santa Rosa, made easier to find.')
     // 2. Santa Rosa Today
     expect(wrapper.text()).toContain('Santa Rosa Today')
     expect(wrapper.findAllComponents(StatCard)).toHaveLength(4)
-    // 3. Explore Santa Rosa
+    // 3. Santa Rosa Now
+    expect(wrapper.findComponent(SantaRosaNow).exists()).toBe(true)
+    expect(wrapper.text()).toContain('Santa Rosa Now')
+    // 4. Explore Santa Rosa
     expect(wrapper.findComponent(MapExplorer).exists()).toBe(true)
-    // 4. City Money
-    expect(wrapper.text()).toContain('How city revenue has changed')
-    // 5. Building the City
+    expect(wrapper.text()).toContain('Explore Santa Rosa')
+    // 5. City Finances
+    expect(wrapper.text()).toContain('City Finances')
+    // 6. Projects
     expect(wrapper.text()).toContain('Building the City')
-    // 6. From Bukol to Today
+    // 7. History
     expect(wrapper.text()).toContain('From Bukol to Today')
-    // 7. Life & Heritage
+    // 8. Heritage & Places
     expect(wrapper.findComponent(Collage).exists()).toBe(true)
-    // 8. Laws & Services
+    expect(wrapper.text()).toContain('Santa Rosa Life & Heritage')
+    // 9. Laws & Decisions
     expect(wrapper.text()).toContain('Laws & Decisions')
+    // 10. Services
     expect(wrapper.text()).toContain('Services')
-    // 9. Data & Downloads
+    // 11. Data & Downloads + Data Trust
     expect(wrapper.text()).toContain('Data & Downloads')
-    // 10. Data Trust & Sources
     expect(wrapper.text()).toContain('Data Trust')
+    // 12. About / Sources
     expect(wrapper.text()).toContain('About this project')
   })
 
@@ -79,8 +87,9 @@ describe('Homepage Civic Sections & Chapter Architecture', () => {
     const wrapper = mount(IndexPage)
     const chapters: [string, string][] = [
       ['section[aria-labelledby="today-heading"]', 'section-white'],
+      ['section[aria-label="Santa Rosa Now"]', 'section-parchment'],
       ['section[aria-label="Explore Santa Rosa"]', 'section-light-green'],
-      ['section[aria-label="City Money"]', 'section-parchment'],
+      ['section[aria-label="City Finances"]', 'section-parchment'],
       ['section[aria-label="Building the City"]', 'section-white'],
       ['section[aria-label="From Bukol to Today"]', 'section-deep-green'],
       ['section[aria-label="Santa Rosa Life & Heritage"]', 'section-parchment'],
