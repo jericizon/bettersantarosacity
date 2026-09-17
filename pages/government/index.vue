@@ -137,7 +137,7 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
     </section>
 
     <!-- Departments & Offices -->
-    <section aria-labelledby="departments-heading">
+    <section id="departments" aria-labelledby="departments-heading">
       <div class="flex items-baseline justify-between gap-2 border-b border-charcoal/10 pb-2">
         <h2 id="departments-heading" class="font-serif text-2xl font-bold tracking-tight text-laguna-green">
           Departments &amp; Offices

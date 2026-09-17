@@ -5,17 +5,51 @@ import { Search, Menu, X } from 'lucide-vue-next'
 const isMobileOpen = ref(false)
 const isScrolled = ref(false)
 const mobileToggle = ref<HTMLButtonElement | null>(null)
-const navLinks = [
-  { name: 'Explore', href: '/explore' },
-  { name: 'Barangays', href: '/barangays' },
-  { name: 'Government', href: '/government' },
-  { name: 'Money', href: '/money' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Laws', href: '/laws' },
-  { name: 'Services', href: '/services' },
-  { name: 'Data', href: '/data' },
-  { name: 'Sources', href: '/sources' }
+
+// Six pillars: the five below plus Search (GlobalSearch trigger / /search link).
+// `children` are secondary destinations, shown only in the mobile drawer.
+const navGroups = [
+  {
+    name: 'Explore',
+    href: '/explore',
+    children: [
+      { name: 'Map', href: '/explore' },
+      { name: 'Barangays', href: '/barangays' },
+      { name: 'Places', href: '/places' },
+      { name: 'History', href: '/history' }
+    ]
+  },
+  {
+    name: 'Government',
+    href: '/government',
+    children: [
+      { name: 'Officials', href: '/government' },
+      { name: 'Departments', href: '/government#departments' },
+      { name: 'Services', href: '/services' },
+      { name: 'City Updates', href: '/updates' }
+    ]
+  },
+  {
+    name: 'Finances',
+    href: '/finances',
+    children: [
+      { name: 'Revenue', href: '/finances' },
+      { name: 'Budget', href: '/finances/budget' }
+    ]
+  },
+  { name: 'Projects', href: '/projects', children: [] },
+  {
+    name: 'Records',
+    href: '/laws',
+    children: [
+      { name: 'Laws', href: '/laws' },
+      { name: 'Data', href: '/data' },
+      { name: 'Sources', href: '/sources' }
+    ]
+  }
 ]
+
+const navLinks = navGroups.map(({ name, href }) => ({ name, href }))
 
 function onScroll() {
   isScrolled.value = window.scrollY > 20
@@ -56,7 +90,7 @@ function closeMobile() {
         >
       </NuxtLink>
 
-      <nav aria-label="Primary" class="hidden xl:flex items-center gap-4">
+      <nav aria-label="Primary" class="hidden xl:flex items-center gap-6">
         <NuxtLink
           v-for="link in navLinks"
           :key="link.href"
@@ -93,7 +127,7 @@ function closeMobile() {
       </div>
     </div>
 
-    <!-- Mobile Drawer -->
+    <!-- Mobile Drawer: pillars with grouped secondary destinations -->
     <nav
       v-if="isMobileOpen"
       id="mobile-nav"
@@ -108,15 +142,25 @@ function closeMobile() {
       >
         Search
       </NuxtLink>
-      <NuxtLink
-        v-for="link in navLinks"
-        :key="link.href"
-        :to="link.href"
-        @click="closeMobile"
-        class="flex items-center min-h-11 text-sm font-medium text-charcoal rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-      >
-        {{ link.name }}
-      </NuxtLink>
+      <div v-for="group in navGroups" :key="group.href">
+        <NuxtLink
+          :to="group.href"
+          @click="closeMobile"
+          class="flex items-center min-h-11 text-sm font-semibold text-charcoal rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          active-class="text-laguna-green"
+        >
+          {{ group.name }}
+        </NuxtLink>
+        <NuxtLink
+          v-for="child in group.children"
+          :key="child.name"
+          :to="child.href"
+          @click="closeMobile"
+          class="flex items-center min-h-11 pl-4 text-sm font-medium text-charcoal/75 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        >
+          {{ child.name }}
+        </NuxtLink>
+      </div>
     </nav>
   </header>
 </template>
