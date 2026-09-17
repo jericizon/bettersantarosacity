@@ -10,6 +10,9 @@ const root = fileURLToPath(new URL('..', import.meta.url))
 
 const STATIC_ROUTES = [
   '/',
+  '/about',
+  '/about/media',
+  '/history',
   '/explore',
   '/barangays',
   '/government',
