@@ -365,7 +365,7 @@ function revealClass(isVisible: boolean) {
             description="Verified city revenue compiled from Commission on Audit (COA) and Bureau of Local Government Finance (BLGF) reports."
           />
           <NuxtLink
-            to="/money"
+            to="/finances"
             class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
           >
             Explore detailed city finances →

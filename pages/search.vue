@@ -71,13 +71,13 @@ const fallbackDocs: FallbackDoc[] = [
     doc(
       `Verified city revenue FY ${b.fiscalYear}`,
       `₱${b.totalBudgetPhp.toLocaleString('en-PH')} verified revenue (COA/BLGF). ${b.categories.map(c => c.name).join('; ')}`,
-      '/money',
+      '/finances',
       'budget'
     )),
   ...servicesData.map(s =>
     doc(s.title, `${s.category}. ${s.description}`, `/services#${s.id}`, 'services')),
   doc('Explore Santa Rosa', 'City overview, profile, and civic timeline.', '/explore', 'pages'),
-  doc('Money & Budget', 'City budget, revenue, and expenditure records.', '/money', 'pages'),
+  doc('City Finances', 'Verified city revenue and fiscal records.', '/finances', 'pages'),
   doc('Open Data', 'Machine-readable civic datasets.', '/data', 'pages'),
   doc('Sources & Methodology', 'Source register and verification notes.', '/sources', 'pages'),
   doc('Methodology & Standards', 'How records are collected, verified, and corrected.', '/about/methodology', 'pages')
