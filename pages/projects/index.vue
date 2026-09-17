@@ -82,7 +82,7 @@ const lastVerified = projects.map(p => p.lastVerified).sort().at(-1)
         City Projects
       </h1>
       <div class="flex flex-wrap items-center gap-2">
-        <DataSourceBadge type="external" />
+        <DataSourceBadge type="secondary" />
       </div>
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Infrastructure and civic projects traced to public records and verified

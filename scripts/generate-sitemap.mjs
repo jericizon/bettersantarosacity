@@ -12,6 +12,7 @@ const STATIC_ROUTES = [
   '/',
   '/about',
   '/about/media',
+  '/about/methodology',
   '/history',
   '/explore',
   '/barangays',

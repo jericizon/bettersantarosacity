@@ -86,7 +86,7 @@ const lastVerified = laws.map(l => l.lastVerified).sort().at(-1)
         Laws &amp; Ordinances
       </h1>
       <div class="flex flex-wrap items-center gap-2">
-        <DataSourceBadge type="external" />
+        <DataSourceBadge type="secondary" />
       </div>
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         Ordinances, resolutions and executive orders of the City of Santa Rosa,

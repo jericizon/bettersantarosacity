@@ -32,7 +32,7 @@ describe('Civic Shell Components', () => {
     const wrapper = mount(SourceBadge, {
       props: { type: 'official' }
     })
-    expect(wrapper.text()).toContain('Official source')
+    expect(wrapper.text()).toContain('OFFICIAL')
   })
 
   it('renders CivicHeader with single-line navigation and search trigger', () => {

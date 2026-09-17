@@ -79,7 +79,8 @@ const fallbackDocs: FallbackDoc[] = [
   doc('Explore Santa Rosa', 'City overview, profile, and civic timeline.', '/explore', 'pages'),
   doc('Money & Budget', 'City budget, revenue, and expenditure records.', '/money', 'pages'),
   doc('Open Data', 'Machine-readable civic datasets.', '/data', 'pages'),
-  doc('Sources & Methodology', 'Source register and verification notes.', '/sources', 'pages')
+  doc('Sources & Methodology', 'Source register and verification notes.', '/sources', 'pages'),
+  doc('Methodology & Standards', 'How records are collected, verified, and corrected.', '/about/methodology', 'pages')
 ]
 
 const ESCAPE_MAP: Record<string, string> = {
