@@ -48,19 +48,15 @@ function closeMobile() {
     >
       <NuxtLink to="/" class="flex items-center gap-2 group rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green">
         <img
-          src="/images/bettersantarosacity-logo.svg"
-          alt=""
-          width="48"
-          height="48"
-          class="w-12 h-12 object-contain shrink-0"
-          aria-hidden="true"
+          src="/images/bettersantarosa-logo.png"
+          alt="Better Santa Rosa City"
+          width="477"
+          height="176"
+          class="h-12 w-auto sm:h-14 object-contain shrink-0"
         >
-        <span class="font-serif font-bold text-base sm:text-lg text-laguna-green tracking-tight group-hover:text-rose-accent-dark transition-colors">
-          betterSantaRosaCity.org
-        </span>
       </NuxtLink>
 
-      <nav aria-label="Primary" class="hidden xl:flex items-center gap-5">
+      <nav aria-label="Primary" class="hidden xl:flex items-center gap-4">
         <NuxtLink
           v-for="link in navLinks"
           :key="link.href"
