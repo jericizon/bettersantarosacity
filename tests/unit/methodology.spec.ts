@@ -8,8 +8,7 @@ describe('Methodology Page (/about/methodology)', () => {
       global: {
         stubs: {
           NuxtLink: { template: '<a><slot /></a>' },
-          DataSourceBadge: true,
-          DataLastVerified: true
+          DataSourceBadge: true
         }
       }
     })

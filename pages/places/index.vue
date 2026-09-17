@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import placesData from '~/data/places.json'
-import type { Place } from '~/types/civic'
+import { PlaceCategoryEnum, type Place } from '~/types/civic'
 import PlaceCard from '~/components/places/PlaceCard.vue'
 import { buildSeoHead } from '~/utils/seo'
 import { Search } from 'lucide-vue-next'
@@ -18,22 +18,23 @@ const places = placesData as Place[]
 const activeCategory = ref<string>('All')
 const searchQuery = ref<string>('')
 
-const categories = ['All', 'Landmark', 'Heritage', 'Civic', 'Nature', 'Attraction']
+const categories = ['All', ...PlaceCategoryEnum.options]
 
 const filteredPlaces = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase()
   return places.filter(p => {
     const matchesCat = activeCategory.value === 'All' || p.category === activeCategory.value
-    const matchesSearch = !searchQuery.value.trim() ||
-      p.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      p.barangay.toLowerCase().includes(searchQuery.value.toLowerCase())
+    const matchesSearch = !q ||
+      p.title.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q) ||
+      p.barangay.toLowerCase().includes(q)
     return matchesCat && matchesSearch
   })
 })
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+  <div data-pagefind-filter="type:places" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
     <header class="max-w-3xl space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Explore Santa Rosa
@@ -53,6 +54,7 @@ const filteredPlaces = computed(() => {
           v-for="cat in categories"
           :key="cat"
           type="button"
+          :aria-pressed="activeCategory === cat"
           @click="activeCategory = cat"
           class="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
           :class="activeCategory === cat ? 'bg-laguna-green text-white font-semibold' : 'bg-charcoal/5 text-charcoal/80 hover:bg-charcoal/10'"
@@ -62,8 +64,10 @@ const filteredPlaces = computed(() => {
       </div>
 
       <div class="relative w-full sm:w-64">
+        <label for="place-filter" class="sr-only">Filter places</label>
         <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40" aria-hidden="true" />
         <input
+          id="place-filter"
           v-model="searchQuery"
           type="search"
           placeholder="Filter places..."
@@ -71,6 +75,10 @@ const filteredPlaces = computed(() => {
         >
       </div>
     </div>
+
+    <p class="text-xs font-medium text-charcoal/70" role="status" aria-live="polite">
+      {{ filteredPlaces.length }} of {{ places.length }} places
+    </p>
 
     <!-- Places Grid -->
     <div v-if="filteredPlaces.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

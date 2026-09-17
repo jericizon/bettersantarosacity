@@ -6,7 +6,12 @@ import CivicTrafficMap from '~/components/civic/TrafficMap.vue'
 import UpdatesUpdateCard from '~/components/updates/UpdateCard.vue'
 import { ArrowRight } from 'lucide-vue-next'
 
-const recentUpdates = (updatesData as CityUpdate[]).slice(0, 2)
+// Published advisories only, newest first — the spec's "latest city updates"
+// rail is a date-ordered feed, not dataset order.
+const recentUpdates = (updatesData as CityUpdate[])
+  .filter(u => u.status === 'published')
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3)
 </script>
 
 <template>
@@ -41,9 +46,8 @@ const recentUpdates = (updatesData as CityUpdate[]).slice(0, 2)
         <CivicWeatherToday />
       </div>
 
-      <!-- 2. Live Traffic -->
+      <!-- 2. Live Traffic — TrafficMap renders its own visible heading -->
       <div class="flex flex-col justify-between">
-        <h3 class="sr-only">Live Traffic</h3>
         <CivicTrafficMap />
       </div>
 

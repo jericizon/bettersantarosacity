@@ -6,7 +6,7 @@ import SantaRosaNow from '../../components/civic/SantaRosaNow.vue'
 describe('Santa Rosa Now & TrafficMap', () => {
   it('renders TrafficMap with accessible status badges and disclaimer', () => {
     const wrapper = mount(TrafficMap)
-    expect(wrapper.text()).toContain('Live Traffic')
+    expect(wrapper.text()).toContain('Traffic information')
     expect(wrapper.text()).toContain('Normal')
     expect(wrapper.text()).toContain('Slow')
     expect(wrapper.text()).toContain('Heavy')
@@ -26,7 +26,7 @@ describe('Santa Rosa Now & TrafficMap', () => {
     })
     expect(wrapper.text()).toContain('Santa Rosa Now')
     expect(wrapper.text()).toContain('What is happening in Santa Rosa right now')
-    expect(wrapper.text()).toContain('Live Traffic')
+    expect(wrapper.text()).toContain('Traffic Map')
     expect(wrapper.text()).toContain('Recent Advisories')
   })
 })

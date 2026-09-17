@@ -2,7 +2,6 @@
 import budgetsData from '~/data/budgets.json'
 import MoneyBudgetChart from '~/components/money/BudgetChart.vue'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
-import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import { toSourceReference } from '~/utils/source'
 import { formatPeso, formatPesoFull } from '~/utils/currency'
@@ -19,21 +18,20 @@ if (typeof useHead === 'function') {
 
 const budgets = [...(budgetsData as Budget[])].sort((a, b) => b.fiscalYear - a.fiscalYear)
 const latestBudget = budgets.at(0)
-const earlierBudgets = budgets.slice(1)
 const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
 
 // BudgetChart renders a per-year trend from `years`: one entry per verified record.
 const revenueYears = budgets.map(b => ({ fiscalYear: b.fiscalYear, amountPhp: b.totalBudgetPhp }))
 
+// Chart caption lists the covered fiscal years, derived low → high.
+const coveredFiscalYears = budgets
+  .map(b => `FY${b.fiscalYear}`)
+  .sort()
+  .join(', ')
+
 function sourceDocUrl(budget: Budget): string | undefined {
   return budget.documentUrl ?? toSourceReference(budget.source).url
 }
-
-const budgetSources = budgets.map(b => ({
-  fiscalYear: b.fiscalYear,
-  reference: toSourceReference(b.source),
-  lastVerified: b.lastVerified
-}))
 </script>
 
 <template>
@@ -64,8 +62,8 @@ const budgetSources = budgets.map(b => ({
     </header>
 
     <!-- Latest verified revenue hero -->
-    <section v-if="latestBudget" class="rounded-xl border border-charcoal/10 bg-white p-6 sm:p-8 shadow-sm space-y-4">
-      <p class="text-xs font-bold uppercase tracking-wider text-rose-accent-dark">
+    <section v-if="latestBudget" aria-labelledby="latest-revenue-heading" class="rounded-xl border border-charcoal/10 bg-white p-6 sm:p-8 shadow-sm space-y-4">
+      <p id="latest-revenue-heading" class="text-xs font-bold uppercase tracking-wider text-rose-accent-dark">
         FY{{ latestBudget.fiscalYear }} Verified City Revenue
       </p>
       <div class="flex flex-wrap items-baseline gap-3">
@@ -85,19 +83,19 @@ const budgetSources = budgets.map(b => ({
     </section>
 
     <!-- Bar Chart for Revenue Growth -->
-    <section class="rounded-xl border border-charcoal/10 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+    <section aria-labelledby="revenue-trends-heading" class="rounded-xl border border-charcoal/10 bg-white p-6 sm:p-8 shadow-sm space-y-6">
       <div class="space-y-1">
-        <h2 class="font-serif text-2xl font-bold text-charcoal">Historical Revenue Trends</h2>
+        <h2 id="revenue-trends-heading" class="font-serif text-2xl font-bold text-charcoal">Historical Revenue Trends</h2>
         <p class="text-xs sm:text-sm text-charcoal/60">
-          Verified annual revenue milestones (FY2016, FY2022, FY2024). Plotted as distinct years.
+          Verified annual revenue milestones ({{ coveredFiscalYears }}). Plotted as distinct years.
         </p>
       </div>
       <MoneyBudgetChart :years="revenueYears" />
     </section>
 
-    <!-- Earlier records table -->
-    <section class="space-y-4">
-      <h2 class="font-serif text-2xl font-bold text-charcoal">All Verified Annual Records</h2>
+    <!-- All verified records table -->
+    <section aria-labelledby="all-records-heading" class="space-y-4">
+      <h2 id="all-records-heading" class="font-serif text-2xl font-bold text-charcoal">All Verified Annual Records</h2>
       <div class="overflow-x-auto rounded-lg border border-charcoal/10 bg-white shadow-sm">
         <table class="min-w-full divide-y divide-charcoal/10 text-left text-sm">
           <thead class="bg-parchment/60 font-semibold text-charcoal">

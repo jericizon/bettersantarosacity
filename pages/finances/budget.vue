@@ -13,7 +13,7 @@ import type { Budget } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Annual Budget Breakdown · City Finances · Better Santa Rosa City',
+    title: 'Annual Revenue Record · City Finances · Better Santa Rosa City',
     description: 'Fiscal-year breakdown of Santa Rosa City\'s verified revenue records from COA audit reports and BLGF statements, with source documents and methodology notes.',
     path: '/finances/budget'
   }))
@@ -45,7 +45,7 @@ const lastVerified = budgets.map(b => b.lastVerified).sort().at(-1)
         City Finances · Santa Rosa City, Laguna
       </p>
       <h1 class="font-serif text-3xl font-bold tracking-tight text-laguna-green sm:text-4xl">
-        Annual Budget Breakdown
+        Annual Revenue Record
       </h1>
       <div class="flex flex-wrap items-center gap-2">
         <DataSourceBadge type="official" />

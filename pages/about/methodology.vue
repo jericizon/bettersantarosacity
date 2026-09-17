@@ -126,6 +126,12 @@ if (typeof useHead === 'function') {
         <p class="text-charcoal/80 leading-relaxed">
           Better Santa Rosa City is an independent civic-information project, not affiliated with or operated by the City Government of Santa Rosa. We do not endorse political candidates, rank officials, assign municipal report-card scores, or publish editorial commentary. We present public records neutrally so residents can form their own judgments.
         </p>
+        <p class="text-charcoal/80 leading-relaxed">
+          Pages that present our own curation or summaries carry this project's badge rather than a source-classification badge:
+        </p>
+        <div class="pt-1">
+          <DataSourceBadge type="community" organization="Better Santa Rosa City" />
+        </div>
       </section>
     </div>
   </div>

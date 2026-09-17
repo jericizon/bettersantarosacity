@@ -1,18 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { AlertCircle, ExternalLink, Info } from 'lucide-vue-next'
+import updatesData from '~/data/updates.json'
+import type { CityUpdate } from '~/types/civic'
 
 // Reserved for a future live provider failure state; no feed is integrated yet,
 // so the panel defers to official city advisories rather than imply live data.
 const isUnavailable = ref(false)
-const advisoryLinkLastVerified = '2026-09-17'
+
+// The link-verified stamp rides on the traffic advisory's own lastVerified;
+// when no published traffic update exists the stamp is simply omitted.
+const advisoryLinkLastVerified = (updatesData as CityUpdate[])
+  .find(u => u.category === 'traffic' && u.status === 'published')?.lastVerified
 </script>
 
 <template>
   <div class="rounded-lg border border-charcoal/15 bg-white p-4 shadow-sm flex flex-col justify-between space-y-4">
     <div class="border-b border-charcoal/10 pb-3">
       <h3 class="font-serif text-base font-bold text-laguna-green">
-        Live Traffic
+        Traffic information
       </h3>
       <p class="text-xs text-charcoal/60">Current conditions around Santa Rosa, Laguna</p>
     </div>
@@ -66,7 +72,7 @@ const advisoryLinkLastVerified = '2026-09-17'
     <!-- Attribution and verification -->
     <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-charcoal/60 border-t border-charcoal/10 pt-2">
       <span>Advisory source: City Government of Santa Rosa</span>
-      <span class="font-mono">Link verified {{ advisoryLinkLastVerified }}</span>
+      <span v-if="advisoryLinkLastVerified" class="font-mono">Link verified {{ advisoryLinkLastVerified }}</span>
     </div>
   </div>
 </template>

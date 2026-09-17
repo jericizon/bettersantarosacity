@@ -8,9 +8,11 @@ import projectsData from '~/data/projects.json'
 import lawsData from '~/data/laws.json'
 import budgetsData from '~/data/budgets.json'
 import servicesData from '~/data/services.json'
+import placesData from '~/data/places.json'
+import updatesData from '~/data/updates.json'
 import { buildSeoHead } from '~/utils/seo'
 import { LAW_TYPE_LABEL } from '~/utils/law'
-import type { Law } from '~/types/civic'
+import type { CityUpdate, Law, Place } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
@@ -29,6 +31,8 @@ const CATEGORIES = [
   { id: 'laws', label: 'Laws' },
   { id: 'budget', label: 'Budget' },
   { id: 'services', label: 'Services' },
+  { id: 'places', label: 'Places' },
+  { id: 'updates', label: 'Updates' },
   { id: 'pages', label: 'Pages' }
 ] as const
 
@@ -76,6 +80,14 @@ const fallbackDocs: FallbackDoc[] = [
     )),
   ...servicesData.map(s =>
     doc(s.title, `${s.category}. ${s.description}`, `/services#${s.id}`, 'services')),
+  // Places and updates link to their detail pages: unlike the record indexes
+  // above, those list pages carry no per-item anchors.
+  ...(placesData as Place[]).map(p =>
+    doc(p.title, `${p.category} · ${p.barangay}. ${p.description}`, `/places/${p.slug}`, 'places')),
+  ...(updatesData as CityUpdate[])
+    .filter(u => u.status === 'published')
+    .map(u =>
+      doc(u.title, `${u.category} · ${u.date}. ${u.summary}`, `/updates/${u.slug}`, 'updates')),
   doc('Explore Santa Rosa', 'City overview, profile, and civic timeline.', '/explore', 'pages'),
   doc('City Finances', 'Verified city revenue and fiscal records.', '/finances', 'pages'),
   doc('Open Data', 'Machine-readable civic datasets.', '/data', 'pages'),
@@ -159,6 +171,8 @@ function categoryFromResult(data: PagefindResultData): ResultCategory {
   if (url.includes('law')) return 'laws'
   if (url.includes('money') || url.includes('budget')) return 'budget'
   if (url.includes('service')) return 'services'
+  if (url.includes('place')) return 'places'
+  if (url.includes('update')) return 'updates'
   return 'pages'
 }
 

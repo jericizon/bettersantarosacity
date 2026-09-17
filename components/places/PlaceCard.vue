@@ -2,6 +2,7 @@
 import type { Place } from '~/types/civic'
 import { MapPin, ArrowRight } from 'lucide-vue-next'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
+import { humanizeLabel } from '~/utils/labels'
 
 defineProps<{
   place: Place
@@ -13,7 +14,7 @@ defineProps<{
     <div class="space-y-3">
       <div class="flex items-center justify-between gap-2">
         <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-laguna-green/10 text-laguna-green">
-          {{ place.category }}
+          {{ humanizeLabel(place.category) }}
         </span>
         <span class="text-xs text-charcoal/60 flex items-center gap-1">
           <MapPin :size="12" aria-hidden="true" />

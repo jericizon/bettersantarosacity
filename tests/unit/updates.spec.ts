@@ -13,7 +13,7 @@ describe('City Updates Feature', () => {
     }
   })
 
-  it('renders updates directory with category filters and official source badges', () => {
+  it('renders updates directory with category filter pills', () => {
     const wrapper = mount(UpdatesIndex, {
       global: {
         stubs: {
@@ -25,7 +25,7 @@ describe('City Updates Feature', () => {
       }
     })
     expect(wrapper.find('h1').text()).toContain('City Updates')
-    expect(wrapper.text()).toContain('traffic')
-    expect(wrapper.text()).toContain('emergency')
+    expect(wrapper.text()).toContain('Traffic')
+    expect(wrapper.text()).toContain('Emergency')
   })
 })
