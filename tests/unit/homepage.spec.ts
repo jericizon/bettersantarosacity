@@ -2,23 +2,22 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-// Leaflet needs a real layout engine — stub it for happy-dom mounts.
-vi.mock('leaflet', () => ({
-  map: () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const m: any = { panTo: vi.fn(), remove: vi.fn() }
-    m.setView = vi.fn(() => m)
-    return m
-  },
-  tileLayer: () => ({ addTo: vi.fn() }),
-  circleMarker: () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const m: any = {
-      bindTooltip: vi.fn(), setStyle: vi.fn(), bringToFront: vi.fn(),
-      getLatLng: () => ({ lat: 14.3, lng: 121.1 }), on: vi.fn()
-    }
-    m.addTo = vi.fn(() => m)
-    return m
+// MapLibre needs WebGL — stub it for happy-dom mounts.
+vi.mock('maplibre-gl', () => ({
+  default: {
+    Map: class {
+      addControl = vi.fn()
+      addSource = vi.fn()
+      addLayer = vi.fn()
+      setFilter = vi.fn()
+      easeTo = vi.fn()
+      remove = vi.fn()
+      getCanvas = () => ({ style: {} as Record<string, string> })
+      on = vi.fn((event: string, layerOrCb: unknown) => {
+        if (event === 'load' && typeof layerOrCb === 'function') (layerOrCb as () => void)()
+      })
+    },
+    NavigationControl: class {}
   }
 }))
 

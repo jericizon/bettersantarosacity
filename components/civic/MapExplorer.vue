@@ -1,9 +1,12 @@
 <!-- components/civic/MapExplorer.vue -->
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import 'leaflet/dist/leaflet.css'
+import 'maplibre-gl/dist/maplibre-gl.css'
 import barangaysData from '~/data/barangays.json'
 import SectionHeader from '~/components/editorial/SectionHeader.vue'
+
+// Free vector basemap — no API key (same stack as expresswayph gas-calculator).
+const MAP_STYLE = 'https://tiles.openfreemap.org/styles/positron'
 
 // barangays.json is checked-in static data guaranteed non-empty (18 entries)
 // by tests/unit/data-integrity.spec.ts — non-null assert satisfies noUncheckedIndexedAccess.
@@ -24,32 +27,20 @@ const markerColor = (group: string) => GROUP_COLORS[group] ?? '#164A3D'
 
 const mapEl = ref<HTMLElement>()
 const mapReady = ref(false)
-// Leaflet types are heavy for the template layer; runtime objects only.
+// MapLibre instance is runtime-only; keep it loosely typed.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let map: any = null
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const markers = new Map<string, any>()
+const centroids = new Map<string, { lat: number; lon: number }>()
 
-function restyleMarkers() {
-  for (const [slug, m] of markers) {
-    const active = slug === selectedSlug.value
-    m.setStyle({
-      radius: active ? 10 : 7,
-      weight: active ? 3 : 2,
-      fillOpacity: active ? 0.95 : 0.7
-    })
-    if (active) m.bringToFront()
-  }
-}
-
-watch(selectedSlug, () => {
-  restyleMarkers()
-  const m = markers.get(selectedSlug.value)
-  if (map && m) map.panTo(m.getLatLng(), { animate: true })
+watch(selectedSlug, slug => {
+  if (!map) return
+  map.setFilter('barangay-selected', ['==', ['get', 'slug'], slug])
+  const c = centroids.get(slug)
+  if (c) map.easeTo({ center: [c.lon, c.lat], duration: 500 })
 })
 
 onMounted(async () => {
-  const L = await import('leaflet')
+  const maplibregl = (await import('maplibre-gl')).default
 
   // Centroids are a static asset; if it fails the basemap still renders.
   let geo: Record<string, { lat: number; lon: number; group: string }> = {}
@@ -57,34 +48,84 @@ onMounted(async () => {
     const res = await fetch('/data/barangay-centroids.json')
     if (res.ok) geo = (await res.json()).barangays
   } catch { /* markers are additive */ }
+  for (const [slug, c] of Object.entries(geo)) centroids.set(slug, c)
 
-  map = L.map(mapEl.value!, {
-    scrollWheelZoom: false, // don't trap page scroll
-    zoomControl: true
-  }).setView([14.306, 121.104], 12)
+  map = new maplibregl.Map({
+    container: mapEl.value!,
+    style: MAP_STYLE,
+    center: [121.104, 14.306],
+    zoom: 11.8,
+    cooperativeGestures: true // page scroll stays safe; ctrl/cmd+scroll or two-finger zoom
+  })
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-    maxZoom: 19
-  }).addTo(map)
+  map.on('load', () => {
+    map.addSource('barangays', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: barangaysData
+          .filter(b => geo[b.slug])
+          .map(b => ({
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [geo[b.slug]!.lon, geo[b.slug]!.lat] },
+            properties: { slug: b.slug, name: b.name, color: markerColor(b.group) }
+          }))
+      }
+    })
 
-  for (const b of barangaysData) {
-    const c = geo[b.slug]
-    if (!c) continue
-    const marker = L.circleMarker([c.lat, c.lon], {
-      radius: 7,
-      weight: 2,
-      color: '#ffffff',
-      fillColor: markerColor(b.group),
-      fillOpacity: 0.7
-    }).addTo(map)
-    marker.bindTooltip(b.name, { direction: 'top', offset: [0, -6] })
-    marker.on('click', () => { selectedSlug.value = b.slug })
-    markers.set(b.slug, marker)
-  }
+    map.addLayer({
+      id: 'barangay-dots',
+      type: 'circle',
+      source: 'barangays',
+      paint: {
+        'circle-radius': 8,
+        'circle-color': ['get', 'color'],
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff',
+        'circle-opacity': 0.85
+      }
+    })
+    // Selected-state ring drawn above the base dots.
+    map.addLayer({
+      id: 'barangay-selected',
+      type: 'circle',
+      source: 'barangays',
+      filter: ['==', ['get', 'slug'], selectedSlug.value],
+      paint: {
+        'circle-radius': 12,
+        'circle-color': 'transparent',
+        'circle-stroke-width': 3,
+        'circle-stroke-color': ['get', 'color']
+      }
+    })
+    map.addLayer({
+      id: 'barangay-labels',
+      type: 'symbol',
+      source: 'barangays',
+      layout: {
+        'text-field': ['get', 'name'],
+        'text-size': 11,
+        'text-offset': [0, 1.3],
+        'text-anchor': 'top',
+        'text-optional': true
+      },
+      paint: {
+        'text-color': '#182421',
+        'text-halo-color': '#ffffff',
+        'text-halo-width': 1.5
+      }
+    })
 
-  restyleMarkers()
-  mapReady.value = true
+    map.on('click', 'barangay-dots', (e: { features?: { properties?: { slug?: string } }[] }) => {
+      const slug = e.features?.[0]?.properties?.slug
+      if (slug) selectedSlug.value = slug
+    })
+    map.on('mouseenter', 'barangay-dots', () => { map.getCanvas().style.cursor = 'pointer' })
+    map.on('mouseleave', 'barangay-dots', () => { map.getCanvas().style.cursor = '' })
+
+    mapReady.value = true
+  })
 })
 
 onBeforeUnmount(() => {
@@ -121,7 +162,7 @@ onBeforeUnmount(() => {
     <!-- Full-bleed map band: breaks out of the inner max-w-7xl measure. -->
     <div class="relative">
       <div class="relative left-1/2 h-[420px] w-screen -translate-x-1/2 sm:h-[520px] lg:h-[560px]">
-        <div ref="mapEl" class="absolute inset-0 z-0 bg-light-green" data-testid="leaflet-map" />
+        <div ref="mapEl" class="absolute inset-0 z-0 bg-light-green" data-testid="explore-map" />
         <div
           v-if="!mapReady"
           class="absolute inset-0 z-10 flex items-center justify-center text-sm text-charcoal/60"
