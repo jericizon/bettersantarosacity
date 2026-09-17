@@ -9,11 +9,16 @@ const linkClass = 'flex items-center min-h-11 hover:text-white rounded-sm focus-
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <!-- Brand & Mission -->
         <div class="space-y-4">
-          <div class="flex items-center gap-2">
-            <div class="w-9 h-9 rounded-full bg-parchment flex items-center justify-center p-0.5 shrink-0" aria-hidden="true">
-              <img src="/images/bettersantarosacity-logo.svg" alt="" width="32" height="32" class="w-full h-full object-contain">
-            </div>
-            <h3 class="font-serif font-bold text-lg text-white">Better Santa Rosa City</h3>
+          <!-- Dark-green wordmark needs the parchment chip to stay legible on
+               the charcoal footer; the lockup already carries the site name. -->
+          <div class="inline-flex items-center rounded-lg bg-parchment px-3 py-2">
+            <img
+              src="/images/bettersantarosa-logo.png"
+              alt="Better Santa Rosa City"
+              width="477"
+              height="176"
+              class="h-10 w-auto object-contain"
+            >
           </div>
           <p class="text-xs text-parchment/70 leading-relaxed">
             An independent, community-maintained civic intelligence and open-data portal. Our mission is to make public documents, municipal budgets, and city projects understandable and discoverable for every citizen of Santa Rosa, Laguna.
