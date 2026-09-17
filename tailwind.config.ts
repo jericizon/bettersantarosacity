@@ -20,7 +20,8 @@ export default <Config>{
         'laguna-blue': '#5E9FA5',
         'heritage-gold': '#D6A94B',
         'parchment': '#F6F3EA',
-        'charcoal': '#182421'
+        'charcoal': '#182421',
+        'light-green': '#EBF2EE'
       },
       fontFamily: {
         sans: ['Inter', 'Manrope', 'sans-serif'],

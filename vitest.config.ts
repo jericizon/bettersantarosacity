@@ -6,7 +6,8 @@ export default defineConfig({
   // plugin-vue resolves vite 8 (nuxt) types; vitest 2 runs on vite 5 — same runtime API, cast for typecheck
   plugins: [vue() as Plugin],
   test: {
-    environment: 'happy-dom'
+    environment: 'happy-dom',
+    setupFiles: ['./tests/setup.ts']
   },
   resolve: {
     alias: {

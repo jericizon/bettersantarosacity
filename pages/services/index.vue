@@ -10,8 +10,8 @@ import { ServiceSchema, type Service } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'Public Services Directory — Better Santa Rosa City',
-    description: 'Directory of official City of Santa Rosa government services — permits, taxes, civil registry, health and online services — each linked to its official destination.',
+    title: 'Public Services Directory · Better Santa Rosa City',
+    description: 'Directory of official City of Santa Rosa government services: permits, taxes, civil registry, health and online services, each linked to its official destination.',
     path: '/services'
   }))
 }
@@ -34,7 +34,7 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
 </script>
 
 <template>
-  <div data-pagefind-filter="type:services" class="flex flex-col gap-12">
+  <div data-pagefind-filter="type:services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
@@ -46,8 +46,8 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
         <DataSourceBadge type="official" />
       </div>
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
-        Every entry here links out to the city government's own service pages —
-        marked <span class="font-medium">Official Government Service</span> — so
+        Every entry here links out to the city government's own service pages,
+        each marked <span class="font-medium">Official Government Service</span>, so
         you always land on the official destination. Better Santa Rosa does not
         recreate transactional services; it points you to them and cites the
         source each entry was verified against.
@@ -122,7 +122,7 @@ const lastVerified = services.map(s => s.lastVerified).sort().at(-1)
 
     <p class="text-xs text-charcoal/70">
       This directory lists selected services verified against the cited official
-      pages — transactions are completed on the city government's own sites,
+      pages. Transactions are completed on the city government's own sites,
       never here.
     </p>
   </div>

@@ -12,8 +12,8 @@ import type { Budget } from '~/types/civic'
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: 'City Finances — Better Santa Rosa City',
-    description: 'Verified revenue and budget records of Santa Rosa City, Laguna — sourced from COA audit reports and BLGF statements, with coverage limits stated plainly.',
+    title: 'City Finances · Better Santa Rosa City',
+    description: 'Verified revenue and budget records of Santa Rosa City, Laguna, sourced from COA audit reports and BLGF statements, with coverage limits stated plainly.',
     path: '/money'
   }))
 }
@@ -38,7 +38,7 @@ const budgetSources = budgets.map(b => ({
 </script>
 
 <template>
-  <div data-pagefind-filter="type:budget" class="flex flex-col gap-12">
+  <div data-pagefind-filter="type:budget" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-12">
     <header class="max-w-3xl space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
         Santa Rosa City, Laguna
@@ -52,7 +52,7 @@ const budgetSources = budgets.map(b => ({
       <p class="text-sm leading-relaxed text-charcoal/70 sm:text-base">
         What the city earns and what public records say about how money moves.
         Every figure below is a <span class="font-medium">verified revenue total</span>
-        drawn from audit reports and finance bureau statements — each carries its
+        drawn from audit reports and finance bureau statements. Each carries its
         source and verification date.
       </p>
       <DataLastVerified v-if="lastVerified" :date="lastVerified" :show-state="false" />
@@ -69,7 +69,7 @@ const budgetSources = budgets.map(b => ({
       <div class="mt-3 max-w-3xl space-y-3 text-sm leading-relaxed text-charcoal/75">
         <p>
           The totals on this page are <span class="font-medium">verified city
-          revenue</span> — income reported in Commission on Audit (COA) Annual Audit
+          revenue</span>: income reported in Commission on Audit (COA) Annual Audit
           Reports and Bureau of Local Government Finance (BLGF) statements. They are
           <span class="font-medium">not appropriation budgets</span>: no authoritative
           line-item spending breakdown was available in the sources reviewed, so none
@@ -79,7 +79,7 @@ const budgetSources = budgets.map(b => ({
           Figures cover selected publicly available records and are not necessarily
           complete. When a verified appropriation or expenditure dataset becomes
           available it will be added. Records are presented without political
-          characterization — only what the cited documents support.
+          characterization: only what the cited documents support.
         </p>
       </div>
     </section>
@@ -92,7 +92,7 @@ const budgetSources = budgets.map(b => ({
             Annual Budget &amp; Verified Revenue
           </h2>
           <p class="mt-1 text-sm text-charcoal/70">
-            The annual figures that could be verified — labeled as the revenue totals they are.
+            The annual figures that could be verified, labeled as the revenue totals they are.
           </p>
         </div>
         <NuxtLink
@@ -112,7 +112,7 @@ const budgetSources = budgets.map(b => ({
             {{ formatPeso(latestBudget.totalBudgetPhp) }}
           </p>
           <p class="mt-1 text-sm font-medium text-charcoal">
-            Verified city revenue (COA/BLGF) — {{ formatPesoFull(latestBudget.totalBudgetPhp) }}
+            Verified city revenue (COA/BLGF) · {{ formatPesoFull(latestBudget.totalBudgetPhp) }}
           </p>
           <p class="mt-4 text-sm leading-relaxed text-charcoal/70">
             {{ latestBudget.categories.at(0)?.name }}
@@ -143,7 +143,7 @@ const budgetSources = budgets.map(b => ({
               <span :title="formatPesoFull(b.totalBudgetPhp)">{{ formatPeso(b.totalBudgetPhp) }}</span>
             </p>
             <p class="mt-1 text-[11px] leading-snug text-charcoal/80">
-              Verified city revenue (COA/BLGF) — {{ toSourceReference(b.source).title }}
+              Verified city revenue (COA/BLGF) · {{ toSourceReference(b.source).title }}
             </p>
           </li>
         </ul>

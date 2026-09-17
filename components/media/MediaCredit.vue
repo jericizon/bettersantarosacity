@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<{
       target="_blank"
       rel="noopener noreferrer"
       class="underline hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
-      :title="`${media.title} — ${media.source}`"
+      :title="`${media.title} · ${media.source}`"
     >
       {{ media.source }} ({{ media.license }})
     </a>

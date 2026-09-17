@@ -132,6 +132,27 @@ export const ServiceSchema = z.object({
 
 export type Service = z.infer<typeof ServiceSchema>
 
+export const HotlineNumberSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+  tel: z.string().min(3)
+})
+
+export const HotlineSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  agency: z.string(),
+  tag: z.string().optional(),
+  kind: z.enum(['emergency', 'city']),
+  numbers: z.array(HotlineNumberSchema).min(1),
+  note: z.string().optional(),
+  officialUrl: z.string().url().optional(),
+  source: z.string(),
+  lastVerified: z.string()
+})
+
+export type Hotline = z.infer<typeof HotlineSchema>
+
 export const CityProfileSchema = z.object({
   name: z.string(),
   cityhoodYear: z.number(),

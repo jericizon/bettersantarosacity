@@ -9,4 +9,14 @@ describe('HeroSearch Component', () => {
     expect(input.exists()).toBe(true)
     expect(wrapper.text()).toContain('K')
   })
+
+  it('shows a rotating search hint placeholder and a ⌘K shortcut badge', () => {
+    const wrapper = mount(HeroSearch)
+    const input = wrapper.find('input[type="search"]')
+    expect(input.attributes('placeholder')).toMatch(/^Search .+\.\.\.$/)
+    const kbd = wrapper.find('kbd')
+    expect(kbd.exists()).toBe(true)
+    expect(kbd.text()).toContain('⌘')
+    expect(kbd.text()).toContain('K')
+  })
 })

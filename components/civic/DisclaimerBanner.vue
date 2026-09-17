@@ -4,7 +4,7 @@
       <div class="flex items-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-rose-accent" aria-hidden="true"></span>
         <p>
-          <span class="font-semibold">Independent Public-Information Layer</span> — This is not an official City Government of Santa Rosa website.
+          <span class="font-semibold">Independent Public-Information Layer</span> · This is not an official City Government of Santa Rosa website.
         </p>
       </div>
       <a

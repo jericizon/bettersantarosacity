@@ -26,7 +26,7 @@ if (!barangay && typeof createError === 'function') {
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: `Barangay ${barangay?.name ?? 'Not Found'} — Better Santa Rosa City`,
+    title: `Barangay ${barangay?.name ?? 'Not Found'} · Better Santa Rosa City`,
     description: barangay?.description ?? 'Barangay profile for Santa Rosa City, Laguna.',
     path: `/barangays/${slug}`,
     jsonLd: {
@@ -67,7 +67,7 @@ const GROUP_BADGE_CLASSES: Record<string, string> = {
 </script>
 
 <template>
-  <div v-if="barangay" data-pagefind-filter="type:barangays" class="flex flex-col gap-10">
+  <div v-if="barangay" data-pagefind-filter="type:barangays" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-10">
     <nav aria-label="Breadcrumb">
       <NuxtLink
         to="/barangays"
@@ -101,6 +101,7 @@ const GROUP_BADGE_CLASSES: Record<string, string> = {
           label="Population"
           note="2020 PSA Census of Population and Housing"
           source="Philippine Statistics Authority via PhilAtlas"
+          variant="card"
         />
       </div>
       <p v-else class="rounded-lg border border-charcoal/10 bg-white p-5 text-sm italic text-charcoal/70">

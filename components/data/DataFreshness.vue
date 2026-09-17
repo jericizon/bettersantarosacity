@@ -49,7 +49,7 @@ import {
       <dt class="text-sm font-medium text-charcoal">{{ d.name }}</dt>
       <dd class="flex items-center gap-2 text-xs text-charcoal/70">
         <span>
-          Last checked
+          Last verified by Better Santa Rosa:
           <time v-if="d.date" :datetime="d.date" class="font-medium text-charcoal">{{ d.date }}</time>
           <span v-else class="font-medium text-charcoal/70">unknown</span>
         </span>

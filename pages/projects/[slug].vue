@@ -24,7 +24,7 @@ if (!project && typeof createError === 'function') {
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
-    title: `${project?.name ?? 'Project Not Found'} — Better Santa Rosa City`,
+    title: `${project?.name ?? 'Project Not Found'} · Better Santa Rosa City`,
     description: project?.description ?? 'City project record for Santa Rosa City, Laguna.',
     path: `/projects/${slug}`,
     jsonLd: {
@@ -49,7 +49,7 @@ const osmSearchUrl = project?.location
 </script>
 
 <template>
-  <div v-if="project" data-pagefind-filter="type:projects" class="flex flex-col gap-10">
+  <div v-if="project" data-pagefind-filter="type:projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-10">
     <nav aria-label="Breadcrumb">
       <NuxtLink
         to="/projects"
@@ -118,8 +118,8 @@ const osmSearchUrl = project?.location
             {{ formatPesoFull(project.budgetPhp) }} reported in the cited sources
           </p>
           <p class="mt-3 text-xs leading-relaxed text-charcoal/70">
-            Scope of this figure — single project, aggregate allocation, or
-            multi-year total — is as described above and in the source documents.
+            Scope of this figure (single project, aggregate allocation, or
+            multi-year total) is as described above and in the source documents.
           </p>
         </template>
         <p v-else class="text-sm italic text-charcoal/70">
