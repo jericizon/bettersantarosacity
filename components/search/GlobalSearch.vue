@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { Search } from 'lucide-vue-next'
 
 const query = ref('')
-const inputEl = ref<HTMLInputElement | null>(null)
 
 function goToSearch(q?: string) {
   const trimmed = q?.trim() ?? ''
@@ -21,27 +20,6 @@ function onSubmit() {
   goToSearch(query.value)
 }
 
-// Cmd/Ctrl+K focuses the box; on small screens the input is hidden, so
-// jump straight to the search page instead.
-function onGlobalKeydown(event: KeyboardEvent) {
-  if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'k') return
-  event.preventDefault()
-  // When a page mounts a hero search (homepage), that input is the primary
-  // ⌘K target and HeroSearch's own handler focuses it — yield instead of
-  // fighting over focus (listener order is not guaranteed).
-  if (document.getElementById('hero-search-input')) return
-  const el = inputEl.value
-  if (!el) return
-  if (el.offsetParent === null) {
-    goToSearch()
-    return
-  }
-  el.focus()
-  el.select()
-}
-
-onMounted(() => window.addEventListener('keydown', onGlobalKeydown))
-onBeforeUnmount(() => window.removeEventListener('keydown', onGlobalKeydown))
 </script>
 
 <template>
@@ -56,7 +34,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onGlobalKeydown))
     />
     <input
       id="global-search-input"
-      ref="inputEl"
       v-model="query"
       type="search"
       name="q"
