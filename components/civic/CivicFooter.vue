@@ -9,14 +9,14 @@ const linkClass = 'flex items-center min-h-11 hover:text-white rounded-sm focus-
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <!-- Brand & Mission -->
         <div class="space-y-4">
-          <!-- Same wordmark as the header, inverted for the dark footer:
-               invert + hue-rotate flips lightness while keeping brand hues. -->
+          <!-- Same wordmark as the header; brightness(0)+invert renders the
+               artwork pure white so nothing sits on the charcoal footer. -->
           <img
             src="/images/bettersantarosa-logo.png"
             alt="Better Santa Rosa City"
             width="477"
             height="176"
-            class="h-12 w-auto object-contain invert hue-rotate-180"
+            class="h-12 w-auto object-contain brightness-0 invert"
           >
           <p class="text-xs text-parchment/70 leading-relaxed">
             An independent, community-maintained civic intelligence and open-data portal. Our mission is to make public documents, municipal budgets, and city projects understandable and discoverable for every citizen of Santa Rosa, Laguna.
