@@ -710,7 +710,7 @@ function revealClass(isVisible: boolean) {
             </li>
             <li>
               <a
-                href="https://github.com/bettersantarosa"
+                href="https://github.com/jericizon/bettersantarosacity"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"

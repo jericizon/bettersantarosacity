@@ -42,7 +42,7 @@ const linkClass = 'flex items-center min-h-11 hover:text-white rounded-sm focus-
             <li><NuxtLink to="/about/media" :class="linkClass">Media &amp; Image Credits</NuxtLink></li>
             <li><NuxtLink to="/data" :class="linkClass">Open Data Downloads</NuxtLink></li>
             <li><NuxtLink to="/services" :class="linkClass">Official Services Directory</NuxtLink></li>
-            <li><a href="https://github.com/bettersantarosa" target="_blank" rel="noopener noreferrer" :class="linkClass">GitHub Repository ↗</a></li>
+            <li><a href="https://github.com/jericizon/bettersantarosacity" target="_blank" rel="noopener noreferrer" :class="linkClass">GitHub Repository ↗</a></li>
           </ul>
         </nav>
 

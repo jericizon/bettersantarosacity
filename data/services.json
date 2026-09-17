@@ -54,15 +54,6 @@
     "lastVerified": "2026-09-15"
   },
   {
-    "id": "scvt-vaccination",
-    "category": "Health",
-    "title": "Santa Rosa COVID-19 Vaccination Tracking (SCVT)",
-    "description": "The city's vaccination tracking portal for COVID-19 immunization registration and records.",
-    "officialUrl": "https://www.santarosacity.ph/SCVT/",
-    "source": "City Government of Santa Rosa website footer link (https://santarosacity.gov.ph/)",
-    "lastVerified": "2026-09-15"
-  },
-  {
     "id": "bid-opportunities",
     "category": "Business",
     "title": "Bid Opportunities and Procurement Notices",
