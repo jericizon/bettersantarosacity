@@ -1,6 +1,7 @@
 // Write public/sitemap.xml from the known route surface: static page routes
 // plus dynamic routes derived from data/ (barangay slugs, project slugs,
-// law ids). Runs via pregenerate so nuxt copies it into .output/public.
+// law ids, place slugs, update slugs). Runs via pregenerate so nuxt copies
+// it into .output/public.
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { join } from 'node:path'
@@ -16,6 +17,8 @@ const STATIC_ROUTES = [
   '/history',
   '/explore',
   '/barangays',
+  '/places',
+  '/updates',
   '/government',
   '/finances',
   '/finances/budget',
@@ -29,16 +32,20 @@ const STATIC_ROUTES = [
 
 const readJson = async name => JSON.parse(await readFile(join(root, 'data', name), 'utf-8'))
 
-const [barangays, projects, laws] = await Promise.all([
+const [barangays, projects, laws, places, updates] = await Promise.all([
   readJson('barangays.json'),
   readJson('projects.json'),
-  readJson('laws.json')
+  readJson('laws.json'),
+  readJson('places.json'),
+  readJson('updates.json')
 ])
 
 const urls = STATIC_ROUTES.map(loc => ({ loc }))
 for (const b of barangays) urls.push({ loc: `/barangays/${b.slug}`, lastmod: b.lastVerified })
 for (const p of projects) urls.push({ loc: `/projects/${p.slug}`, lastmod: p.lastVerified })
 for (const l of laws) urls.push({ loc: `/laws/${l.id}`, lastmod: l.lastVerified })
+for (const pl of places) urls.push({ loc: `/places/${pl.slug}`, lastmod: pl.lastVerified })
+for (const u of updates) urls.push({ loc: `/updates/${u.slug}`, lastmod: u.lastVerified })
 
 const body = urls
   .map(({ loc, lastmod }) => {
