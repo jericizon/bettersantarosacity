@@ -1,6 +1,33 @@
 // tests/unit/homepage.spec.ts
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+
+// Leaflet needs a real layout engine — stub it for happy-dom mounts.
+vi.mock('leaflet', () => ({
+  map: () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const m: any = { panTo: vi.fn(), remove: vi.fn() }
+    m.setView = vi.fn(() => m)
+    return m
+  },
+  tileLayer: () => ({ addTo: vi.fn() }),
+  circleMarker: () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const m: any = {
+      bindTooltip: vi.fn(), setStyle: vi.fn(), bringToFront: vi.fn(),
+      getLatLng: () => ({ lat: 14.3, lng: 121.1 }), on: vi.fn()
+    }
+    m.addTo = vi.fn(() => m)
+    return m
+  }
+}))
+
+// MapExplorer fetches static centroids; WeatherToday calls Open-Meteo — stub
+// both so no network happens in tests.
+vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+  ok: true,
+  json: () => Promise.resolve({ barangays: {}, current: null, daily: null })
+}))
 import IndexPage from '../../pages/index.vue'
 import HeroSearch from '../../components/civic/HeroSearch.vue'
 import MapExplorer from '../../components/civic/MapExplorer.vue'

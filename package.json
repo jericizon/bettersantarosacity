@@ -19,6 +19,7 @@
     "serve": "serve dist -l 4026"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "lucide-vue-next": "^0.475.0",
     "nuxt": "^4.0.0",
     "vue": "^3.5.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "@types/leaflet": "^1.9.22",
     "@types/node": "^22.10.0",
     "@vitejs/plugin-vue": "^6.0.9",
     "@vue/test-utils": "^2.4.6",
