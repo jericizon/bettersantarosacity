@@ -7,6 +7,8 @@ import lawsData from '~/data/laws.json'
 import servicesData from '~/data/services.json'
 import officialsData from '~/data/officials.json'
 import departmentsData from '~/data/departments.json'
+import placesData from '~/data/places.json'
+import updatesData from '~/data/updates.json'
 
 // A dataset is only as current as its stalest record.
 function oldestVerified(dates: (string | null | undefined)[]): string | null {
@@ -28,7 +30,9 @@ const datasets = [
       ...officialsData.map(o => o.lastVerified),
       ...departmentsData.map(d => d.lastVerified)
     ])
-  }
+  },
+  { name: 'Places & landmarks', date: oldestVerified(placesData.map(p => p.lastVerified)) },
+  { name: 'City updates', date: oldestVerified(updatesData.map(u => u.lastVerified)) }
 ]
 
 // Thresholds and palette are shared with LastVerified.vue via utils/freshness.

@@ -9,6 +9,7 @@ import lawsData from '../../data/laws.json'
 import servicesData from '../../data/services.json'
 import sourcesData from '../../data/sources.json'
 import placesData from '../../data/places.json'
+import updatesData from '../../data/updates.json'
 
 import {
   CityProfileSchema,
@@ -20,7 +21,8 @@ import {
   LawSchema,
   ServiceSchema,
   SourceSchema,
-  PlaceSchema
+  PlaceSchema,
+  CityUpdateSchema
 } from '../../types/civic'
 
 describe('Data Integrity & Source Verification', () => {
@@ -92,6 +94,13 @@ describe('Data Integrity & Source Verification', () => {
     expect(placesData.length).toBeGreaterThan(0)
     for (const item of placesData) {
       expect(PlaceSchema.safeParse(item).success).toBe(true)
+    }
+  })
+
+  it('validates updates.json', () => {
+    expect(updatesData.length).toBeGreaterThan(0)
+    for (const item of updatesData) {
+      expect(CityUpdateSchema.safeParse(item).success).toBe(true)
     }
   })
 })

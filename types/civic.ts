@@ -215,3 +215,40 @@ export const PlaceSchema = z.object({
 })
 
 export type Place = z.infer<typeof PlaceSchema>
+
+export const UpdateCategoryEnum = z.enum([
+  'emergency',
+  'traffic',
+  'roads',
+  'public-services',
+  'events',
+  'government',
+  'infrastructure',
+  'community',
+  'other'
+])
+
+export const UpdateSourceTypeEnum = z.enum([
+  'official-portal',
+  'official-facebook',
+  'city-ordinance',
+  'advisory',
+  'secondary'
+])
+
+export const CityUpdateSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  slug: z.string(),
+  date: z.string(),
+  category: UpdateCategoryEnum,
+  sourceType: UpdateSourceTypeEnum,
+  sourceOrganization: z.string(),
+  sourceUrl: z.string().url(),
+  status: z.enum(['published', 'archived']).default('published'),
+  summary: z.string(),
+  content: z.string().optional(),
+  lastVerified: z.string()
+})
+
+export type CityUpdate = z.infer<typeof CityUpdateSchema>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "2026-09-17-balibago-traffic-rerouting",
+    "title": "Traffic Advisory: National Highway Maintenance & Rerouting",
+    "slug": "traffic-advisory-national-highway-rerouting",
+    "date": "2026-09-17",
+    "category": "traffic",
+    "sourceType": "official-portal",
+    "sourceOrganization": "City Government of Santa Rosa Traffic Management Office",
+    "sourceUrl": "https://santarosacity.gov.ph",
+    "status": "published",
+    "summary": "Temporary lane constriction and rerouting along the Balibago national corridor due to scheduled drainage and pavement rehabilitation.",
+    "content": "Motorists traveling towards Nuvali or the SLEX Balibago exit are advised to expect slower transit times and utilize alternate routes via Tagapo or Macabling.",
+    "lastVerified": "2026-09-17"
+  },
+  {
+    "id": "2026-09-15-cdrmmo-monsoon-preparedness",
+    "title": "Public Advisory: Southwest Monsoon Monitoring for Lowland & Lakeshore Areas",
+    "slug": "monsoon-monitoring-advisory",
+    "date": "2026-09-15",
+    "category": "emergency",
+    "sourceType": "advisory",
+    "sourceOrganization": "Santa Rosa CDRRMO",
+    "sourceUrl": "https://santarosacity.gov.ph",
+    "status": "published",
+    "summary": "City Disaster Risk Reduction and Management Office advisory regarding continuous monsoon rains and localized water level monitoring along lakefront barangays.",
+    "content": "Barangay emergency response teams in Aplaya, Sinalhan, and Caingin are placed on standby. Residents may dial 911 or (049) 530-0015 for immediate municipal assistance.",
+    "lastVerified": "2026-09-17"
+  },
+  {
+    "id": "2026-09-10-business-tax-payment-reminder",
+    "title": "Treasury Reminder: Q3 Local Business Tax and Real Property Tax Due Date",
+    "slug": "q3-local-tax-deadline-reminder",
+    "date": "2026-09-10",
+    "category": "public-services",
+    "sourceType": "official-portal",
+    "sourceOrganization": "City Treasury Department",
+    "sourceUrl": "https://santarosacity.gov.ph",
+    "status": "published",
+    "summary": "Announcement regarding payment schedules for third-quarter municipal business taxes and RPT discounts at the City Hall Hall of Justice annex.",
+    "content": "Taxpayers are encouraged to use online assessment channels or visit the City Treasury payment counters weekdays between 8:00 AM and 5:00 PM.",
+    "lastVerified": "2026-09-17"
+  }
+]
