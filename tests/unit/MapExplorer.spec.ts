@@ -20,8 +20,15 @@ vi.mock('maplibre-gl', () => ({
         if (event === 'load' && typeof layerOrCb === 'function') (layerOrCb as () => void)()
       })
       constructor() { mapInstances.push(this) }
+      fitBounds = vi.fn()
+      setCenter = vi.fn()
+      setZoom = vi.fn()
     },
-    NavigationControl: class {}
+    NavigationControl: class {},
+    LngLatBounds: class {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      extend(c: any) { return this }
+    }
   }
 }))
 

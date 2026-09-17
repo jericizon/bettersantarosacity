@@ -50,12 +50,30 @@ onMounted(async () => {
   } catch { /* markers are additive */ }
   for (const [slug, c] of Object.entries(geo)) centroids.set(slug, c)
 
+  // Frame all 18 markers — pad right on desktop so the overlay card doesn't
+  // cover dots. `bounds` must be a constructor option: camera set before
+  // 'load' is overridden when the style's own root center/zoom arrives.
+  const lons = Object.values(geo).map(c => c.lon)
+  const lats = Object.values(geo).map(c => c.lat)
+  const hasBounds = lons.length > 0 && lats.length > 0
+  const isLg = window.innerWidth >= 1024
+
   map = new maplibregl.Map({
     container: mapEl.value!,
     style: MAP_STYLE,
-    center: [121.104, 14.306],
-    zoom: 11.8,
-    cooperativeGestures: true // page scroll stays safe; ctrl/cmd+scroll or two-finger zoom
+    cooperativeGestures: true, // page scroll stays safe; ctrl/cmd+scroll or two-finger zoom
+    ...(hasBounds
+      ? {
+          bounds: [
+            [Math.min(...lons), Math.min(...lats)],
+            [Math.max(...lons), Math.max(...lats)]
+          ],
+          fitBoundsOptions: {
+            padding: { top: 60, bottom: 60, left: 60, right: isLg ? 440 : 60 },
+            maxZoom: 13
+          }
+        }
+      : { center: [121.104, 14.306], zoom: 12 })
   })
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
 
@@ -105,6 +123,8 @@ onMounted(async () => {
       source: 'barangays',
       layout: {
         'text-field': ['get', 'name'],
+        // OpenFreeMap hosts Noto Sans only; the default Open Sans stack 404s.
+        'text-font': ['Noto Sans Regular'],
         'text-size': 11,
         'text-offset': [0, 1.3],
         'text-anchor': 'top',
@@ -159,10 +179,13 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <!-- Full-bleed map band: breaks out of the inner max-w-7xl measure. -->
+    <!-- Full-bleed map band: breaks out of the inner max-w-7xl measure.
+         overflow-x-clip on the section ancestor prevents the 100vw scrollbar gap. -->
     <div class="relative">
       <div class="relative left-1/2 h-[420px] w-screen -translate-x-1/2 sm:h-[520px] lg:h-[560px]">
-        <div ref="mapEl" class="absolute inset-0 z-0 bg-light-green" data-testid="explore-map" />
+        <!-- maplibre-gl.css sets .maplibregl-map{position:relative} unlayered, which
+         beats Tailwind's layered .absolute — size with h-full/w-full instead. -->
+        <div ref="mapEl" class="h-full w-full bg-light-green" data-testid="explore-map" />
         <div
           v-if="!mapReady"
           class="absolute inset-0 z-10 flex items-center justify-center text-sm text-charcoal/60"

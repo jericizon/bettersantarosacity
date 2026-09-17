@@ -1,32 +1,7 @@
 // tests/unit/homepage.spec.ts
-import { describe, it, expect, vi } from 'vitest'
+// maplibre-gl and fetch are stubbed globally in tests/setup.ts.
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-
-// MapLibre needs WebGL — stub it for happy-dom mounts.
-vi.mock('maplibre-gl', () => ({
-  default: {
-    Map: class {
-      addControl = vi.fn()
-      addSource = vi.fn()
-      addLayer = vi.fn()
-      setFilter = vi.fn()
-      easeTo = vi.fn()
-      remove = vi.fn()
-      getCanvas = () => ({ style: {} as Record<string, string> })
-      on = vi.fn((event: string, layerOrCb: unknown) => {
-        if (event === 'load' && typeof layerOrCb === 'function') (layerOrCb as () => void)()
-      })
-    },
-    NavigationControl: class {}
-  }
-}))
-
-// MapExplorer fetches static centroids; WeatherToday calls Open-Meteo — stub
-// both so no network happens in tests.
-vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-  ok: true,
-  json: () => Promise.resolve({ barangays: {}, current: null, daily: null })
-}))
 import IndexPage from '../../pages/index.vue'
 import HeroSearch from '../../components/civic/HeroSearch.vue'
 import MapExplorer from '../../components/civic/MapExplorer.vue'
