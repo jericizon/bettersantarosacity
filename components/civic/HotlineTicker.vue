@@ -14,12 +14,12 @@ const items = (hotlinesData as Hotline[]).map(h => ({
 
 <template>
   <div
-    class="hotline-ticker flex items-stretch border-b border-rose-accent/25 bg-rose-accent/10"
+    class="hotline-ticker flex items-stretch border-t border-black/20 bg-rose-accent-dark"
     role="region"
     aria-label="Emergency hotlines"
   >
-    <span class="flex shrink-0 items-center gap-1.5 border-r border-rose-accent/25 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-rose-accent-dark">
-      <Siren :size="13" class="ticker-siren" aria-hidden="true" />
+    <span class="flex shrink-0 items-center gap-1.5 border-r border-black/20 bg-black/15 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-parchment">
+      <Siren :size="13" class="ticker-siren text-heritage-gold" aria-hidden="true" />
       Emergency
     </span>
     <div class="ticker-viewport flex-1 overflow-hidden">
@@ -29,12 +29,12 @@ const items = (hotlinesData as Hotline[]).map(h => ({
           <li v-for="i in items" :key="i.id" class="flex items-center whitespace-nowrap">
             <a
               :href="`tel:${i.number.tel}`"
-              class="flex items-baseline gap-1.5 px-3 py-2 text-xs transition-colors hover:text-rose-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+              class="flex items-baseline gap-1.5 px-3 py-2 text-xs transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-parchment"
             >
-              <span class="font-medium text-charcoal/75">{{ i.label }}</span>
-              <span class="font-mono font-semibold text-rose-accent-dark">{{ i.number.value }}</span>
+              <span class="font-medium text-parchment/85">{{ i.label }}</span>
+              <span class="font-mono font-semibold text-white">{{ i.number.value }}</span>
             </a>
-            <span class="text-rose-accent/40" aria-hidden="true">•</span>
+            <span class="text-parchment/35" aria-hidden="true">•</span>
           </li>
         </ul>
       </div>

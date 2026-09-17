@@ -227,9 +227,9 @@ function revealClass(isVisible: boolean) {
       <CivicWeatherAmbience />
       <!-- Dev-only scene picker, anchored to the banner edge (not sticky). -->
       <CivicWeatherSceneSwitcher />
-      <!-- Emergency hotline flash strip: pinned to the banner's top edge so
-           key numbers are visible on first paint without a full section. -->
-      <CivicHotlineTicker class="absolute inset-x-0 top-0 z-20" />
+      <!-- Emergency hotline flash strip: pinned to the banner's bottom edge,
+           clear of the header/nav row above the hero. -->
+      <CivicHotlineTicker class="absolute inset-x-0 bottom-0 z-20" />
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid items-center gap-10 lg:grid-cols-12">
           <div class="animate-fade-in-up lg:col-span-7">
@@ -471,7 +471,7 @@ function revealClass(isVisible: boolean) {
             description="From a lakeside barrio of Biñan to cityhood, manufacturing center, and cultural heritage."
           />
           <NuxtLink
-            to="/explore"
+            to="/history"
             class="rounded-sm text-sm font-semibold text-parchment underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-heritage-gold"
           >
             Discover Santa Rosa's history →
@@ -710,7 +710,7 @@ function revealClass(isVisible: boolean) {
             </li>
             <li>
               <a
-                href="https://github.com/bettersantarosa"
+                href="https://github.com/jericizon/bettersantarosacity"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"

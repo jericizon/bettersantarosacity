@@ -9,4 +9,12 @@ describe('Government Directory', () => {
     expect(wrapper.text()).toContain('Executive')
     expect(wrapper.text()).toContain('Sangguniang Panlungsod')
   })
+
+  it('renders the Citizen’s Charter and Transparency section', () => {
+    const wrapper = mount(GovernmentIndex)
+
+    expect(wrapper.text()).toContain('Citizen’s Charter & Transparency')
+    expect(wrapper.text()).toContain('Full Disclosure Portal')
+    expect(wrapper.text()).toContain('Anti-Red Tape Authority')
+  })
 })

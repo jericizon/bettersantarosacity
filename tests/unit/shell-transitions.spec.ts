@@ -1,6 +1,7 @@
 // tests/unit/shell-transitions.spec.ts
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 import DefaultLayout from '~/layouts/default.vue'
 import CivicFooter from '~/components/civic/CivicFooter.vue'
 
@@ -13,9 +14,18 @@ const LAYOUT_STUBS = {
   CivicFooter: true
 }
 
+// NuxtLink resolves via Nuxt auto-imports at runtime; under plain Vitest it is
+// stubbed as a real anchor so href assertions stay meaningful.
+const NuxtLinkStub = defineComponent({
+  props: { to: { type: String, default: '' } },
+  setup(props, { slots }) {
+    return () => h('a', { href: props.to }, slots.default?.())
+  }
+})
+
 describe('Shell Navigation & Layout Architecture', () => {
   it('includes link to /about/media in CivicFooter', () => {
-    const wrapper = mount(CivicFooter)
+    const wrapper = mount(CivicFooter, { global: { stubs: { NuxtLink: NuxtLinkStub } } })
     const mediaLink = wrapper.find('a[href="/about/media"]')
     expect(mediaLink.exists()).toBe(true)
   })
