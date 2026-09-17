@@ -3,8 +3,11 @@ import cityData from '~/data/city.json'
 import CivicTimeline from '~/components/civic/Timeline.vue'
 import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
 import DataSourceBadge from '~/components/data/SourceBadge.vue'
+import DataSourceCitation from '~/components/data/SourceCitation.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
+import { toSourceReference } from '~/utils/source'
 import { buildSeoHead } from '~/utils/seo'
+import type { SourceReference } from '~/types/civic'
 
 if (typeof useHead === 'function') {
   useHead(buildSeoHead({
@@ -27,8 +30,35 @@ if (typeof useHead === 'function') {
 }
 
 const timeline = cityData.timeline
-const sources = cityData.sources
 const lastVerified = cityData.lastVerified
+
+// Spec §6.1: the timeline splits into three jumpable eras. Bucketed on the
+// numeric year: < 1898 Spanish colonial, 1898-1945 revolution and republic,
+// > 1945 modern era.
+const eras = [
+  {
+    id: 'era-spanish',
+    name: 'Spanish Era',
+    range: '1571–1898',
+    items: timeline.filter(item => Number(item.year) < 1898)
+  },
+  {
+    id: 'era-revolution',
+    name: 'Revolution & Republic',
+    range: '1898–1945',
+    items: timeline.filter(item => Number(item.year) >= 1898 && Number(item.year) <= 1945)
+  },
+  {
+    id: 'era-modern',
+    name: 'Modern Era',
+    range: '1993–2025',
+    items: timeline.filter(item => Number(item.year) > 1945)
+  }
+]
+
+// city.json source strings embed their URLs in parentheses; toSourceReference
+// also normalizes the em-dashes the dataset carries.
+const profileSources: SourceReference[] = cityData.sources.map(toSourceReference)
 </script>
 
 <template>
@@ -51,9 +81,32 @@ const lastVerified = cityData.lastVerified
       <DataLastVerified :date="lastVerified" :show-state="false" />
     </header>
 
-    <!-- Historical Timeline Chapter -->
-    <section aria-label="Chronological Timeline" class="rounded-2xl border border-charcoal/10 bg-white p-6 sm:p-12 shadow-sm">
-      <CivicTimeline :items="timeline" theme="light" />
+    <!-- Era jump navigation -->
+    <nav aria-label="Jump to era" class="flex flex-wrap gap-2">
+      <a
+        v-for="era in eras"
+        :key="era.id"
+        :href="`#${era.id}`"
+        class="inline-flex items-center gap-1.5 rounded-full border border-laguna-green/25 bg-laguna-green/5 px-3.5 py-1.5 text-xs font-semibold text-laguna-green transition-colors hover:bg-laguna-green/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+      >
+        {{ era.name }}
+        <span class="font-normal text-charcoal/60">{{ era.range }}</span>
+      </a>
+    </nav>
+
+    <!-- Historical timeline, one section per era -->
+    <section
+      v-for="era in eras"
+      :key="era.id"
+      :id="era.id"
+      :aria-labelledby="`${era.id}-heading`"
+      class="rounded-2xl border border-charcoal/10 bg-white p-6 sm:p-12 shadow-sm scroll-mt-24"
+    >
+      <h2 :id="`${era.id}-heading`" class="mb-8 font-serif text-2xl sm:text-3xl font-bold tracking-tight text-laguna-green">
+        {{ era.name }}
+        <span class="font-sans text-base sm:text-lg font-medium text-charcoal/60">({{ era.range }})</span>
+      </h2>
+      <CivicTimeline :items="era.items" theme="light" />
     </section>
 
     <!-- Source Notes -->
@@ -64,9 +117,9 @@ const lastVerified = cityData.lastVerified
       <p class="text-sm text-charcoal/70 leading-relaxed">
         Timeline entries are drawn directly from official municipal publications, the 2025 Voluntary Local Review, Republic Acts, and verified archival records.
       </p>
-      <ul class="space-y-2 text-xs text-charcoal/80 list-disc pl-5">
-        <li v-for="(source, idx) in sources" :key="idx">
-          {{ source }}
+      <ul class="flex flex-wrap gap-2">
+        <li v-for="s in profileSources" :key="s.title">
+          <DataSourceCitation :source="s" :verified-date="lastVerified" />
         </li>
       </ul>
     </section>

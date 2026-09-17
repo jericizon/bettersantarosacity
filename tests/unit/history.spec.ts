@@ -37,6 +37,26 @@ describe('History Page (/history)', () => {
     }
   })
 
+  it('groups milestones into jumpable era sections', () => {
+    const wrapper = mount(HistoryPage, {
+      global: {
+        stubs: {
+          CivicRoseMotif: true,
+          DataSourceBadge: true,
+          NuxtLink: { template: '<a><slot /></a>' }
+        }
+      }
+    })
+
+    expect(wrapper.text()).toContain('Spanish Era')
+    expect(wrapper.text()).toContain('Revolution & Republic')
+    expect(wrapper.text()).toContain('Modern Era')
+    for (const id of ['era-spanish', 'era-revolution', 'era-modern']) {
+      expect(wrapper.find(`#${id}`).exists()).toBe(true)
+      expect(wrapper.find(`a[href="#${id}"]`).exists()).toBe(true)
+    }
+  })
+
   it('includes sources and verification metadata', () => {
     const wrapper = mount(HistoryPage, {
       global: {
