@@ -188,3 +188,30 @@ export const MediaItemSchema = z.object({
 })
 
 export type MediaItem = z.infer<typeof MediaItemSchema>
+
+export const PlaceCategoryEnum = z.enum([
+  'Landmark',
+  'Attraction',
+  'Heritage',
+  'Nature',
+  'Recreation',
+  'Civic'
+])
+
+export const PlaceSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  slug: z.string(),
+  category: PlaceCategoryEnum,
+  barangay: z.string(),
+  location: z.string(),
+  description: z.string(),
+  historicalContext: z.string().optional(),
+  whyItMatters: z.string().optional(),
+  images: z.array(z.string()).default([]),
+  sources: z.array(z.string()),
+  officialUrl: z.string().url().optional(),
+  lastVerified: z.string()
+})
+
+export type Place = z.infer<typeof PlaceSchema>
