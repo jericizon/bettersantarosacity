@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import WeatherToday from '~/components/civic/WeatherToday.vue'
+import { resetWeatherState } from '~/composables/useWeather'
 
 const okResponse = {
   current: {
@@ -26,7 +27,8 @@ function stubFetch(body: unknown, ok = true) {
 }
 
 describe('CivicWeatherToday', () => {
-  beforeEach(() => stubFetch(okResponse))
+  // Shared useWeather state persists across mounts within this file.
+  beforeEach(() => { resetWeatherState(); stubFetch(okResponse) })
   afterEach(() => vi.unstubAllGlobals())
 
   it('renders current conditions and a 3-day forecast after fetch', async () => {

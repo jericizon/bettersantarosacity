@@ -1,0 +1,145 @@
+[
+  {
+    "id": "e911",
+    "name": "National Emergency Hotline",
+    "agency": "Emergency 911 National Office",
+    "kind": "emergency",
+    "numbers": [
+      {
+        "label": "Nationwide: police, fire, medical",
+        "value": "911",
+        "tel": "911"
+      }
+    ],
+    "note": "Free to call, 24/7. For life-threatening emergencies needing police, fire, or medical response.",
+    "officialUrl": "https://e911.gov.ph",
+    "source": "Emergency 911 National Office (https://e911.gov.ph)",
+    "lastVerified": "2026-09-17",
+    "tag": "Emergency"
+  },
+  {
+    "id": "cdrrmo",
+    "name": "City Disaster Risk Reduction & Management Office",
+    "agency": "CDRRMO Command Center",
+    "kind": "emergency",
+    "numbers": [
+      {
+        "label": "Command Center (mobile)",
+        "value": "0995 650 1943",
+        "tel": "+639956501943"
+      },
+      {
+        "label": "Mobile",
+        "value": "0999 873 5431",
+        "tel": "+639998735431"
+      },
+      {
+        "label": "Landline",
+        "value": "572-4001",
+        "tel": "+63495724001"
+      },
+      {
+        "label": "Landline",
+        "value": "530-2569",
+        "tel": "+63495302569"
+      }
+    ],
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-17",
+    "tag": "CDRRMO"
+  },
+  {
+    "id": "pnp",
+    "name": "Santa Rosa City Police Station",
+    "agency": "Philippine National Police",
+    "kind": "emergency",
+    "numbers": [
+      {
+        "label": "Landline",
+        "value": "559-6593",
+        "tel": "+63495596593"
+      },
+      {
+        "label": "Landline",
+        "value": "566-7312",
+        "tel": "+63495667312"
+      },
+      {
+        "label": "Mobile",
+        "value": "0999 483 5681",
+        "tel": "+639994835681"
+      }
+    ],
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-17",
+    "tag": "Police"
+  },
+  {
+    "id": "bfp",
+    "name": "Bureau of Fire Protection",
+    "agency": "Santa Rosa Fire Station",
+    "kind": "emergency",
+    "numbers": [
+      {
+        "label": "Landline",
+        "value": "534-1291",
+        "tel": "+63495341291"
+      },
+      {
+        "label": "Landline",
+        "value": "831-8979",
+        "tel": "+63498318979"
+      }
+    ],
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-17",
+    "tag": "Fire"
+  },
+  {
+    "id": "poso",
+    "name": "Public Order & Safety Office",
+    "agency": "City Government of Santa Rosa",
+    "kind": "city",
+    "numbers": [
+      {
+        "label": "Mobile",
+        "value": "0961 722 1414",
+        "tel": "+639617221414"
+      },
+      {
+        "label": "Trunkline",
+        "value": "(049) 530-0015 loc. 1052",
+        "tel": "+63495300015"
+      }
+    ],
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-17",
+    "tag": "Public Safety"
+  },
+  {
+    "id": "city-trunk",
+    "name": "City Government Trunkline",
+    "agency": "Santa Rosa City Hall",
+    "kind": "city",
+    "numbers": [
+      {
+        "label": "Laguna",
+        "value": "(049) 530-0015",
+        "tel": "+63495300015"
+      },
+      {
+        "label": "Metro Manila",
+        "value": "(02) 8519-4024",
+        "tel": "+63285194024"
+      }
+    ],
+    "officialUrl": "https://santarosacity.gov.ph/city-directory",
+    "source": "City Government of Santa Rosa — City Directory (https://santarosacity.gov.ph/city-directory)",
+    "lastVerified": "2026-09-17",
+    "tag": "City Hall"
+  }
+]

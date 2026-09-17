@@ -50,19 +50,14 @@ function closeMobile() {
         <img
           src="/images/bettersantarosacity-logo.svg"
           alt=""
-          width="36"
-          height="36"
-          class="w-9 h-9 object-contain shrink-0"
+          width="48"
+          height="48"
+          class="w-12 h-12 object-contain shrink-0"
           aria-hidden="true"
         >
-        <div>
-          <span class="font-serif font-bold text-lg text-laguna-green tracking-tight group-hover:text-rose-accent-dark transition-colors">
-            Better Santa Rosa
-          </span>
-          <span class="block text-[10px] text-charcoal/80 -mt-1 font-sans">
-            Laguna · Public Information
-          </span>
-        </div>
+        <span class="font-serif font-bold text-base sm:text-lg text-laguna-green tracking-tight group-hover:text-rose-accent-dark transition-colors">
+          betterSantaRosaCity.org
+        </span>
       </NuxtLink>
 
       <nav aria-label="Primary" class="hidden xl:flex items-center gap-5">

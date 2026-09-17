@@ -221,15 +221,18 @@ function revealClass(isVisible: boolean) {
          <main> is full-width, so the chapter supplies its own inner measure. -->
     <section
       aria-labelledby="hero-heading"
-      class="w-full section-parchment py-16 sm:py-24 lg:py-28 border-b border-charcoal/10"
+      class="relative w-full overflow-hidden section-parchment py-16 sm:py-24 lg:py-28 border-b border-charcoal/10"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Ambient weather layer: fills the banner behind the content. -->
+      <CivicWeatherAmbience />
+      <!-- Dev-only scene picker, anchored to the banner edge (not sticky). -->
+      <CivicWeatherSceneSwitcher />
+      <!-- Emergency hotline flash strip: pinned to the banner's top edge so
+           key numbers are visible on first paint without a full section. -->
+      <CivicHotlineTicker class="absolute inset-x-0 top-0 z-20" />
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid items-center gap-10 lg:grid-cols-12">
           <div class="animate-fade-in-up lg:col-span-7">
-            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-accent-dark">
-              <CivicRoseMotif :size="16" class="text-rose-accent" />
-              Santa Rosa City, Laguna
-            </p>
             <h1
               id="hero-heading"
               class="mt-3 max-w-3xl font-serif text-4xl font-bold leading-[1.1] tracking-tight text-laguna-green sm:text-5xl"
@@ -260,22 +263,31 @@ function revealClass(isVisible: boolean) {
           </div>
 
           <div class="lg:col-span-5">
-            <!-- SMIL-animated emblem; reduced-motion users get the static file
-                 via the picture source media query (no JS needed). -->
-            <picture>
-              <source
-                srcset="/images/bettersantarosacity-logo-animated.svg"
-                media="(prefers-reduced-motion: no-preference)"
-              >
-              <img
-                :src="heroImage.file"
-                :alt="heroImage.description"
-                :width="heroImage.width"
-                :height="heroImage.height"
-                fetchpriority="high"
-                class="mx-auto w-full max-w-lg animate-fade-in-up"
-              >
-            </picture>
+            <!-- relative wrapper pins the live-weather chip to the emblem's
+                 top corner; the chip appears only after data loads. -->
+            <div class="relative mx-auto w-full max-w-lg">
+              <!-- Inner relative box bounds the fog veil to the emblem only. -->
+              <div class="relative">
+                <!-- SMIL-animated emblem; reduced-motion users get the static
+                     file via the picture source media query (no JS needed). -->
+                <picture>
+                  <source
+                    srcset="/images/bettersantarosacity-logo-animated.svg"
+                    media="(prefers-reduced-motion: no-preference)"
+                  >
+                  <img
+                    :src="heroImage.file"
+                    :alt="heroImage.description"
+                    :width="heroImage.width"
+                    :height="heroImage.height"
+                    fetchpriority="high"
+                    class="w-full animate-fade-in-up"
+                  >
+                </picture>
+                <CivicWeatherFogVeil />
+              </div>
+              <CivicWeatherChip class="absolute -top-4 right-0 sm:-right-4" />
+            </div>
           </div>
         </div>
       </div>

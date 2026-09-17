@@ -16,3 +16,4 @@ public/sitemap.xml
 .worktrees/
 .superpowers/
 tasks/
+docs/client-demo/*

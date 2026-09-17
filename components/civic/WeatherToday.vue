@@ -1,67 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { Droplets, Thermometer } from 'lucide-vue-next'
 import AnimatedWeatherIcon from '~/components/civic/AnimatedWeatherIcon.vue'
+import { useWeather, weatherLabel as label } from '~/composables/useWeather'
 
-// Santa Rosa City Hall area, Laguna. Open-Meteo is keyless, CORS-enabled and
-// free for non-commercial use — the site stays fully static; the browser
-// fetches live conditions at runtime only.
-const API_URL =
-  'https://api.open-meteo.com/v1/forecast?latitude=14.3122&longitude=121.1114' +
-  '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code' +
-  '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
-  '&timezone=Asia%2FManila&forecast_days=3'
-
-// WMO weather interpretation codes → short label (icons come from
-// AnimatedWeatherIcon, keyed by the same code).
-const WMO_LABEL: Record<number, string> = {
-  0: 'Clear sky', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
-  45: 'Fog', 48: 'Icy fog',
-  51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
-  61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
-  71: 'Snow',
-  80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
-  95: 'Thunderstorm', 96: 'Thunderstorm, hail', 99: 'Severe thunderstorm'
-}
-
-const label = (code: number | undefined): string => (code != null && WMO_LABEL[code]) || 'Unknown'
-
-interface DayForecast {
-  day: string
-  code: number
-  hi: number
-  lo: number
-  precip: number
-}
-
-const status = ref<'loading' | 'ready' | 'error'>('loading')
-const nowTemp = ref(0)
-const nowFeels = ref(0)
-const nowHumidity = ref(0)
-const nowCode = ref<number>()
-const days = ref<DayForecast[]>([])
-
-onMounted(async () => {
-  try {
-    const res = await fetch(API_URL)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const data = await res.json()
-    nowTemp.value = Math.round(data.current.temperature_2m)
-    nowFeels.value = Math.round(data.current.apparent_temperature)
-    nowHumidity.value = Math.round(data.current.relative_humidity_2m)
-    nowCode.value = data.current.weather_code
-    days.value = (data.daily.time as string[]).map((t, i) => ({
-      day: i === 0 ? 'Today' : new Date(`${t}T12:00:00`).toLocaleDateString('en-PH', { weekday: 'short' }),
-      code: data.daily.weather_code[i],
-      hi: Math.round(data.daily.temperature_2m_max[i]),
-      lo: Math.round(data.daily.temperature_2m_min[i]),
-      precip: data.daily.precipitation_probability_max?.[i] ?? 0
-    }))
-    status.value = 'ready'
-  } catch {
-    status.value = 'error'
-  }
-})
+const { status, nowTemp, nowFeels, nowHumidity, nowCode, days } = useWeather()
 </script>
 
 <template>
