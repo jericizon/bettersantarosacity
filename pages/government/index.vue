@@ -193,12 +193,12 @@ const lastVerified = officials[0]?.lastVerified ?? departments[0]?.lastVerified
           </a>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-parchment/60 p-4 space-y-2">
-          <h3 class="font-serif text-base font-bold text-charcoal">DILG Full Disclosure Portal (eFDP)</h3>
+          <h3 class="font-serif text-base font-bold text-charcoal">DILG Full Disclosure Policy Portal (FDPP)</h3>
           <p class="text-xs text-charcoal/70 leading-relaxed">
             The Department of the Interior and Local Government requires all LGUs to post quarterly financial documents, bids, and budgets online.
           </p>
           <a
-            href="https://efdp.dilg.gov.ph"
+            href="https://fdpp.dilg.gov.ph"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex text-xs font-semibold text-laguna-green underline hover:text-rose-accent-dark"

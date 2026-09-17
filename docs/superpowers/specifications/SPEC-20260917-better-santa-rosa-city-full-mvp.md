@@ -150,7 +150,7 @@ An audit of the current repository against `docs/20260917_151400-better-santa-ro
 - **Additions:**
   - A new "Transparency & Citizen's Charter" section below Executive, Legislative, and Departments.
   - Links to official Anti-Red Tape Authority (ARTA) Citizen's Charters.
-  - Full Disclosure Policy portal links (DILG eFDP portal for Santa Rosa).
+  - Full Disclosure Policy portal links (DILG FDPP portal for Santa Rosa).
   - Explicit reminder that transactions occur exclusively on official city platforms.
 
 ### 6.4. Global Search Keyboard Shortcut (`Cmd+K` / `Ctrl+K`)
