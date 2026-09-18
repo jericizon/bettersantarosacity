@@ -29,8 +29,10 @@ const linkClass = 'flex items-center min-h-11 hover:text-white rounded-sm focus-
           <h4 class="font-bold text-xs uppercase tracking-wider text-heritage-gold mb-3">Public Data</h4>
           <ul class="text-xs text-parchment/80">
             <li><NuxtLink to="/barangays" :class="linkClass">18 Barangays</NuxtLink></li>
+            <li><NuxtLink to="/places" :class="linkClass">Places</NuxtLink></li>
             <li><NuxtLink to="/government" :class="linkClass">City Officials</NuxtLink></li>
-            <li><NuxtLink to="/money" :class="linkClass">Annual Budget</NuxtLink></li>
+            <li><NuxtLink to="/updates" :class="linkClass">City Updates</NuxtLink></li>
+            <li><NuxtLink to="/finances/budget" :class="linkClass">Annual Budget</NuxtLink></li>
             <li><NuxtLink to="/projects" :class="linkClass">Public Projects</NuxtLink></li>
             <li><NuxtLink to="/laws" :class="linkClass">City Ordinances</NuxtLink></li>
           </ul>

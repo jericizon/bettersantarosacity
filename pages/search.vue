@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Search } from 'lucide-vue-next'
-import officialsData from '~/data/officials.json'
-import departmentsData from '~/data/departments.json'
-import barangaysData from '~/data/barangays.json'
-import projectsData from '~/data/projects.json'
-import lawsData from '~/data/laws.json'
-import budgetsData from '~/data/budgets.json'
-import servicesData from '~/data/services.json'
+import {
+  SEARCH_CATEGORIES,
+  matchSearchDocs,
+  buildExcerpt,
+  searchCategoryLabel,
+  type SearchCategoryId,
+  type SearchResultCategory
+} from '~/utils/search-docs'
 import { buildSeoHead } from '~/utils/seo'
-import { LAW_TYPE_LABEL } from '~/utils/law'
-import type { Law } from '~/types/civic'
 
 // Auto-imports are Nuxt-only; the guard keeps this page mountable under plain Vitest.
 if (typeof useHead === 'function') {
@@ -21,98 +20,16 @@ if (typeof useHead === 'function') {
   }))
 }
 
-const CATEGORIES = [
-  { id: 'all', label: 'All' },
-  { id: 'officials', label: 'Officials' },
-  { id: 'barangays', label: 'Barangays' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'laws', label: 'Laws' },
-  { id: 'budget', label: 'Budget' },
-  { id: 'services', label: 'Services' },
-  { id: 'pages', label: 'Pages' }
-] as const
+const CATEGORIES = SEARCH_CATEGORIES
 
-type CategoryId = (typeof CATEGORIES)[number]['id']
-type ResultCategory = Exclude<CategoryId, 'all'>
+type CategoryId = SearchCategoryId
+type ResultCategory = SearchResultCategory
 
 interface SearchResult {
   url: string
   title: string
   excerptHtml: string
   category: ResultCategory
-}
-
-// --- Fallback dataset search (used until the Pagefind index is built) ---
-
-interface FallbackDoc {
-  title: string
-  description: string
-  url: string
-  type: ResultCategory
-  searchText: string
-}
-
-function doc(title: string, description: string, url: string, type: ResultCategory): FallbackDoc {
-  return { title, description, url, type, searchText: `${title} ${description}`.toLowerCase() }
-}
-
-const fallbackDocs: FallbackDoc[] = [
-  ...officialsData.map(o =>
-    doc(o.name, `${o.position}, ${o.office}. ${o.bio ?? ''}`, `/government#${o.id}`, 'officials')),
-  ...departmentsData.map(d =>
-    doc(d.name, d.responsibilities.join('; '), `/government#${d.id}`, 'officials')),
-  ...barangaysData.map(b =>
-    doc(`Barangay ${b.name}`, `${b.group}. ${b.description}`, `/barangays#${b.slug}`, 'barangays')),
-  ...projectsData.map(p =>
-    doc(p.name, `${p.category} · ${p.status}. ${p.description} Barangay: ${p.barangay}`, `/projects#${p.slug}`, 'projects')),
-  ...(lawsData as Law[]).map(l =>
-    doc(`${LAW_TYPE_LABEL[l.type] ?? 'Measure'} No. ${l.number} · ${l.title}`, l.summary, `/laws#${l.id}`, 'laws')),
-  ...budgetsData.map(b =>
-    doc(
-      `Verified city revenue FY ${b.fiscalYear}`,
-      `₱${b.totalBudgetPhp.toLocaleString('en-PH')} verified revenue (COA/BLGF). ${b.categories.map(c => c.name).join('; ')}`,
-      '/money',
-      'budget'
-    )),
-  ...servicesData.map(s =>
-    doc(s.title, `${s.category}. ${s.description}`, `/services#${s.id}`, 'services')),
-  doc('Explore Santa Rosa', 'City overview, profile, and civic timeline.', '/explore', 'pages'),
-  doc('Money & Budget', 'City budget, revenue, and expenditure records.', '/money', 'pages'),
-  doc('Open Data', 'Machine-readable civic datasets.', '/data', 'pages'),
-  doc('Sources & Methodology', 'Source register and verification notes.', '/sources', 'pages')
-]
-
-const ESCAPE_MAP: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;'
-}
-
-function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, c => ESCAPE_MAP[c] ?? c)
-}
-
-// Excerpt window around the first match, escaped, with <mark> highlighting.
-function buildExcerpt(text: string, needle: string): string {
-  const idx = text.toLowerCase().indexOf(needle.toLowerCase())
-  const start = idx === -1 ? 0 : Math.max(0, idx - 60)
-  const end = idx === -1 ? Math.min(text.length, 160) : Math.min(text.length, idx + needle.length + 80)
-  const prefix = start > 0 ? '…' : ''
-  const suffix = end < text.length ? '…' : ''
-  const slice = text.slice(start, end)
-  if (idx === -1) return prefix + escapeHtml(slice) + suffix
-  const hit = idx - start
-  return (
-    prefix +
-    escapeHtml(slice.slice(0, hit)) +
-    '<mark>' +
-    escapeHtml(slice.slice(hit, hit + needle.length)) +
-    '</mark>' +
-    escapeHtml(slice.slice(hit + needle.length)) +
-    suffix
-  )
 }
 
 // --- Pagefind runtime (only exists after `pagefind --site .output/public`) ---
@@ -158,6 +75,8 @@ function categoryFromResult(data: PagefindResultData): ResultCategory {
   if (url.includes('law')) return 'laws'
   if (url.includes('money') || url.includes('budget')) return 'budget'
   if (url.includes('service')) return 'services'
+  if (url.includes('place')) return 'places'
+  if (url.includes('update')) return 'updates'
   return 'pages'
 }
 
@@ -185,13 +104,9 @@ const statusText = computed(() => {
   const q = query.value.trim()
   if (!q) return ''
   const n = visibleResults.value.length
-  const scope = activeCategory.value === 'all' ? '' : ` in ${categoryLabel(activeCategory.value)}`
+  const scope = activeCategory.value === 'all' ? '' : ` in ${searchCategoryLabel(activeCategory.value)}`
   return `${n} result${n === 1 ? '' : 's'}${scope} for “${q}”`
 })
-
-function categoryLabel(id: string): string {
-  return CATEGORIES.find(c => c.id === id)?.label ?? 'Pages'
-}
 
 interface PagefindOutcome {
   results: SearchResult[]
@@ -217,10 +132,7 @@ async function runPagefindSearch(q: string): Promise<PagefindOutcome | null> {
 }
 
 function runFallbackSearch(q: string) {
-  const needle = q.toLowerCase()
-  const matched = fallbackDocs
-    .filter(d => d.searchText.includes(needle))
-    .sort((a, b) => Number(b.title.toLowerCase().includes(needle)) - Number(a.title.toLowerCase().includes(needle)))
+  const matched = matchSearchDocs(q)
   const counts: Record<string, number> = {}
   for (const d of matched) counts[d.type] = (counts[d.type] ?? 0) + 1
   facetCounts.value = counts
@@ -373,7 +285,7 @@ onBeforeUnmount(() => clearTimeout(debounce))
             class="font-serif text-lg font-bold text-laguna-green underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
           >{{ r.title }}</a>
           <span class="rounded bg-charcoal/10 px-2 py-0.5 text-[11px] font-medium text-charcoal/70">
-            {{ categoryLabel(r.category) }}
+            {{ searchCategoryLabel(r.category) }}
           </span>
         </div>
         <!-- Pagefind emits escaped excerpts with <mark> tags; fallback excerpts are escaped before markup -->

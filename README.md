@@ -1,5 +1,7 @@
 # Better Santa Rosa City
 
+Staging URL: https://bettersantarosacity.pages.dev/
+
 Independent, community-maintained public information portal for Santa Rosa City, Laguna. Not an official City Government website; every dataset links back to primary sources (COA, PSA, DBM, city ordinances, the official city directory) so residents can verify the records themselves.
 
 **Stack:** Nuxt 4 · Vue 3 (`<script setup lang="ts">`, strict TS) · Tailwind CSS · Zod-validated JSON data · MapLibre GL · Pagefind search · Vitest

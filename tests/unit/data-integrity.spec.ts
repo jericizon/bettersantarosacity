@@ -8,6 +8,8 @@ import projectsData from '../../data/projects.json'
 import lawsData from '../../data/laws.json'
 import servicesData from '../../data/services.json'
 import sourcesData from '../../data/sources.json'
+import placesData from '../../data/places.json'
+import updatesData from '../../data/updates.json'
 
 import {
   CityProfileSchema,
@@ -18,7 +20,9 @@ import {
   ProjectSchema,
   LawSchema,
   ServiceSchema,
-  SourceSchema
+  SourceSchema,
+  PlaceSchema,
+  CityUpdateSchema
 } from '../../types/civic'
 
 describe('Data Integrity & Source Verification', () => {
@@ -83,6 +87,20 @@ describe('Data Integrity & Source Verification', () => {
   it('validates sources.json', () => {
     for (const item of sourcesData) {
       expect(SourceSchema.safeParse(item).success).toBe(true)
+    }
+  })
+
+  it('validates places.json', () => {
+    expect(placesData.length).toBeGreaterThan(0)
+    for (const item of placesData) {
+      expect(PlaceSchema.safeParse(item).success).toBe(true)
+    }
+  })
+
+  it('validates updates.json', () => {
+    expect(updatesData.length).toBeGreaterThan(0)
+    for (const item of updatesData) {
+      expect(CityUpdateSchema.safeParse(item).success).toBe(true)
     }
   })
 })

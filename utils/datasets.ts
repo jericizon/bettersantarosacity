@@ -10,11 +10,13 @@ import projectsData from '~/data/projects.json'
 import lawsData from '~/data/laws.json'
 import servicesData from '~/data/services.json'
 import sourcesData from '~/data/sources.json'
+import placesData from '~/data/places.json'
+import updatesData from '~/data/updates.json'
 import cityData from '~/data/city.json'
 import { toSourceReference } from '~/utils/source'
 import { toCsv, csvDataUri } from '~/utils/csv'
 import type {
-  Barangay, Budget, CityProfile, Department, Law, Official, Project, Service, Source
+  Barangay, Budget, CityProfile, CityUpdate, Department, Law, Official, Place, Project, Service, Source
 } from '~/types/civic'
 
 type AnyRecord = Record<string, unknown>
@@ -97,7 +99,8 @@ function makeDataset(
 }
 
 export function buildDatasets(): DatasetCard[] {
-  const budgetYears = (budgetsData as Budget[]).map(b => b.fiscalYear).sort((a, b) => b - a)
+  // Ascending sort so the printed range reads low → high ("FY2016–FY2024").
+  const budgetYears = (budgetsData as Budget[]).map(b => b.fiscalYear).sort((a, b) => a - b)
   const budgetCoverage = `${(budgetsData as Budget[]).length} fiscal years (FY${budgetYears[0]}–${budgetYears.at(-1)})`
 
   return [
@@ -125,6 +128,16 @@ export function buildDatasets(): DatasetCard[] {
       'projects', 'Public Projects',
       'Tracked public projects with status, barangay, implementing office and budget where disclosed.',
       `${(projectsData as Project[]).length} projects`, projectsData
+    ),
+    makeDataset(
+      'places', 'Places & Landmarks',
+      'Civic landmarks, heritage sites, cultural places and natural heritage with location and historical context.',
+      `${(placesData as Place[]).length} places`, placesData
+    ),
+    makeDataset(
+      'updates', 'City Updates & Advisories',
+      'Public announcements and advisories with source attribution and plain-language summaries.',
+      `${(updatesData as CityUpdate[]).length} updates`, updatesData
     ),
     makeDataset(
       'laws', 'Laws & Ordinances',

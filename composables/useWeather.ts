@@ -2,7 +2,7 @@ import { computed, onMounted, ref } from 'vue'
 
 // Santa Rosa City Hall area, Laguna. Open-Meteo is keyless, CORS-enabled and
 // free for non-commercial use — the site stays fully static; the browser
-// fetches live conditions at runtime only.
+// fetches current conditions at runtime only.
 const API_URL =
   'https://api.open-meteo.com/v1/forecast?latitude=14.3122&longitude=121.1114' +
   '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code' +
@@ -60,9 +60,12 @@ const nowFeels = ref(0)
 const nowHumidity = ref(0)
 const nowCode = ref<number>()
 const days = ref<DayForecast[]>([])
+// Observation time reported by Open-Meteo (`current.time`, Asia/Manila ISO);
+// surfaced as an "Updated HH:MM" stamp so the panel stays honest.
+const updatedAt = ref<string>()
 
 // Debug override: when set, the banner/chip depict this code instead of the
-// live one. In-memory only — resets on reload and never reaches the API.
+// fetched one. In-memory only — resets on reload and never reaches the API.
 const debugCode = ref<number | null>(null)
 const displayCode = computed(() => debugCode.value ?? nowCode.value)
 const scene = computed<WeatherScene>(() => weatherScene(displayCode.value))
@@ -82,6 +85,7 @@ async function load() {
     nowFeels.value = Math.round(data.current.apparent_temperature)
     nowHumidity.value = Math.round(data.current.relative_humidity_2m)
     nowCode.value = data.current.weather_code
+    updatedAt.value = data.current.time
     days.value = (data.daily.time as string[]).map((t, i) => ({
       day: i === 0 ? 'Today' : new Date(`${t}T12:00:00`).toLocaleDateString('en-PH', { weekday: 'short' }),
       code: data.daily.weather_code[i],
@@ -101,7 +105,7 @@ export function useWeather() {
       inflight = load().finally(() => { inflight = null })
     }
   })
-  return { status, nowTemp, nowFeels, nowHumidity, nowCode, days, scene, debugCode, displayCode }
+  return { status, nowTemp, nowFeels, nowHumidity, nowCode, days, updatedAt, scene, debugCode, displayCode }
 }
 
 // Specs stub fetch per test, so shared state must not leak between mounts.
@@ -112,6 +116,7 @@ export function resetWeatherState() {
   nowHumidity.value = 0
   nowCode.value = undefined
   days.value = []
+  updatedAt.value = undefined
   debugCode.value = null
   inflight = null
 }

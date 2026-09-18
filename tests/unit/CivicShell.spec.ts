@@ -5,10 +5,12 @@ import CivicHeader from '~/components/civic/CivicHeader.vue'
 import CivicFooter from '~/components/civic/CivicFooter.vue'
 import DisclaimerBanner from '../../components/civic/DisclaimerBanner.vue'
 import SourceBadge from '../../components/data/SourceBadge.vue'
+import SearchGlobalSearch from '~/components/search/GlobalSearch.vue'
 
-// NuxtLink and SearchGlobalSearch resolve via Nuxt auto-imports at runtime;
-// under plain Vitest, NuxtLink is stubbed as a real anchor so href and
-// class assertions stay meaningful. defineComponent keeps the stub
+// NuxtLink resolves via Nuxt auto-imports at runtime; under plain Vitest it
+// is stubbed as a real anchor so href and class assertions stay meaningful.
+// SearchGlobalSearch mounts for real — its trigger button is what the
+// search-affordance assertions target. defineComponent keeps the stub
 // assignable to VTU's Stub type under vue-tsc.
 const NuxtLinkStub = defineComponent({
   props: { to: { type: String, default: '' } },
@@ -19,7 +21,7 @@ const NuxtLinkStub = defineComponent({
 
 const SHELL_STUBS = {
   NuxtLink: NuxtLinkStub,
-  SearchGlobalSearch: true
+  SearchGlobalSearch
 }
 
 describe('Civic Shell Components', () => {
@@ -32,17 +34,35 @@ describe('Civic Shell Components', () => {
     const wrapper = mount(SourceBadge, {
       props: { type: 'official' }
     })
-    expect(wrapper.text()).toContain('Official source')
+    expect(wrapper.text()).toContain('OFFICIAL')
+  })
+
+  it('renders all 6 primary navigation pillars', () => {
+    const wrapper = mount(CivicHeader, { global: { stubs: SHELL_STUBS } })
+    const nav = wrapper.find('nav[aria-label="Primary"]')
+    expect(nav.exists()).toBe(true)
+    expect(nav.text()).toContain('Explore')
+    expect(nav.text()).toContain('Government')
+    expect(nav.text()).toContain('Finances')
+    expect(nav.text()).toContain('Projects')
+    expect(nav.text()).toContain('Records')
+    // Search is the 6th pillar, exposed via the modal trigger button.
+    expect(wrapper.find('button[aria-label="Search Santa Rosa public records"]').exists()).toBe(true)
+
+    // Secondary destinations no longer appear as top-level items.
+    expect(nav.text()).not.toContain('Barangays')
+    expect(nav.text()).not.toContain('Money')
+    expect(nav.text()).not.toContain('Laws')
+    expect(nav.text()).not.toContain('Services')
   })
 
   it('renders CivicHeader with single-line navigation and search trigger', () => {
     const wrapper = mount(CivicHeader, { global: { stubs: SHELL_STUBS } })
     const nav = wrapper.find('nav[aria-label="Primary"]')
     expect(nav.exists()).toBe(true)
-    expect(wrapper.text()).toContain('Explore')
-    expect(wrapper.text()).toContain('Barangays')
-    expect(wrapper.text()).toContain('Money')
-    expect(wrapper.text()).toContain('Projects')
+    expect(nav.text()).toContain('Explore')
+    expect(nav.text()).toContain('Finances')
+    expect(nav.text()).toContain('Projects')
 
     // Single-line desktop nav: links never wrap mid-phrase and keep
     // >= 44px touch targets.
@@ -58,8 +78,10 @@ describe('Civic Shell Components', () => {
     expect(header.classes()).toContain('sticky')
     expect(header.classes()).toContain('border-b')
 
-    // Search affordance: mobile search link routes to /search.
-    expect(wrapper.find('a[href="/search"]').exists()).toBe(true)
+    // Search affordance: the trigger button opens the search modal.
+    const searchTrigger = wrapper.find('button[aria-label="Search Santa Rosa public records"]')
+    expect(searchTrigger.exists()).toBe(true)
+    expect(searchTrigger.attributes('aria-haspopup')).toBe('dialog')
   })
 
   it('CivicHeader exposes an accessible mobile drawer toggle', async () => {
@@ -73,6 +95,49 @@ describe('Civic Shell Components', () => {
     const drawer = wrapper.find('#mobile-nav')
     expect(drawer.exists()).toBe(true)
     expect(drawer.findAll('a').length).toBeGreaterThanOrEqual(4)
+  })
+
+  it('groups secondary destinations under each pillar in the mobile drawer', async () => {
+    const wrapper = mount(CivicHeader, { global: { stubs: SHELL_STUBS } })
+    await wrapper.find('button[aria-controls="mobile-nav"]').trigger('click')
+    const drawer = wrapper.find('#mobile-nav')
+    expect(drawer.exists()).toBe(true)
+
+    // Pillar landing links.
+    expect(drawer.find('a[href="/explore"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/government"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/finances"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/projects"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/laws"]').exists()).toBe(true)
+
+    // The Search entry is a button that opens the search modal.
+    const searchItem = drawer.findAll('button').find(b => b.text() === 'Search')
+    expect(searchItem, 'missing drawer Search button').toBeTruthy()
+    expect(searchItem?.classes()).toContain('min-h-11')
+
+    // Secondary destinations grouped under their pillars.
+    const text = drawer.text()
+    for (const label of [
+      'Barangays', 'Places', 'History', 'Map',
+      'Officials', 'Departments', 'Services', 'City Updates',
+      'Revenue', 'Budget',
+      'Laws', 'Data', 'Sources'
+    ]) {
+      expect(text).toContain(label)
+    }
+    expect(drawer.find('a[href="/barangays"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/places"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/history"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/services"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/updates"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/finances/budget"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/data"]').exists()).toBe(true)
+    expect(drawer.find('a[href="/sources"]').exists()).toBe(true)
+
+    // Every drawer link keeps a >= 44px touch target.
+    drawer.findAll('a').forEach((link) => {
+      expect(link.classes()).toContain('min-h-11')
+    })
   })
 
   it('returns focus to the nav toggle when the drawer closes via Escape', async () => {

@@ -115,6 +115,9 @@ const principles = [
 
     <!-- Related Links -->
     <nav aria-label="About sub-navigation" class="border-t border-charcoal/10 pt-6 flex flex-wrap gap-4 text-xs font-semibold text-laguna-green">
+      <NuxtLink to="/about/methodology" class="underline hover:text-rose-accent-dark">
+        Methodology &amp; Standards →
+      </NuxtLink>
       <NuxtLink to="/about/media" class="underline hover:text-rose-accent-dark">
         Media &amp; Image Licensing Credits →
       </NuxtLink>

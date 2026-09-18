@@ -6,7 +6,7 @@ const { status, nowTemp, displayCode } = useWeather()
 </script>
 
 <template>
-  <!-- Renders nothing until live data arrives (or if it fails), so prerendered
+  <!-- Renders nothing until weather data arrives (or if it fails), so prerendered
        output stays stable and the chip simply never appears on error. -->
   <div
     v-if="status === 'ready'"

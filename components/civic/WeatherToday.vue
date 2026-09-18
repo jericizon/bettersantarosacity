@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Droplets, Thermometer } from 'lucide-vue-next'
 import AnimatedWeatherIcon from '~/components/civic/AnimatedWeatherIcon.vue'
 import { useWeather, weatherLabel as label } from '~/composables/useWeather'
 
-const { status, nowTemp, nowFeels, nowHumidity, nowCode, days } = useWeather()
+const { status, nowTemp, nowFeels, nowHumidity, nowCode, days, updatedAt } = useWeather()
+
+// Open-Meteo reports `current.time` in Asia/Manila; show the observation time
+// so readers can tell how fresh the panel is without a "live" claim.
+const updatedTime = computed(() =>
+  updatedAt.value
+    ? new Date(updatedAt.value).toLocaleTimeString('en-PH', { hour: 'numeric', minute: '2-digit' })
+    : null
+)
 </script>
 
 <template>
@@ -12,18 +21,18 @@ const { status, nowTemp, nowFeels, nowHumidity, nowCode, days } = useWeather()
     data-testid="weather-today"
   >
     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-laguna-green">
-      Live weather · Santa Rosa
+      Current weather · Santa Rosa
     </p>
 
     <!-- Loading: keeps SSR/prerender output stable before the client fetch. -->
     <div v-if="status === 'loading'" class="mt-4 flex items-center gap-3 text-sm text-charcoal/60" aria-busy="true">
       <span class="inline-block h-2 w-2 animate-pulse rounded-full bg-laguna-blue" aria-hidden="true" />
-      Fetching live weather for Santa Rosa…
+      Fetching current weather for Santa Rosa…
     </div>
 
     <!-- Error: point readers at the national forecaster rather than hide. -->
     <p v-else-if="status === 'error'" class="mt-4 text-sm text-charcoal/70">
-      Live weather is unavailable right now. Check
+      Current weather is unavailable right now. Check
       <a
         href="https://bagong.pagasa.dost.gov.ph"
         target="_blank"
@@ -64,6 +73,10 @@ const { status, nowTemp, nowFeels, nowHumidity, nowCode, days } = useWeather()
           <p v-if="d.precip > 0" class="mt-0.5 text-[11px] font-medium text-laguna-blue">{{ d.precip }}% rain</p>
         </li>
       </ul>
+
+      <p v-if="updatedTime" class="w-full text-[11px] text-charcoal/50">
+        Updated {{ updatedTime }}
+      </p>
     </div>
 
     <p class="mt-5 text-[11px] text-charcoal/50">
@@ -74,7 +87,7 @@ const { status, nowTemp, nowFeels, nowHumidity, nowCode, days } = useWeather()
         rel="noopener noreferrer"
         class="underline underline-offset-2 hover:text-laguna-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green rounded-sm"
       >Open-Meteo.com</a>
-      (CC BY 4.0) · live conditions, not a city government advisory
+      (CC BY 4.0) · current conditions, not a city government advisory
     </p>
   </div>
 </template>

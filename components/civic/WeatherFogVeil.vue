@@ -4,7 +4,7 @@ import { useWeather } from '~/composables/useWeather'
 
 const { status, scene, debugCode } = useWeather()
 
-// Same visibility rule as the ambience layer: live data ready, or a debug
+// Same visibility rule as the ambience layer: weather data ready, or a debug
 // scene forced. Parent must be `relative`; the veil fills that box only.
 const show = computed(() =>
   scene.value === 'fog' && (status.value === 'ready' || debugCode.value != null)

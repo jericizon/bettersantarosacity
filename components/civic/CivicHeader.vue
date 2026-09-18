@@ -1,21 +1,58 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Search, Menu, X } from 'lucide-vue-next'
+import { Menu, X } from 'lucide-vue-next'
+import { useSearchModal } from '~/composables/useSearchModal'
+
+const { open: openSearchModal } = useSearchModal()
 
 const isMobileOpen = ref(false)
 const isScrolled = ref(false)
 const mobileToggle = ref<HTMLButtonElement | null>(null)
-const navLinks = [
-  { name: 'Explore', href: '/explore' },
-  { name: 'Barangays', href: '/barangays' },
-  { name: 'Government', href: '/government' },
-  { name: 'Money', href: '/money' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Laws', href: '/laws' },
-  { name: 'Services', href: '/services' },
-  { name: 'Data', href: '/data' },
-  { name: 'Sources', href: '/sources' }
+
+// Six pillars: the five below plus Search (GlobalSearch modal trigger).
+// `children` are secondary destinations, shown only in the mobile drawer.
+const navGroups = [
+  {
+    name: 'Explore',
+    href: '/explore',
+    children: [
+      { name: 'Map', href: '/explore' },
+      { name: 'Barangays', href: '/barangays' },
+      { name: 'Places', href: '/places' },
+      { name: 'History', href: '/history' }
+    ]
+  },
+  {
+    name: 'Government',
+    href: '/government',
+    children: [
+      { name: 'Officials', href: '/government' },
+      { name: 'Departments', href: '/government#departments' },
+      { name: 'Services', href: '/services' },
+      { name: 'City Updates', href: '/updates' }
+    ]
+  },
+  {
+    name: 'Finances',
+    href: '/finances',
+    children: [
+      { name: 'Revenue', href: '/finances' },
+      { name: 'Budget', href: '/finances/budget' }
+    ]
+  },
+  { name: 'Projects', href: '/projects', children: [] },
+  {
+    name: 'Records',
+    href: '/laws',
+    children: [
+      { name: 'Laws', href: '/laws' },
+      { name: 'Data', href: '/data' },
+      { name: 'Sources', href: '/sources' }
+    ]
+  }
 ]
+
+const navLinks = navGroups.map(({ name, href }) => ({ name, href }))
 
 function onScroll() {
   isScrolled.value = window.scrollY > 20
@@ -34,6 +71,11 @@ function closeMobile() {
   isMobileOpen.value = false
   // v-if destroys the drawer; without this, focus inside it drops to <body>.
   mobileToggle.value?.focus()
+}
+
+function openSearchFromDrawer() {
+  closeMobile()
+  openSearchModal()
 }
 </script>
 
@@ -56,7 +98,7 @@ function closeMobile() {
         >
       </NuxtLink>
 
-      <nav aria-label="Primary" class="hidden xl:flex items-center gap-4">
+      <nav aria-label="Primary" class="hidden xl:flex items-center gap-6">
         <NuxtLink
           v-for="link in navLinks"
           :key="link.href"
@@ -69,14 +111,7 @@ function closeMobile() {
       </nav>
 
       <div class="flex items-center gap-3">
-        <SearchGlobalSearch class="hidden sm:block" />
-        <NuxtLink
-          to="/search"
-          class="sm:hidden inline-flex items-center justify-center h-11 w-11 rounded-md bg-white border border-charcoal/20 text-charcoal/70 hover:border-laguna-green transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          aria-label="Search Santa Rosa public records"
-        >
-          <Search :size="18" aria-hidden="true" />
-        </NuxtLink>
+        <SearchGlobalSearch />
 
         <button
           ref="mobileToggle"
@@ -93,7 +128,7 @@ function closeMobile() {
       </div>
     </div>
 
-    <!-- Mobile Drawer -->
+    <!-- Mobile Drawer: pillars with grouped secondary destinations -->
     <nav
       v-if="isMobileOpen"
       id="mobile-nav"
@@ -101,22 +136,32 @@ function closeMobile() {
       class="xl:hidden border-b border-charcoal/10 bg-parchment px-4 py-3 space-y-1"
       @keydown.escape="closeMobile"
     >
-      <NuxtLink
-        to="/search"
-        @click="closeMobile"
-        class="flex items-center min-h-11 text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+      <button
+        type="button"
+        @click="openSearchFromDrawer"
+        class="flex items-center min-h-11 w-full text-left text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
       >
         Search
-      </NuxtLink>
-      <NuxtLink
-        v-for="link in navLinks"
-        :key="link.href"
-        :to="link.href"
-        @click="closeMobile"
-        class="flex items-center min-h-11 text-sm font-medium text-charcoal rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-      >
-        {{ link.name }}
-      </NuxtLink>
+      </button>
+      <div v-for="group in navGroups" :key="group.href">
+        <NuxtLink
+          :to="group.href"
+          @click="closeMobile"
+          class="flex items-center min-h-11 text-sm font-semibold text-charcoal rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+          active-class="text-laguna-green"
+        >
+          {{ group.name }}
+        </NuxtLink>
+        <NuxtLink
+          v-for="child in group.children"
+          :key="child.name"
+          :to="child.href"
+          @click="closeMobile"
+          class="flex items-center min-h-11 pl-4 text-sm font-medium text-charcoal/75 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+        >
+          {{ child.name }}
+        </NuxtLink>
+      </div>
     </nav>
   </header>
 </template>

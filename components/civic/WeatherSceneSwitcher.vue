@@ -47,7 +47,7 @@ function pick(code: number | null) {
           @click="pick(null)"
         >
           <RadioTower :size="16" class="shrink-0" />
-          Live weather
+          Actual weather
         </button>
         <button
           v-for="s in SCENES" :key="s.code"

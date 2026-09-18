@@ -30,7 +30,7 @@ const sourceHierarchy = [
   'Reputable secondary sources'
 ]
 
-type BadgeType = 'official' | 'community' | 'external'
+type BadgeType = 'official' | 'primary' | 'secondary' | 'community'
 
 interface SourceGroup {
   type: Source['type']
@@ -48,8 +48,8 @@ const groupMeta: Record<Source['type'], { label: string; tier: string; badge: Ba
   National: { label: 'National Government Agencies', tier: 'Tier 2', badge: 'official' },
   COA: { label: 'Commission on Audit', tier: 'Tier 3', badge: 'official' },
   DBM: { label: 'Department of Budget & Management', tier: 'Tier 4', badge: 'official' },
-  Institutional: { label: 'Institutional & Academic', tier: 'Tier 6', badge: 'external' },
-  Secondary: { label: 'Secondary Sources', tier: 'Tier 7', badge: 'external' }
+  Institutional: { label: 'Institutional & Academic', tier: 'Tier 6', badge: 'secondary' },
+  Secondary: { label: 'Secondary Sources', tier: 'Tier 7', badge: 'secondary' }
 }
 
 const groupOrder: Source['type'][] = ['LGU', 'National', 'COA', 'DBM', 'Institutional', 'Secondary']
@@ -248,15 +248,15 @@ const trustQuestions = [
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Community presentation</dt>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Better Santa Rosa presentation</dt>
           <dd class="mt-2"><DataSourceBadge type="community" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             Our own organization or summary of official records: presentation, not endorsement.
           </dd>
         </div>
         <div class="rounded-lg border border-charcoal/10 bg-white p-4 shadow-sm">
-          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">External source</dt>
-          <dd class="mt-2"><DataSourceBadge type="external" /></dd>
+          <dt class="text-xs font-semibold uppercase tracking-wide text-charcoal/70">Secondary source</dt>
+          <dd class="mt-2"><DataSourceBadge type="secondary" /></dd>
           <dd class="mt-2 text-xs leading-relaxed text-charcoal/70">
             The record comes from an institutional or secondary reference outside government.
           </dd>

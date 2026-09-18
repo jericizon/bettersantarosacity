@@ -6,7 +6,7 @@ import WeatherDraggable from '~/components/civic/WeatherDraggable.vue'
 
 const { status, scene, debugCode } = useWeather()
 
-// Show the layer once live data arrives — or immediately when a debug scene
+// Show the layer once weather data arrives — or immediately when a debug scene
 // is forced, so the switcher works even with the API down.
 const show = computed(() => status.value === 'ready' || debugCode.value != null)
 
@@ -69,7 +69,7 @@ const TINT: Record<string, string> = {
 
 <template>
   <!-- Ambient weather layer for the hero banner. Absolute, non-interactive and
-       aria-hidden; renders nothing until live data arrives and stays empty on
+       aria-hidden; renders nothing until weather data arrives and stays empty on
        error (unless a debug scene is forced). Particle base opacity is 0 so
        prefers-reduced-motion leaves the tint only — no frozen elements. -->
   <template v-if="show">

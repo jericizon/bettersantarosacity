@@ -8,7 +8,8 @@ const okResponse = {
     temperature_2m: 31.4,
     apparent_temperature: 35.2,
     relative_humidity_2m: 74,
-    weather_code: 2
+    weather_code: 2,
+    time: '2026-09-17T14:15'
   },
   daily: {
     time: ['2026-09-17', '2026-09-18', '2026-09-19'],
@@ -43,11 +44,13 @@ describe('CivicWeatherToday', () => {
     expect(items[0]!.text()).toContain('Today')
     expect(items[1]!.text()).toContain('30°')
     expect(items[2]!.text()).toContain('80% rain')
+    // Last-updated stamp derives from Open-Meteo's `current.time`.
+    expect(wrapper.text()).toMatch(/Updated \d{1,2}:\d{2}/)
   })
 
   it('starts in a loading state before fetch resolves', () => {
     const wrapper = mount(WeatherToday)
-    expect(wrapper.text()).toContain('Fetching live weather')
+    expect(wrapper.text()).toContain('Fetching current weather')
     expect(wrapper.find('[aria-busy="true"]').exists()).toBe(true)
   })
 
@@ -55,7 +58,7 @@ describe('CivicWeatherToday', () => {
     stubFetch(null, false)
     const wrapper = mount(WeatherToday)
     await flushPromises()
-    expect(wrapper.text()).toContain('Live weather is unavailable')
+    expect(wrapper.text()).toContain('Current weather is unavailable')
     expect(wrapper.find('a[href*="pagasa"]').exists()).toBe(true)
   })
 
@@ -63,7 +66,7 @@ describe('CivicWeatherToday', () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')))
     const wrapper = mount(WeatherToday)
     await flushPromises()
-    expect(wrapper.text()).toContain('Live weather is unavailable')
+    expect(wrapper.text()).toContain('Current weather is unavailable')
   })
 
   it('credits Open-Meteo with a link', () => {
