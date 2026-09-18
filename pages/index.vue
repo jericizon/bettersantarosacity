@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import cityData from '~/data/city.json'
-import barangaysData from '~/data/barangays.json'
 import budgetsData from '~/data/budgets.json'
 import projectsData from '~/data/projects.json'
 import lawsData from '~/data/laws.json'
@@ -10,11 +9,11 @@ import mediaData from '~/data/media.json'
 import CivicTimeline from '~/components/civic/Timeline.vue'
 import CivicHeroSearch from '~/components/civic/HeroSearch.vue'
 import CivicMapExplorer from '~/components/civic/MapExplorer.vue'
-import CivicSantaRosaNow from '~/components/civic/SantaRosaNow.vue'
+import HomeSantaRosaAtAGlance from '~/components/home/SantaRosaAtAGlance.vue'
+import CivicWeatherToday from '~/components/civic/WeatherToday.vue'
 import CivicCollage from '~/components/civic/Collage.vue'
 import CivicRoseMotif from '~/components/civic/RoseMotif.vue'
 import DataFreshness from '~/components/data/DataFreshness.vue'
-import DataStatCard from '~/components/data/StatCard.vue'
 import DataLastVerified from '~/components/data/LastVerified.vue'
 import EditorialSectionHeader from '~/components/editorial/SectionHeader.vue'
 import MoneyBudgetChart from '~/components/money/BudgetChart.vue'
@@ -78,39 +77,6 @@ const searchExamples = [
   { label: 'Search ordinances', q: 'ordinances' },
   { label: 'Search officials', q: 'officials' },
   { label: 'Search barangays', q: 'barangays' }
-]
-
-// --- Section 2: verified city facts ------------------------------------------
-
-const lakeBarangayCount = barangaysData.filter(b => b.group === 'Laguna Lake').length
-
-// numericValue drives the CountUp reveal in StatCard (spec §10). Cityhood stays
-// a static value — a year rendered through toLocaleString would show "2,004".
-const cityStats: { value: string; label: string; source: string; numericValue?: number; suffix?: string }[] = [
-  {
-    value: String(cityData.barangayCount),
-    numericValue: cityData.barangayCount,
-    label: 'Barangays',
-    source: 'City Government of Santa Rosa · About Us'
-  },
-  {
-    value: `${cityData.landAreaHa.toLocaleString('en-US')} ha`,
-    numericValue: cityData.landAreaHa,
-    suffix: ' ha',
-    label: 'Land area',
-    source: 'City Government of Santa Rosa · About Us'
-  },
-  {
-    value: String(cityData.cityhoodYear),
-    label: 'Cityhood',
-    source: 'Republic Act No. 9264'
-  },
-  {
-    value: String(lakeBarangayCount),
-    numericValue: lakeBarangayCount,
-    label: 'Laguna Lake barangays',
-    source: 'City Government of Santa Rosa · About Us'
-  }
 ]
 
 // --- Section 5: verified revenue figures ----------------------------------------
@@ -188,9 +154,9 @@ const downloadDatasets = buildDatasets()
 const hydrated = ref(false)
 onMounted(() => { hydrated.value = true })
 
-const todaySection = ref<HTMLElement | null>(null)
-const nowSection = ref<HTMLElement | null>(null)
+const glanceSection = ref<HTMLElement | null>(null)
 const exploreSection = ref<HTMLElement | null>(null)
+const weatherSection = ref<HTMLElement | null>(null)
 const financesSection = ref<HTMLElement | null>(null)
 const projectsBand = ref<HTMLElement | null>(null)
 const heritageBand = ref<HTMLElement | null>(null)
@@ -200,9 +166,9 @@ const servicesSection = ref<HTMLElement | null>(null)
 const downloadsSection = ref<HTMLElement | null>(null)
 const trustSection = ref<HTMLElement | null>(null)
 
-const { isVisible: todayVisible } = useScrollReveal(todaySection, { threshold: 0.1 })
-const { isVisible: nowVisible } = useScrollReveal(nowSection, { threshold: 0.1 })
+const { isVisible: glanceVisible } = useScrollReveal(glanceSection, { threshold: 0.1 })
 const { isVisible: exploreVisible } = useScrollReveal(exploreSection, { threshold: 0.05 })
+const { isVisible: weatherVisible } = useScrollReveal(weatherSection, { threshold: 0.1 })
 const { isVisible: financesVisible } = useScrollReveal(financesSection, { threshold: 0.1 })
 const { isVisible: projectsVisible } = useScrollReveal(projectsBand, { threshold: 0.1 })
 const { isVisible: heritageVisible } = useScrollReveal(heritageBand, { threshold: 0.1 })
@@ -296,57 +262,20 @@ function revealClass(isVisible: boolean) {
       </div>
     </section>
 
-    <!-- 2 — Santa Rosa Today: clean-white chapter of verified city facts (spec §4). -->
+    <!-- 2 — Santa Rosa at a Glance: clean-white editorial snapshot of verified
+         city facts and civic exploration links (spec §4). -->
     <section
-      ref="todaySection"
-      aria-labelledby="today-heading"
-      class="w-full section-white py-20 sm:py-24 lg:py-28 border-b border-charcoal/10"
-      :class="revealClass(todayVisible)"
+      ref="glanceSection"
+      aria-labelledby="glance-heading"
+      class="w-full section-white py-20 sm:py-28 lg:py-32 border-b border-charcoal/10"
+      :class="revealClass(glanceVisible)"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 id="today-heading" class="font-serif text-3xl font-bold tracking-tight text-laguna-green">
-              Santa Rosa Today
-            </h2>
-            <p class="mt-1 text-sm text-charcoal/70">Verified facts about the city: every figure carries a source.</p>
-          </div>
-          <NuxtLink
-            to="/explore"
-            class="rounded-sm text-sm font-semibold text-laguna-green underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          >
-            View city profile →
-          </NuxtLink>
-        </div>
-        <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <DataStatCard
-            v-for="stat in cityStats"
-            :key="stat.label"
-            :value="stat.value"
-            :label="stat.label"
-            :source="stat.source"
-            :numeric-value="stat.numericValue"
-            :suffix="stat.suffix"
-          />
-        </div>
+        <HomeSantaRosaAtAGlance />
       </div>
     </section>
 
-    <!-- 3 — Santa Rosa Now: current weather and recent city updates chapter
-         on parchment, separating the white Today chapter from the
-         light-green map chapter (spec §4). -->
-    <section
-      ref="nowSection"
-      aria-label="Santa Rosa Now"
-      class="w-full section-parchment py-16 sm:py-24 lg:py-28 border-b border-charcoal/10"
-      :class="revealClass(nowVisible)"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <CivicSantaRosaNow />
-      </div>
-    </section>
-
-    <!-- 4 — Explore Santa Rosa: full-bleed chapter on the light-green ground
+    <!-- 3 — Explore Santa Rosa: full-bleed chapter on the light-green ground
          reserved for the interactive map (spec §4). -->
     <section
       ref="exploreSection"
@@ -362,6 +291,20 @@ function revealClass(isVisible: boolean) {
         >
           Browse all 18 barangays →
         </NuxtLink>
+      </div>
+    </section>
+
+    <!-- 4 — Current Weather: independent meteorological observations chapter
+         on clean white, clearly citing Open-Meteo as independent from
+         city government advisories (spec §5). -->
+    <section
+      ref="weatherSection"
+      aria-label="Current Weather"
+      class="w-full section-white py-16 sm:py-20 lg:py-24 border-b border-charcoal/10"
+      :class="revealClass(weatherVisible)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CivicWeatherToday />
       </div>
     </section>
 
