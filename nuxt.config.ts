@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4
   },
+  runtimeConfig: {
+    public: {
+      gtagId: process.env.NUXT_PUBLIC_GTAG_ID || process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''
+    }
+  },
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {

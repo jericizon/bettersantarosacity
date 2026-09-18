@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Search, Menu, X } from 'lucide-vue-next'
+import { Menu, X } from 'lucide-vue-next'
+import { useSearchModal } from '~/composables/useSearchModal'
+
+const { open: openSearchModal } = useSearchModal()
 
 const isMobileOpen = ref(false)
 const isScrolled = ref(false)
 const mobileToggle = ref<HTMLButtonElement | null>(null)
 
-// Six pillars: the five below plus Search (GlobalSearch trigger / /search link).
+// Six pillars: the five below plus Search (GlobalSearch modal trigger).
 // `children` are secondary destinations, shown only in the mobile drawer.
 const navGroups = [
   {
@@ -69,6 +72,11 @@ function closeMobile() {
   // v-if destroys the drawer; without this, focus inside it drops to <body>.
   mobileToggle.value?.focus()
 }
+
+function openSearchFromDrawer() {
+  closeMobile()
+  openSearchModal()
+}
 </script>
 
 <template>
@@ -103,14 +111,7 @@ function closeMobile() {
       </nav>
 
       <div class="flex items-center gap-3">
-        <SearchGlobalSearch class="hidden sm:block" />
-        <NuxtLink
-          to="/search"
-          class="sm:hidden inline-flex items-center justify-center h-11 w-11 rounded-md bg-white border border-charcoal/20 text-charcoal/70 hover:border-laguna-green transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
-          aria-label="Search Santa Rosa public records"
-        >
-          <Search :size="18" aria-hidden="true" />
-        </NuxtLink>
+        <SearchGlobalSearch />
 
         <button
           ref="mobileToggle"
@@ -135,13 +136,13 @@ function closeMobile() {
       class="xl:hidden border-b border-charcoal/10 bg-parchment px-4 py-3 space-y-1"
       @keydown.escape="closeMobile"
     >
-      <NuxtLink
-        to="/search"
-        @click="closeMobile"
-        class="flex items-center min-h-11 text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
+      <button
+        type="button"
+        @click="openSearchFromDrawer"
+        class="flex items-center min-h-11 w-full text-left text-sm font-medium text-laguna-green rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-laguna-green"
       >
         Search
-      </NuxtLink>
+      </button>
       <div v-for="group in navGroups" :key="group.href">
         <NuxtLink
           :to="group.href"
